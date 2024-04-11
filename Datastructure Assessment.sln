@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.9.34728.123
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "C1-Part 1 Dictionaries", "C1-Part 1 Dictionaries\C1-Part 1 Dictionaries.csproj", "{DDA93904-ECED-447F-A6FB-5418F6205839}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "C1-Part 2 Sorting Algorithms", "C1-Part 2 Sorting Algorithms\C1-Part 2 Sorting Algorithms.csproj", "{0D50A492-277E-45C9-9AC9-6243B3B1FC11}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{DDA93904-ECED-447F-A6FB-5418F6205839}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DDA93904-ECED-447F-A6FB-5418F6205839}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DDA93904-ECED-447F-A6FB-5418F6205839}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DDA93904-ECED-447F-A6FB-5418F6205839}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0D50A492-277E-45C9-9AC9-6243B3B1FC11}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0D50A492-277E-45C9-9AC9-6243B3B1FC11}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0D50A492-277E-45C9-9AC9-6243B3B1FC11}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0D50A492-277E-45C9-9AC9-6243B3B1FC11}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {A206CE24-031F-45F0-940C-EEC1D92FCE3D}
+	EndGlobalSection
+EndGlobal
