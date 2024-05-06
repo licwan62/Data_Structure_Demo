@@ -2873,7 +2873,7 @@ costs
 costume
 costumes
 cote
-côté
+côt?
 cottage
 cotton
 Cotton
@@ -3090,7 +3090,7 @@ d
 d'
 da
 Da
-då
+d?
 daar
 dabei
 d'abord
@@ -3172,7 +3172,7 @@ dash
 dashed
 dashing
 dass
-daß
+da?
 dat
 data
 date
@@ -3332,7 +3332,7 @@ deities
 deity
 Deity
 deja
-déjà
+déj?
 del
 Del
 Delaware
@@ -3855,7 +3855,7 @@ donkey
 donna
 donnait
 donne
-donné
+donn?
 donner
 donors
 dont
@@ -4513,7 +4513,7 @@ etait
 était
 etc
 ete
-été
+ét?
 eternal
 Eternal
 eternally
@@ -4534,7 +4534,7 @@ etre
 être
 ets
 ett
-että
+ett?
 ettei
 etwas
 ety
@@ -6011,7 +6011,7 @@ Hannibal
 Hanover
 hans
 Hans
-häntä
+hänt?
 happen
 happened
 happened
@@ -7248,7 +7248,7 @@ junior
 Jupiter
 jurisdiction
 jury
-jusqu'à
+jusqu'?
 jusqu'au
 just
 Just
@@ -7403,7 +7403,7 @@ la
 La
 LA
 l'a
-là
+l?
 labor
 labor
 laboratory
@@ -7670,7 +7670,7 @@ liar
 lib
 liberal
 liberality
-liberté
+libert?
 liberties
 liberty
 liberty
@@ -8044,7 +8044,7 @@ malady
 Malcolm
 male
 males
-malgré
+malgr?
 malheur
 malheureux
 malice
@@ -8388,8 +8388,8 @@ mills
 Milton
 Milton
 min
-minä
-Minä
+min?
+Min?
 mind
 mind
 Mind
@@ -8465,7 +8465,7 @@ misunderstanding
 misunderstood
 mit
 Mit
-mitä
+mit?
 Mitchell
 mix
 mixed
@@ -9329,7 +9329,7 @@ otro
 otros
 Otto
 ou
-où
+o?
 ought
 Oui
 oui
@@ -9410,7 +9410,7 @@ p
 P.M.
 p.m.
 pa
-på
+p?
 paa
 pace
 paces
@@ -9563,7 +9563,7 @@ passage
 passages
 passait
 passe
-passé
+pass?
 passed
 passed
 passenger
@@ -10522,7 +10522,7 @@ puzzled
 PWH
 qau
 qex
-qu'à
+qu'?
 quae
 quaint
 Quaker
@@ -11387,7 +11387,7 @@ s
 's
 sa
 Sa
-så
+s?
 saa
 Sabbath
 sable
@@ -11982,7 +11982,7 @@ Sidney
 sie
 Sie
 siege
-siellä
+siell?
 sig
 sigh
 sighed
@@ -12005,8 +12005,8 @@ signify
 Signor
 signs
 siihen
-siinä
-siitä
+siin?
+siit?
 s'il
 Silas
 silence
@@ -12018,7 +12018,7 @@ silent
 silently
 silk
 silken
-sillä
+sill?
 silloin
 silly
 silver
@@ -12037,7 +12037,7 @@ sin
 sin
 Sin
 sina
-sinä
+sin?
 since
 Since
 since
@@ -12080,7 +12080,7 @@ sisters
 sister's
 sit
 Sit
-sitä
+sit?
 site
 sites
 sits
@@ -13043,7 +13043,7 @@ talking
 talks
 tall
 taller
-tämä
+täm?
 tambien
 tame
 tan
@@ -14044,7 +14044,7 @@ verge
 verily
 Verily
 veritable
-vérité
+vérit?
 Vermont
 Vernon
 vers
@@ -14092,7 +14092,7 @@ vide
 vie
 vieille
 viel
-vielä
+viel?
 viele
 Vienna
 viens
@@ -14188,7 +14188,7 @@ voices
 voici
 void
 voila
-voilà
+voil?
 voir
 vois
 voiture
@@ -14421,7 +14421,7 @@ weil
 weird
 Weise
 weiss
-weiß
+wei?
 wel
 welche
 welcher

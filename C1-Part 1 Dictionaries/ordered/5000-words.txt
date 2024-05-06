@@ -1002,7 +1002,7 @@ darling
 das
 Das
 dass
-daß
+da?
 dat
 data
 date
@@ -1442,7 +1442,7 @@ Et
 etait
 était
 etc
-été
+ét?
 eternal
 etext
 Etext
@@ -1450,7 +1450,7 @@ Etexts
 etexts
 être
 ets
-että
+ett?
 ety
 eu
 Europe
@@ -2408,7 +2408,7 @@ L
 l
 la
 La
-là
+l?
 labor
 labour
 lack
@@ -3092,7 +3092,7 @@ others
 other's
 otherwise
 ou
-où
+o?
 ought
 our
 Our
@@ -3118,7 +3118,7 @@ owns
 Oxford
 p
 p
-på
+p?
 pace
 page
 pages

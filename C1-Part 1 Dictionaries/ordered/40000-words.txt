@@ -372,7 +372,7 @@ abated
 abatement
 Abbe
 abbe
-Abbé
+Abb?
 abbess
 Abbey
 abbey
@@ -1121,7 +1121,7 @@ aim
 aimable
 aimait
 aime
-aimé
+aim?
 aimed
 aimer
 aiming
@@ -1307,7 +1307,7 @@ Allez
 allgemeine
 allgemeinen
 alli
-allí
+all?
 alliance
 Alliance
 alliance
@@ -1516,7 +1516,7 @@ amis
 amis
 amiss
 amiss
-amitié
+amiti?
 amity
 Ammon
 ammonia
@@ -1621,7 +1621,7 @@ Andes
 andra
 andre
 Andre
-André
+Andr?
 Andrea
 Andreas
 Andres
@@ -1953,7 +1953,7 @@ appeased
 appel
 appela
 appelait
-appelé
+appel?
 appeler
 appellation
 appelle
@@ -2067,7 +2067,7 @@ aquella
 aquellas
 aquellos
 aqui
-aquí
+aqu?
 aquiline
 ar
 Ar
@@ -2269,7 +2269,7 @@ arrested
 arrested
 arresting
 arrests
-arrêté
+arrêt?
 arrière
 arriva
 arrivait
@@ -2280,7 +2280,7 @@ arrivals
 arrivant
 arrive
 arrive
-arrivé
+arriv?
 arrived
 arrived
 Arrived
@@ -2391,7 +2391,7 @@ ashore
 ashore
 Ashton
 asi
-así
+as?
 Asia
 Asia
 asia
@@ -3383,7 +3383,7 @@ Beaufort
 Beaumont
 Beauregard
 beaute
-beauté
+beaut?
 beauteous
 beauties
 beautiful
@@ -4025,7 +4025,7 @@ blended
 blending
 bless
 blesse
-blessé
+bless?
 blessed
 Blessed
 blessed
@@ -4104,7 +4104,7 @@ bloomin'
 blooming
 blooms
 bloss
-bloß
+blo?
 blossom
 blossomed
 blossoming
@@ -4268,7 +4268,7 @@ bonnets
 bonnie
 bonny
 bons
-bonté
+bont?
 bonus
 bony
 book
@@ -5071,7 +5071,7 @@ Caesars
 Caesar's
 cafe
 Cafe
-café
+caf?
 cafes
 cage
 cage
@@ -5807,7 +5807,7 @@ change
 change
 Change
 'Change
-changé
+chang?
 changeable
 changed
 changed
@@ -5875,7 +5875,7 @@ charcoal
 charge
 charge
 Charge
-chargé
+charg?
 chargeable
 charged
 charger
@@ -6288,7 +6288,7 @@ cistern
 cit
 citadel
 cite
-cité
+cit?
 cited
 cites
 cities
@@ -6819,7 +6819,7 @@ comics
 comin'
 coming
 coming
-comité
+comit?
 command
 command
 Command
@@ -6845,7 +6845,7 @@ commemoration
 commença
 commençait
 commence
-commencé
+commenc?
 commenced
 commenced
 commencement
@@ -7875,7 +7875,7 @@ cosa
 cosas
 cose
 cosi
-così
+cos?
 cosmic
 Cosmo
 cosmopolitan
@@ -7895,7 +7895,7 @@ cosy
 cot
 cote
 côte
-côté
+côt?
 cotes
 côtés
 cottage
@@ -8448,13 +8448,13 @@ curb
 cure
 Cure
 cure
-curé
+cur?
 cured
 cured
 cures
 curieux
 curing
-curiosité
+curiosit?
 curiosities
 curiosity
 curiosity
@@ -8567,8 +8567,8 @@ d.i.
 D.W.
 da
 Da
-då
-Då
+d?
+D?
 daar
 Daar
 daarom
@@ -8771,9 +8771,9 @@ dashed
 dashes
 dashing
 dass
-daß
+da?
 Dass
-Daß
+Da?
 dasselbe
 dastardly
 dat
@@ -8958,7 +8958,7 @@ deception
 deceptive
 decide
 decide
-décidé
+décid?
 decided
 decided
 decidedly
@@ -9143,7 +9143,7 @@ deities
 deity
 Deity
 deja
-déjà
+déj?
 dejected
 dejection
 dejeuner
@@ -9230,7 +9230,7 @@ demanda
 demandait
 demandant
 demande
-demandé
+demand?
 demanded
 demanded
 demander
@@ -9879,7 +9879,7 @@ digits
 digne
 dignified
 dignitaries
-dignité
+dignit?
 dignities
 dignity
 dignity
@@ -10579,7 +10579,7 @@ donnait
 donnant
 donne
 Donne
-donné
+donn?
 donned
 donnée
 Donnegan
@@ -10640,7 +10640,7 @@ Doth
 dots
 dotted
 d'ou
-d'où
+d'o?
 double
 Double
 double
@@ -10902,7 +10902,7 @@ dryness
 du
 Du
 DU
-dû
+d?
 dual
 Duane
 dubbed
@@ -11367,7 +11367,7 @@ Eh
 eh
 ehe
 eher
-ehkä
+ehk?
 Ehre
 ei
 Ei
@@ -11387,7 +11387,7 @@ eighth
 Eighth
 eighty
 eignen
-Eikä
+Eik?
 ein
 EIN
 Ein
@@ -11505,7 +11505,7 @@ elevation
 elevations
 elevator
 eleve
-élevé
+élev?
 eleven
 eleven
 Eleven
@@ -11900,7 +11900,7 @@ enjoyment
 enjoyment
 enjoyments
 enjoys
-enkä
+enk?
 enkel
 enkele
 enlarge
@@ -12058,7 +12058,7 @@ environment
 environs
 envoy
 envoya
-envoyé
+envoy?
 envoyer
 envoys
 envy
@@ -12247,7 +12247,7 @@ Est
 Est
 esta
 Esta
-está
+est?
 estaba
 estaban
 establish
@@ -12303,7 +12303,7 @@ ETC
 etc
 etc...
 ete
-été
+ét?
 eternal
 Eternal
 eternal
@@ -12347,7 +12347,7 @@ Etruria
 Etruscan
 ets
 ett
-että
+ett?
 ettae
 ettei
 etwa
@@ -12911,7 +12911,7 @@ F
 f.o.b.
 F.R.S.
 fa
-få
+f?
 fÃ¼r
 Faber
 Fabian
@@ -14052,7 +14052,7 @@ forbids
 forbore
 force
 force
-forcé
+forc?
 forced
 forceful
 forces
@@ -14363,7 +14363,7 @@ Franz
 frappa
 frappant
 frappe
-frappé
+frapp?
 frapper
 Fraser
 fraternal
@@ -14570,7 +14570,7 @@ FTP
 fu
 Fu
 fue
-fué
+fu?
 fuego
 fuel
 fuel
@@ -14698,7 +14698,7 @@ G
 g
 ga
 Ga
-gå
+g?
 gaan
 gaat
 gable
@@ -15146,7 +15146,7 @@ geweest
 gewesen
 gewesen
 gewiss
-gewiß
+gewi?
 gewisse
 gewissen
 geworden
@@ -15165,7 +15165,7 @@ ghostly
 ghosts
 gi
 gia
-già
+gi?
 Giacomo
 giant
 Giant
@@ -15821,7 +15821,7 @@ groped
 groping
 gros
 gross
-groß
+gro?
 große
 großen
 grossen
@@ -16206,11 +16206,11 @@ handsomest
 handwriting
 handy
 häneen
-hänellä
+hänell?
 hänelle
 hänen
 Hänen
-hänestä
+hänest?
 hänet
 hang
 Hang
@@ -16228,7 +16228,7 @@ Hanover
 hans
 Hans
 hansom
-häntä
+hänt?
 hap
 haphazard
 hapless
@@ -16622,7 +16622,7 @@ heir
 heiress
 heisst
 heißt
-heitä
+heit?
 hela
 Hélas
 held
@@ -17531,7 +17531,7 @@ hypothetical
 hysteria
 hysterical
 hysterics
-hyvä
+hyv?
 hyvin
 I
 i
@@ -18900,7 +18900,7 @@ I's
 is.'
 Isa
 Isa
-isä
+is?
 Isaac
 Isabel
 Isabel
@@ -18992,7 +18992,7 @@ It's
 itse
 itself
 itself
-itsensä
+itsens?
 ITU
 IV
 iv
@@ -19222,7 +19222,7 @@ j'étais
 J'étais
 jetait
 jetant
-jeté
+jet?
 jeter
 jets
 jette
@@ -19344,7 +19344,7 @@ jos
 Jos
 Jos
 Jose
-José
+Jos?
 Josef
 Joseph
 JOSEPH
@@ -19509,7 +19509,7 @@ jury
 jury
 Jury
 jus'
-jusqu'à
+jusqu'?
 jusqu'au
 jusqu'aux
 jusque
@@ -19905,8 +19905,8 @@ kwam
 kwamen
 kWh
 Ky
-kyllä
-Kyllä
+kyll?
+Kyll?
 kysyi
 L
 l
@@ -19919,14 +19919,14 @@ La
 LA
 la
 l'a
-là
-Là
-là
-lÃ 
+l?
+L?
+l?
+l?
 laat
 laatste
 Laban
-l'abbé
+l'abb?
 label
 labelled
 labels
@@ -20021,7 +20021,7 @@ laissa
 laissait
 laissant
 laisse
-laissé
+laiss?
 laisser
 lait
 laity
@@ -20669,7 +20669,7 @@ liberated
 liberation
 Liberia
 liberte
-liberté
+libert?
 liberties
 libertine
 liberty
@@ -20728,7 +20728,7 @@ liep
 lies
 lies
 Lies
-ließ
+lie?
 liess
 liest
 liet
@@ -21443,7 +21443,7 @@ ma
 Ma
 MA
 m'a
-må
+m?
 maa
 maailman
 maakt
@@ -21635,7 +21635,7 @@ maitresse
 maîtresse
 maize
 Majeste
-Majesté
+Majest?
 majestic
 majestically
 Majesties
@@ -21688,7 +21688,7 @@ males
 malevolence
 malevolent
 malgre
-malgré
+malgr?
 malheur
 malheureuse
 malheureux
@@ -21866,7 +21866,7 @@ marcha
 marchait
 marchand
 marchant
-marché
+march?
 marched
 marcher
 marches
@@ -22311,7 +22311,7 @@ mehr
 mehr
 mehrere
 meidän
-meillä
+meill?
 meille
 meilleur
 meilleure
@@ -22330,7 +22330,7 @@ meisje
 meist
 meisten
 Meister
-meitä
+meit?
 mejor
 Mekka
 Mel
@@ -22419,7 +22419,7 @@ mener
 Menge
 meni
 menial
-mennä
+menn?
 menos
 mens
 men's
@@ -22581,7 +22581,7 @@ mget
 mhw
 mi
 Mi
-mí
+m?
 mia
 mica
 mice
@@ -22651,8 +22651,8 @@ mijn
 Mijn
 mijne
 mijnheer
-mikä
-Mikä
+mik?
+Mik?
 mikään
 Mike
 mil
@@ -22722,8 +22722,8 @@ Min
 Min
 mina
 Mina
-minä
-Minä
+min?
+Min?
 mince
 minced
 mincing
@@ -22772,7 +22772,7 @@ ministres
 ministry
 Ministry
 ministry
-minkä
+mink?
 Minna
 Minnes
 Minnesota
@@ -22873,7 +22873,7 @@ MISS
 miss
 Miss
 'Miss
-missä
+miss?
 misschien
 missed
 missed
@@ -22924,8 +22924,8 @@ misunderstood
 misuse
 mit
 Mit
-mitä
-Mitä
+mit?
+Mit?
 Mitchell
 mite
 miteinander
@@ -23032,7 +23032,7 @@ moisten
 moistened
 moisture
 moitie
-moitié
+moiti?
 molasses
 mold
 Mole
@@ -23651,7 +23651,7 @@ naething
 nag
 någon
 något
-nähdä
+nähd?
 nahe
 näher
 nahm
@@ -23825,7 +23825,7 @@ näytti
 Nazareth
 ne
 Ne
-né
+n?
 Neale
 Neapolitan
 near
@@ -23860,7 +23860,7 @@ necessary
 necessary
 necessitate
 necessitated
-nécessité
+nécessit?
 necessities
 necessity
 necessity
@@ -24136,8 +24136,8 @@ nihil
 niiden
 niin
 Niin
-niistä
-niitä
+niist?
+niit?
 Nil
 Nile
 Nile
@@ -24239,7 +24239,7 @@ nominated
 nomination
 nominative
 nomme
-nommé
+nomm?
 noms
 non
 Non
@@ -24557,7 +24557,7 @@ obligations
 obligations
 obligatory
 oblige
-obligé
+oblig?
 obliged
 obliges
 obliging
@@ -24671,7 +24671,7 @@ oceans
 och
 Och
 ock
-också
+ocks?
 o'clock
 o'clock
 O'Connell
@@ -25173,10 +25173,10 @@ Otto
 Ottoman
 ou
 Ou
-où
-Où
+o?
+O?
 oublie
-oublié
+oubli?
 oublier
 oude
 ouer
@@ -25376,10 +25376,10 @@ P.S.
 pa
 Pa
 Pa
-på
+p?
 paa
 paar
-päästä
+pääst?
 Pablo
 pace
 pace
@@ -25462,9 +25462,9 @@ paints
 pair
 pair
 pairs
-päivä
+päiv?
 päivän
-päivänä
+päivän?
 paix
 pal
 palabra
@@ -25658,7 +25658,7 @@ parla
 parlait
 parlant
 parle
-parlé
+parl?
 parler
 parler
 parley
@@ -25785,7 +25785,7 @@ passait
 passant
 pass'd
 passe
-passé
+pass?
 passed
 passed
 passenger
@@ -26078,7 +26078,7 @@ pensa
 pensait
 pensant
 pense
-pensé
+pens?
 pensee
 pensée
 pensées
@@ -26494,7 +26494,7 @@ physiology
 physionomie
 physique
 pi
-pì
+p?
 pian
 pianist
 piano
@@ -26659,7 +26659,7 @@ pith
 piti
 pitiable
 pitie
-pitié
+piti?
 pities
 pitiful
 pitifully
@@ -26689,7 +26689,7 @@ place
 Place
 Place
 PLACE
-placé
+plac?
 placed
 placed
 placer
@@ -27141,7 +27141,7 @@ portant
 porte
 porte
 Porte
-porté
+port?
 portée
 portent
 portentous
@@ -28374,7 +28374,7 @@ qau
 qex
 Qu
 qua
-qu'à
+qu'?
 quack
 quadrangle
 quadrille
@@ -28396,7 +28396,7 @@ qualification
 qualifications
 qualified
 qualify
-qualité
+qualit?
 qualités
 qualities
 qualities
@@ -28410,7 +28410,7 @@ quando
 Quando
 Quant
 quant
-quantité
+quantit?
 quantities
 quantities
 quantity
@@ -28452,7 +28452,7 @@ quay
 quays
 que
 Que
-qué
+qu?
 Quebec
 Quebec
 Queen
@@ -28570,7 +28570,7 @@ quite
 quits
 quitta
 quitte
-quitté
+quitt?
 quitted
 quitter
 quitting
@@ -28888,7 +28888,7 @@ realised
 realising
 realism
 realistic
-réalité
+réalit?
 realities
 reality
 reality
@@ -29472,7 +29472,7 @@ Remy
 Renaissance
 renamed
 rencontre
-rencontré
+rencontr?
 rencontrer
 rend
 rendait
@@ -29793,7 +29793,7 @@ restait
 restaurant
 restaurants
 reste
-resté
+rest?
 rested
 rested
 rester
@@ -30596,8 +30596,8 @@ S.E.
 S.W.
 sa
 Sa
-så
-Så
+s?
+S?
 saa
 Saa
 saada
@@ -30851,7 +30851,7 @@ Sans
 Sanskrit
 Santa
 sante
-santé
+sant?
 Santiago
 Santo
 sap
@@ -30877,7 +30877,7 @@ s'arrêta
 sash
 såsom
 sass
-saß
+sa?
 s'asseoir
 s'assit
 sat
@@ -31259,7 +31259,7 @@ scythe
 sd
 se
 Se
-sé
+s?
 sea
 sea
 Sea
@@ -31470,7 +31470,7 @@ seized
 seizes
 seizing
 seizure
-sekä
+sek?
 selber
 selbst
 Selbst
@@ -31630,7 +31630,7 @@ sequestered
 sequins
 ser
 sera
-será
+ser?
 serÃ¡
 serai
 seraient
@@ -32152,10 +32152,10 @@ shyly
 shyness
 si
 Si
-sí
-sì
+s?
+s?
 sia
-siÄ
+si?
 Siam
 Siberia
 Siberian
@@ -32201,7 +32201,7 @@ Sidonie
 sie
 Sie
 sie
-siê
+si?
 siecle
 siècle
 siècles
@@ -32213,9 +32213,9 @@ Siegel
 sieges
 Siegfried
 sieht
-siellä
-Siellä
-sieltä
+siell?
+Siell?
+sielt?
 siempre
 sien
 Siena
@@ -32280,10 +32280,10 @@ signs
 signs
 Sigurd
 siihen
-siinä
-Siinä
+siin?
+Siin?
 siis
-siitä
+siit?
 siksi
 s'il
 S'il
@@ -32309,8 +32309,8 @@ silken
 silks
 silky
 sill
-sillä
-Sillä
+sill?
+Sill?
 sille
 silloin
 Silloin
@@ -32359,8 +32359,8 @@ sin
 sin
 Sin
 sina
-sinä
-Sinä
+sin?
+Sin?
 Sinai
 since
 Since
@@ -32457,7 +32457,7 @@ sister's
 sit
 Sit
 sit
-sitä
+sit?
 site
 sites
 sits
@@ -32826,7 +32826,7 @@ socialist
 Socialists
 socially
 societe
-société
+sociét?
 societies
 Societies
 society
@@ -34827,7 +34827,7 @@ T.S.
 ta
 Ta
 t'a
-täällä
+tääll?
 taas
 tabernacle
 table
@@ -34930,7 +34930,7 @@ Talking
 talks
 tall
 Tall
-tällä
+täll?
 taller
 tallest
 Talleyrand
@@ -34942,8 +34942,8 @@ talons
 talte
 tam
 Tam
-tämä
-Tämä
+täm?
+Täm?
 tämän
 tambien
 también
@@ -35001,10 +35001,10 @@ tas
 task
 task
 tasks
-tässä
+täss?
 tassels
 Tasso
-tästä
+täst?
 taste
 taste
 Taste
@@ -35016,7 +35016,7 @@ tastes
 tasting
 Tat
 tat
-tätä
+tät?
 tattered
 tatters
 tattooed
@@ -35097,14 +35097,14 @@ teeming
 teeth
 teeth
 tegen
-tehdä
+tehd?
 tehnyt
 teidän
 Teil
 Teile
 teille
 teils
-teitä
+teit?
 teki
 tel
 Tel
@@ -35761,7 +35761,7 @@ tidings
 tidy
 tie
 tied
-tiedä
+tied?
 tief
 tiefen
 tiefer
@@ -36200,7 +36200,7 @@ Training
 trains
 trait
 traite
-traité
+trait?
 traiter
 traitor
 traitor
@@ -36520,7 +36520,7 @@ trouvaient
 trouvait
 trouvant
 trouve
-trouvé
+trouv?
 trouvent
 trouver
 trow
@@ -36574,7 +36574,7 @@ tsp
 tt
 tu
 Tu
-tú
+t?
 tua
 tub
 tube
@@ -36586,7 +36586,7 @@ tucked
 Tucker
 Tudor
 tue
-tué
+tu?
 tuer
 Tuer
 Tuesday
@@ -36688,7 +36688,7 @@ tutti
 tutto
 tuvo
 TV
-två
+tv?
 twa
 Twain
 twain
@@ -36769,7 +36769,7 @@ tyrants
 tyrant's
 Tyre
 Tyrol
-tyttö
+tytt?
 u
 U
 U
@@ -37709,7 +37709,7 @@ Verily
 veritable
 véritable
 verite
-vérité
+vérit?
 verity
 verlassen
 verlaten
@@ -37868,7 +37868,7 @@ vieille
 vieilles
 viejo
 viel
-vielä
+viel?
 viele
 vielen
 Vielleicht
@@ -38096,8 +38096,8 @@ void
 voie
 voila
 Voila
-voilà
-Voilà
+voil?
+Voil?
 voile
 voiles
 voinut
@@ -38131,7 +38131,7 @@ volleys
 völlig
 vollkommen
 volonte
-volonté
+volont?
 volontiers
 vols
 volta
@@ -38688,7 +38688,7 @@ weinig
 weird
 Weise
 weiss
-weiß
+wei?
 wel
 Wel
 Welch
@@ -39725,8 +39725,8 @@ yeux
 yeux
 ye've
 yew
-yhä
-yhtä
+yh?
+yht?
 yield
 yield
 yielded

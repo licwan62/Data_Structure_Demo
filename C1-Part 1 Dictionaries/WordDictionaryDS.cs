@@ -1,23 +1,19 @@
-﻿using System.Net.Http.Headers;
-using System.Reflection.Metadata.Ecma335;
-using System.Text;
+﻿using System.Text;
 
 namespace C1_Part_1_Dictionaries;
 
-internal class DictionaryDS
+internal class WordDictionaryDS
 {
-    public string Path { get; set; }
-    public string Name { get; set; }
-    public string Type {  get; set; }
-    public int Number {  get; set; }
-    public int Count
-    {
-        get { return dictionary.Count; }
-    }
+    public string Path { get; set; }// path of text file
+    public string Name { get; set; }// ex. ordered_1000
+    public string Type { get; set; }// ex. ordered or random
+    public int Number { get; set; }// world count that the text file include
+    public int Count { get { return dictionary.Count; } }
     Node node;
-    Dictionary<string, Node> dictionary = new Dictionary<string, Node>();
-    public DictionaryDS(string pathName)
+    Dictionary<string, Node> dictionary;
+    public WordDictionaryDS(string pathName)
     {
+        dictionary = new Dictionary<string, Node>();
         Path = pathName;
         Type = Util.FileName(pathName).type;
         Number = Util.FileName(pathName).number;
@@ -25,33 +21,15 @@ internal class DictionaryDS
     }
     private int InsertKey(string key, Node node)
     {
-        int count = dictionary.Count;
         if (dictionary.ContainsKey(key))
-            return 0;
+            return 0;// key already exist
         else if (key.StartsWith("#"))
-            return -1;
+            return -1;// key starts with #
         else
         {
             dictionary.Add(key, node);
             return 1;
         }
-    }
-    private int FindKey(string key)
-    {
-        if (dictionary.ContainsKey(key))
-            return 1;
-        else
-            return 0;
-    }
-    private int DeleteKey(string key)
-    {
-        if (dictionary.ContainsKey(key))
-        {
-            dictionary.Remove(key);
-            return 1;
-        }
-        else return 0;
-
     }
     public string Insert(string word)
     {
@@ -65,14 +43,14 @@ internal class DictionaryDS
             default: return "InsetKey error";
         }
     }
-    public string Find(string word)
+    private int DeleteKey(string key)
     {
-        switch (FindKey(word))
+        if (dictionary.ContainsKey(key))
         {
-            case 0: return $"Failed to find {word}\tfor {word} not existing in Dictionary";
-            case 1: return $"Succeed to find {word}\t{word} was found in Dictionary";
-            default: return "FindKey error";
+            dictionary.Remove(key);
+            return 1;
         }
+        else return 0;
     }
     public string Delete(string word)
     {
@@ -81,6 +59,22 @@ internal class DictionaryDS
             case 0: return $"Failed to delete {word}, for {word} not existing in Dictionary";
             case 1: return $"Seccessfully deleted {word} in Dictionary, which has {this.Count} entries";
             default: return "DeleteKey error";
+        }
+    }
+    private int FindKey(string key)
+    {
+        if (dictionary.ContainsKey(key))
+            return 1;
+        else
+            return 0;
+    }
+    public string Find(string word)
+    {
+        switch (FindKey(word))
+        {
+            case 0: return $"Failed to find {word}\tfor {word} not existing in Dictionary";
+            case 1: return $"Succeed to find {word}\t{word} was found in Dictionary";
+            default: return "FindKey error";
         }
     }
     public string Print()

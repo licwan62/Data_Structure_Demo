@@ -1122,7 +1122,7 @@ arrival
 arrival
 arrive
 arrive
-arrivé
+arriv?
 arrived
 arrived
 Arrived
@@ -1180,7 +1180,7 @@ ashes
 ashes
 ashore
 ashore
-así
+as?
 Asia
 Asia
 Asiatic
@@ -3887,7 +3887,7 @@ costume
 costumes
 cot
 cote
-côté
+côt?
 cottage
 cottage
 cotton
@@ -4204,7 +4204,7 @@ d
 d'
 da
 Da
-då
+d?
 daar
 dabei
 d'abord
@@ -4311,9 +4311,9 @@ dash
 dashed
 dashing
 dass
-daß
+da?
 Dass
-Daß
+Da?
 dat
 data
 date
@@ -4517,7 +4517,7 @@ deities
 deity
 Deity
 deja
-déjà
+déj?
 dejected
 del
 Del
@@ -5207,7 +5207,7 @@ donna
 Donna
 donnait
 donne
-donné
+donn?
 donner
 donors
 dont
@@ -5367,7 +5367,7 @@ Dryfoos
 drying
 du
 Du
-dû
+d?
 dubious
 Dublin
 Duc
@@ -6005,7 +6005,7 @@ Essex
 est
 est
 esta
-está
+est?
 estaba
 establish
 established
@@ -6038,7 +6038,7 @@ etait
 état
 etc
 ete
-été
+ét?
 eternal
 Eternal
 eternally
@@ -6063,7 +6063,7 @@ etre
 être
 ets
 ett
-että
+ett?
 ettei
 etwa
 etwas
@@ -7268,7 +7268,7 @@ ftp
 FTP
 fu
 fue
-fué
+fu?
 fuel
 fuer
 fugitive
@@ -8043,7 +8043,7 @@ Hannibal
 Hanover
 hans
 Hans
-häntä
+hänt?
 hapless
 haply
 happen
@@ -9680,7 +9680,7 @@ Juno
 Jupiter
 jurisdiction
 jury
-jusqu'à
+jusqu'?
 jusqu'au
 just
 Just
@@ -9873,7 +9873,7 @@ kunde
 Kunst
 kwam
 kWh
-kyllä
+kyll?
 L
 l
 l
@@ -9883,7 +9883,7 @@ la
 La
 LA
 l'a
-là
+l?
 labor
 labor
 laboratory
@@ -9928,7 +9928,7 @@ laissa
 laissait
 laissant
 laisse
-laissé
+laiss?
 laisser
 lake
 Lake
@@ -10238,7 +10238,7 @@ liberal
 liberality
 liberally
 liberated
-liberté
+libert?
 liberties
 liberty
 liberty
@@ -10268,7 +10268,7 @@ lief
 liegt
 lies
 lies
-ließ
+lie?
 liess
 lieu
 lieues
@@ -10746,7 +10746,7 @@ Malcolm
 male
 males
 malgre
-malgré
+malgr?
 malheur
 malheureux
 malice
@@ -11214,7 +11214,7 @@ Miguel
 mij
 mijn
 mijne
-mikä
+mik?
 Mike
 mil
 Milan
@@ -11246,8 +11246,8 @@ Milton
 Milton
 Milton's
 min
-minä
-Minä
+min?
+Min?
 mind
 mind
 Mind
@@ -11347,8 +11347,8 @@ misunderstanding
 misunderstood
 mit
 Mit
-mitä
-Mitä
+mit?
+Mit?
 Mitchell
 mite
 mitt
@@ -11960,7 +11960,7 @@ nights
 night's
 niin
 Niin
-niitä
+niit?
 Nile
 nimble
 Nina
@@ -12509,7 +12509,7 @@ otros
 Otto
 ou
 Ou
-où
+o?
 oude
 ought
 oughtn't
@@ -12614,7 +12614,7 @@ P.M.
 p.m.
 pa
 Pa
-på
+p?
 paa
 paar
 pace
@@ -12815,7 +12815,7 @@ passages
 passait
 passant
 passe
-passé
+pass?
 passed
 passed
 passenger
@@ -14073,7 +14073,7 @@ pyramid
 qau
 qex
 qua
-qu'à
+qu'?
 quae
 quaint
 Quaker
@@ -14113,7 +14113,7 @@ qu'au
 quay
 que
 Que
-qué
+qu?
 Quebec
 Queen
 queen
@@ -15215,8 +15215,8 @@ s
 S.W.
 sa
 Sa
-så
-Så
+s?
+S?
 saa
 saanut
 Sabbath
@@ -15624,7 +15624,7 @@ seized
 seizes
 seizing
 seizure
-sekä
+sek?
 selber
 selbst
 seldom
@@ -16016,7 +16016,7 @@ Sie
 siege
 Siegfried
 sieht
-siellä
+siell?
 siempre
 Sierra
 sig
@@ -16046,9 +16046,9 @@ signing
 Signor
 signs
 siihen
-siinä
+siin?
 siis
-siitä
+siit?
 s'il
 S'il
 Silas
@@ -16063,7 +16063,7 @@ silently
 silk
 silken
 silks
-sillä
+sill?
 silloin
 silly
 s'ils
@@ -16089,7 +16089,7 @@ sin
 sin
 Sin
 sina
-sinä
+sin?
 since
 Since
 since
@@ -16143,7 +16143,7 @@ Sisters
 sister's
 sit
 Sit
-sitä
+sit?
 site
 sites
 sits
@@ -16324,7 +16324,7 @@ Soc
 social
 Social
 Socialist
-société
+sociét?
 societies
 society
 Society
@@ -17396,7 +17396,7 @@ t'
 't
 'T
 ta
-täällä
+tääll?
 taas
 tabernacle
 table
@@ -17446,7 +17446,7 @@ talks
 tall
 taller
 Talleyrand
-tämä
+täm?
 tämän
 tambien
 tame
@@ -17473,7 +17473,7 @@ Tarzan
 task
 task
 tasks
-tässä
+täss?
 taste
 taste
 tasted
@@ -18262,7 +18262,7 @@ trousers
 trout
 trouvait
 trouve
-trouvé
+trouv?
 trouver
 Troy
 truce
@@ -18774,7 +18774,7 @@ verily
 Verily
 veritable
 verite
-vérité
+vérit?
 verloren
 Vermont
 Vernon
@@ -18846,7 +18846,7 @@ vie
 vieillard
 vieille
 viel
-vielä
+viel?
 viele
 vielen
 Vienna
@@ -18968,8 +18968,8 @@ voici
 Voici
 void
 voila
-voilà
-Voilà
+voil?
+Voil?
 voir
 vois
 voiture
@@ -19278,7 +19278,7 @@ weil
 weird
 Weise
 weiss
-weiß
+wei?
 wel
 welche
 welchem
@@ -19857,8 +19857,8 @@ Yet
 yet
 yeux
 yeux
-yhä
-yhtä
+yh?
+yht?
 yield
 yielded
 yielding

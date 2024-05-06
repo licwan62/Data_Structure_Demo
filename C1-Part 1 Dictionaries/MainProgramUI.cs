@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using System.Diagnostics;
+﻿using System.Diagnostics;
 using System.Text;
 using static System.Console;
 
@@ -8,15 +6,17 @@ namespace C1_Part_1_Dictionaries;
 
 internal class MainProgramUI
 {
-    static (DictionaryDS[] word_DS, TimeDictionaryDS time_DS) FilesLoad()
+    static FileInfo[] GetFiles()
     {
-        // get files from specific directory
-        FileInfo[] order_files = new DirectoryInfo(@"..\..\..\ordered").GetFiles();
-        FileInfo[] random_files = new DirectoryInfo(@"..\..\..\random").GetFiles();
-        // put files from two directories togeter for simplicity in 1 traverse
-        FileInfo[] files = order_files.Concat(random_files).ToArray();
-        // create array of dictionaries for each file
-        DictionaryDS[] dictionariesDS = new DictionaryDS[files.Length];
+        FileInfo[] orderFiles = new DirectoryInfo(@"..\..\..\ordered").GetFiles().OrderBy(f => f.Length).ToArray();
+        FileInfo[] randomFiles = new DirectoryInfo(@"..\..\..\random").GetFiles().OrderBy(f => f.Length).ToArray();
+        FileInfo[] files = orderFiles.Concat(randomFiles).ToArray();
+        return files;
+    }
+    static (WordDictionaryDS[] word_DS, TimeDictionaryDS time_DS) GetAllFiles()
+    {
+        FileInfo[] files = GetFiles();
+        WordDictionaryDS[] dictionariesDS = new WordDictionaryDS[files.Length];
 
         // dictionary to record time comsumed by each insertion
         TimeDictionaryDS timeInsertionDS = new();
@@ -25,7 +25,7 @@ internal class MainProgramUI
         int index = 0;
         foreach (FileInfo file in files)
         {
-            DictionaryDS word_DS = new(file.FullName);// dictionary to load words and lengths
+            WordDictionaryDS word_DS = new(file.FullName);// dictionary to load words and lengths
             StreamReader sr = file.OpenText();
             string line;
             stopwatch = new Stopwatch();
@@ -46,95 +46,337 @@ internal class MainProgramUI
         WriteLine("----------------------------------------------------\n");
         return (dictionariesDS, timeInsertionDS);
     }
-    static void Insert(DictionaryDS word_DS, string word)
+    static void ReportTimeComplexity()
     {
-        WriteLine(word_DS.Insert(word));
-    }
-    static void Find(DictionaryDS word_DS, string word)
-    {
-        WriteLine(word_DS.Find(word));
-    }
-    static void Delete(DictionaryDS word_DS, string word)
-    {
-        WriteLine(word_DS.Delete(word));
-    }
-    static void ToPrint(DictionaryDS word_DS, string word)
-    {
-        WriteLine(word_DS.Print());
-    }
-    static void Test(DictionaryDS word_DS)
-    {
-        WriteLine("------------------------");
-        WriteLine($"Test operations done to {word_DS.Name}");
-        Insert(word_DS, "Licheng");
-        Insert(word_DS, "#Test");
-        Insert(word_DS, "Licheng");
-        Find(word_DS, "Licheng");
-        Find(word_DS, "Licheng123");
-        Delete(word_DS, "Licheng");
-        Delete(word_DS, "Licheng");
-        WriteLine("------------------------\n");
-    }
-    static string TestCode()
-    {
-        StringBuilder sb = new StringBuilder();
-        sb.AppendLine("Insert(word_DS, \"Licheng\");");
-        sb.AppendLine("Insert(word_DS, \"#Test\");");
-        sb.AppendLine("Insert(word_DS, \"Licheng\");");
-        sb.AppendLine("Find(word_DS, \"Lichen\");");
-        sb.AppendLine("Find(word_DS, \"Licheng123\");");
-        sb.AppendLine("Delete(word_DS, \"Licheng\");");
-        sb.AppendLine("Delete(word_DS, \"Licheng\");");
-        return sb.ToString();
-    }
-    /// <summary>
-    /// put text files into array of dictionary
-    /// show time table for each dictionary loaded
-    /// test some code
-    /// find a word in each dictionary
-    /// shoe time table for each dictionary finding
-    /// </summary>
-    /// <param name="args"></param>
-    static void Main(string[] args)
-    {
-        // 1 put all text file into array of dictionary
-        // Tuple is used to be assigned two objects, here to receive two objects returned by function
-        Tuple<DictionaryDS[], TimeDictionaryDS> tuple = FilesLoad().ToTuple<DictionaryDS[], TimeDictionaryDS>();
-        DictionaryDS[] word_DS_array = tuple.Item1;
+        // 1 put all text files into array of word dictionary
+        // Tuple is used to be assigned two objects
+        Tuple<WordDictionaryDS[], TimeDictionaryDS> tuple = GetAllFiles()
+            .ToTuple<WordDictionaryDS[], TimeDictionaryDS>();
+        WordDictionaryDS[] word_DS_array = tuple.Item1;
         TimeDictionaryDS time_insertionDS = tuple.Item2;
-        // 2 show time table for each dictionary loaded
+        // 2 show time dictionary for each dictionary loaded
         Write("Press any key to Print time table for each dictionary insertion...");
         ReadKey();
         WriteLine(time_insertionDS.Print());
-        // 3 test some code
-        WriteLine("***** Test Code *****\n" + TestCode() + "Test Code End -----");
-        Write("Do test functions above to first dictionary? [y/n]: ");
-        while (true)
+    }
+    static (FileInfo, WordDictionaryDS) GetFile(int index)
+    {
+        FileInfo[] files = GetFiles();
+        FileInfo file = files[index];
+        WordDictionaryDS wordDS = new WordDictionaryDS(file.FullName);
+        if (File.Exists(file.FullName))
         {
-            string input = ReadLine().ToLower().Trim();
-            if (input == string.Empty)
-                Write("Empty input, type your answer [y/n]: ");
-            else if (input == "y")
+            StreamReader sr = new StreamReader(file.FullName);
+            string line;
+            while ((line = sr.ReadLine()) != null)
             {
-                WriteLine("Test done");
-                Test(word_DS_array[0]);
-                break;
-            }
-            else if (input == "n")
-            {
-                WriteLine("Nothing test done");
-                break;
+                wordDS.Insert(line);
             }
         }
-        // 4 find a word in each dictionary
-        TimeDictionaryDS time_findDS = new();
+        return (file, wordDS);
+    }
+    static void Menu_function(WordDictionaryDS wordDS)
+    {
+        StringBuilder sb = new StringBuilder();
+        sb.AppendLine("== Function Menu ==");
+        sb.AppendLine("0 - Insert word");
+        sb.AppendLine("1 - Find word");
+        sb.AppendLine("2 - Delete word");
+        sb.AppendLine("3 - Print");
+        sb.AppendLine("4 - Return");
+        WriteLine(sb.ToString());
+        while (true)
+        {
+            Write("Enter number: ");
+            string input = ReadLine();
+            if (string.IsNullOrEmpty(input))
+            {
+                WriteLine("-Empty input");
+            }
+            else if (int.TryParse(input, out int value))
+            {
+                switch (value)
+                {
+                    case 0:
+                        Insert(wordDS); break;
+                    case 1:
+                        Find(wordDS); break;
+                    case 2:
+                        Delete(wordDS); break;
+                    case 3:
+                        Print(wordDS); break;
+                    case 4:
+                        Write("Really to return to Load menu? [Enter Y to continue] : ");
+                        if (ReadLine().ToLower() == "y")
+                            Menu_loading();
+                        break;
+
+                }
+            }
+        }
+    }
+    static void Menu_loading()
+    {
+        StringBuilder sb = new StringBuilder();
+        sb.AppendLine("== Choose the file to load in ==");
+        int words = 1000;
+        for (int i = 0; i < 22; i++)
+        {
+            if (i < 11)
+                sb.AppendLine($"{i} - Random {words}-words.txt");
+            else
+                sb.AppendLine($"{i} - Sequential {words}-words.txt");
+            if (words == 1000)
+            {
+                words += 4000;
+            }
+            else if (words == 50000)
+            {
+                words = 1000;
+            }
+            else
+            {
+                words += 5000;
+            }
+        }
+        sb.AppendLine("22 - Return to Main Menu");
+        WriteLine(sb.ToString());
+        while (true)
+        {
+            Write("Enter number: ");
+            string input = ReadLine();
+            if (string.IsNullOrEmpty(input))
+            {
+                continue;
+            }
+            else if (int.TryParse(input, out int value))
+            {
+                if (value < 0 || value > 22)
+                {
+                    WriteLine("-Invalid number");
+                }
+                else if (value == 22)
+                {
+                    Write("Really to return to main menu? [Enter Y to continue] : ");
+                    if (ReadLine().ToLower() == "y")
+                    {
+                        WriteLine("-Returned");
+                        Menu_main();
+                    }
+                    else
+                    {
+                        WriteLine("-Canceled");
+                    }
+                }
+                else
+                {
+                    WriteLine("-Loading");
+                    Tuple<FileInfo, WordDictionaryDS> tuple = GetFile(value).ToTuple();
+                    FileInfo file = tuple.Item1;
+                    WordDictionaryDS wordDS = tuple.Item2;
+                    if (file != null)
+                    {
+                        WriteLine($"{file.Name} is loaded");
+                        Menu_function(wordDS);
+                    }
+                }
+            }
+            else
+            {
+                WriteLine("-Invalid input, enter command number");
+            }
+        }
+    }
+    /// <summary>
+    /// Menu_main -> Menu_loading -> Menu_function
+    /// </summary>
+    static void Menu_main()
+    {
+        StringBuilder sb = new StringBuilder();
+        sb.AppendLine("== Main Menu ==");
+        sb.AppendLine("0 - Load and manage a text file");
+        sb.AppendLine("1 - Report time complexity of all files");
+        sb.AppendLine("2 - Exit");
+        WriteLine(sb.ToString());
+        while (true)
+        {
+            Write("Enter number: ");
+            string input = ReadLine();
+            if (string.IsNullOrEmpty(input))
+            {
+                WriteLine("-Empty input");
+                continue;
+            }
+            else if (int.TryParse(input, out int value))
+            {
+                switch (value)
+                {
+                    case 0:
+                        Write("Really to load file? [Enter Y to continue] : ");
+                        if (ReadLine().ToLower() == "y")
+                        {
+                            WriteLine("-Loading");
+                            Menu_loading();
+                        }
+                        else WriteLine("-Canceled");
+                        break;
+                    case 1:
+                        Write("Really to report time complexity? This operation will load all the files exist [Enter Y to continue] ");
+                        if (ReadLine().ToLower() == "y")
+                        {
+                            WriteLine("-Operating");
+                            ReportTimeComplexity();
+                        }
+                        else WriteLine("-Canceled");
+                        break;
+                    case 2:
+                        Write("Really to exit? [Enter Y to continue] : ");
+                        if (ReadLine().ToLower() == "y")
+                        {
+                            WriteLine("-Exit");
+                            return;
+                        }
+                        else
+                        {
+                            WriteLine("-Canceled");
+                        }
+                        break;
+                    default: WriteLine("-Invalid command number"); break;
+                }
+            }
+            else
+            {
+                WriteLine("-Invalid input, enter command number");
+            }
+        }
+    }
+    static void Insert(WordDictionaryDS wordDS)
+    {
+        Write("Really to insert word into selected file? [Enter Y to continue] : ");
+        if (ReadLine().ToLower() == "y")
+        {
+            while (true)
+            {
+                Write("Enter the word to be insert: ");
+                string insertString = ReadLine();
+                if (string.IsNullOrEmpty(insertString))
+                {
+                    WriteLine("Empty input");
+                }
+                else
+                {
+                    Write($"Really to insert \"{insertString}\"? [Enter Y to continue] : ");
+                    if (ReadLine().ToLower() == "y")
+                    {
+                        WriteLine(wordDS.Insert(insertString));
+                        Menu_function(wordDS);
+                        break;
+                    }
+                    else
+                    {
+                        WriteLine("-Canceled");
+                    }
+                }
+            }
+        }
+        else
+        {
+            WriteLine("-Canceled");
+        }
+    }
+    static void Find(WordDictionaryDS wordDS)
+    {
+        Write("Really to find word in selected file? [Enter Y to continue] : ");
+        if (ReadLine().ToLower() == "y")
+        {
+            while (true)
+            {
+                Write("Enter the word to search: ");
+                string searchString = ReadLine();
+                if (string.IsNullOrEmpty(searchString))
+                {
+                    WriteLine("Empty input");
+                }
+                else
+                {
+                    Write($"Really to search \"{searchString}\"? [Enter Y to continue] : ");
+                    if (ReadLine().ToLower() == "y")
+                    {
+                        WriteLine(wordDS.Find(searchString));
+                        Menu_function(wordDS);
+                        break;
+                    }
+                    else
+                    {
+                        WriteLine("-Canceled");
+                    }
+                }
+            }
+        }
+        else
+        {
+            WriteLine("-Canceled");
+        }
+    }
+    static void Delete(WordDictionaryDS wordDS)
+    {
+        Write("Really to remove word from selected file? [Enter Y to continue] : ");
+        if (ReadLine().ToLower() == "y")
+        {
+            while (true)
+            {
+                Write("Enter the word to be removed: ");
+                string deleteString = ReadLine();
+                if (string.IsNullOrEmpty(deleteString))
+                {
+                    WriteLine("Empty input");
+                }
+                else
+                {
+                    WriteLine($"Really to search \"{deleteString}\"? [Enter Y to continue] : ");
+                    if (ReadLine().ToLower() == "y")
+                    {
+                        WriteLine(wordDS.Delete(deleteString));
+                        Menu_function(wordDS);
+                        break;
+                    }
+                    else
+                    {
+                        WriteLine("-Canceled");
+                    }
+                }
+            }
+        }
+        else
+        {
+            WriteLine("-Canceled");
+        }
+    }
+    static void Print(WordDictionaryDS wordDS)
+    {
+        Write("Really to print selected file? [Enter Y to continue] : ");
+        if (ReadLine().ToLower() == "y")
+        {
+            Write(wordDS.Print());
+            Menu_function(wordDS);
+        }
+        else
+        {
+            WriteLine("-Canceled");
+        }
+    }
+    static void Main(string[] args)
+    {
+        Menu_main();
+
+        /*TimeDictionaryDS time_findDS = new();
         string test_word = "nosuchword";
         Stopwatch stopwatch = new Stopwatch();
         WriteLine("[ Find the word in each dictionary then record their time during finding ]");
         WriteLine($"Using word: {test_word}");
         Write("Press any key to continue...");
         ReadKey();
-        foreach (DictionaryDS word_DS in word_DS_array)
+        foreach (WordDictionaryDS word_DS in word_DS_array)
         {
             stopwatch = Stopwatch.StartNew();
             stopwatch.Start();
@@ -143,13 +385,6 @@ internal class MainProgramUI
             TimeSpan timeSpan = stopwatch.Elapsed;
             time_findDS.Insert(word_DS.Type, word_DS.Number, timeSpan);
         }
-        // 5 show time table for each dictionary finding
-        WriteLine($"Print Time record for finding {test_word}");
-        Write("Press any key to continue...");
-        ReadKey();
-        WriteLine(time_findDS.Print()); 
-        
-        ReadKey();
-
+        ReadKey();*/
     }
 }

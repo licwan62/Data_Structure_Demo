@@ -8,10 +8,10 @@ namespace C1_Part_1_Dictionaries;
 internal class TimeDictionaryDS
 {
     TimeNode node;
-    Dictionary<string, TimeNode> dictionary = new();
+    Dictionary<string, TimeNode> dictionary;
     public TimeDictionaryDS()
     {
-
+        dictionary = new Dictionary<string, TimeNode>();
     }
     private int InsertKey(string key, TimeNode node)
     {
@@ -24,6 +24,13 @@ internal class TimeDictionaryDS
             return 1;
         }
     }
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="type"></param>
+    /// <param name="number"></param>
+    /// <param name="timespan"></param>
+    /// <returns></returns>
     public string Insert(string type, int number, TimeSpan timespan)
     {
         TimeNode node = new(type, number, timespan);

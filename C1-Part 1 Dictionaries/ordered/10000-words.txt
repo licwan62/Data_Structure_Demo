@@ -1899,7 +1899,7 @@ cost
 costly
 costs
 costume
-côté
+côt?
 cottage
 cotton
 couch
@@ -2097,7 +2097,7 @@ Das
 dash
 dashed
 dass
-daß
+da?
 dat
 data
 date
@@ -2204,7 +2204,7 @@ deg
 degree
 degrees
 deja
-déjà
+déj?
 del
 Delaware
 delay
@@ -3000,7 +3000,7 @@ etait
 était
 etc
 ete
-été
+ét?
 eternal
 eternity
 êtes
@@ -3015,7 +3015,7 @@ etre
 être
 ets
 ett
-että
+ett?
 etwas
 ety
 eu
@@ -4003,7 +4003,7 @@ hangs
 Hannah
 hans
 Hans
-häntä
+hänt?
 happen
 happened
 happened
@@ -4820,7 +4820,7 @@ June
 Jupiter
 jurisdiction
 jury
-jusqu'à
+jusqu'?
 just
 Just
 justice
@@ -4917,7 +4917,7 @@ l
 la
 La
 LA
-là
+l?
 labor
 labors
 labour
@@ -5576,7 +5576,7 @@ millions
 Milton
 Milton
 min
-minä
+min?
 mind
 mind
 Mind
@@ -5624,7 +5624,7 @@ mistress
 Mistress
 mit
 Mit
-mitä
+mit?
 mix
 mixed
 mixture
@@ -6219,7 +6219,7 @@ otherwise
 otherwise
 OTHERWISE
 ou
-où
+o?
 ought
 Oui
 our
@@ -6264,7 +6264,7 @@ p
 P
 P.M.
 pa
-på
+p?
 paa
 pace
 paces
@@ -6995,7 +6995,7 @@ puzzled
 PWH
 qau
 qex
-qu'à
+qu'?
 quaint
 qualified
 qualities
@@ -7574,7 +7574,7 @@ s
 's
 sa
 Sa
-så
+s?
 saa
 Sabbath
 sack
@@ -7987,7 +7987,7 @@ signed
 significance
 significant
 signs
-siitä
+siit?
 s'il
 silence
 silence
@@ -7995,7 +7995,7 @@ silent
 silent
 silently
 silk
-sillä
+sill?
 silly
 silver
 similar
@@ -8005,7 +8005,7 @@ simplicity
 simply
 sin
 sin
-sinä
+sin?
 since
 Since
 since
@@ -8037,7 +8037,7 @@ sisters
 sister's
 sit
 Sit
-sitä
+sit?
 site
 sites
 sits
@@ -9378,7 +9378,7 @@ victory
 victory
 vie
 viel
-vielä
+viel?
 Vienna
 vient
 vieux

@@ -1,6 +1,4 @@
-﻿using System.Runtime.ConstrainedExecution;
-
-namespace C1_Part_1_Dictionaries;
+﻿namespace C1_Part_1_Dictionaries;
 
 public class Util
 {
