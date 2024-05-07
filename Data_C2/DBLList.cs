@@ -11,14 +11,23 @@ internal class DBLList
     public Node Current { get; set; }
     public int Counter { get; set; }
     public FileInfo File { get; set; }
+    public DBLList()
+    {
+        Head = null;
+        Tail = null;
+        Current = null;
+        File = null;
+        Counter = 0;
+    }
     public DBLList(FileInfo fileInfo)
     {
         Head = null;
         Tail = null;
         Current = null;
-        Counter = 0;
         File = fileInfo;
+        Counter = 0;
     }
+    #region Insert
     private bool InsertNode(Node node)
     {
         bool inserted = false;
@@ -66,6 +75,8 @@ internal class DBLList
             return $"Node {node.Data} is Existed or Started with #";
         }
     }
+    #endregion Insert
+    #region Delete
     private bool DeleteAtFront()
     {
         if (Head == null) return false;
@@ -141,6 +152,8 @@ internal class DBLList
             return $"Empty List or Non-exist Node {node.Data}";
         }
     }
+    #endregion Delete
+    #region Find
     private int FindNode(Node node)
     {
         int pos = 0;
@@ -185,6 +198,7 @@ internal class DBLList
             return $"Node {node.Data} Found on position {pos}";
         }
     }
+    #endregion Find
     public string ToPrint()
     {
         StringBuilder sb = new StringBuilder();
