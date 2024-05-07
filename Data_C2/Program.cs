@@ -6,7 +6,7 @@ using static System.Console;
 namespace Data_C2;
 internal class Program
 {
-    private static DBLList listToLoad = new DBLList();
+    private static DBLList? listToLoad = new DBLList();
     static DBLList Load(int index)
     {
         DirectoryInfo dir = new DirectoryInfo(@"..\..\..\WordFiles");
@@ -26,13 +26,14 @@ internal class Program
         ts = sw.Elapsed;
         WriteLine($"{list.Counter} Words Loaded, Elapsed {String.Format("{0:N2}", ts.TotalMilliseconds)} ms");
         return list;
-    }    
+    }
     static void ReportTime()
     {
         DirectoryInfo dir = new DirectoryInfo(@"..\..\..\WordFiles");
         FileInfo[] fileInfos = dir.GetFiles().OrderBy(f => f.Length).ToArray();
         int size = fileInfos.Length;
         DBLList[] lists = new DBLList[size];
+        // load all files in directory
         WriteLine($"Start Loading {size} Files...");
         for (int index = 0; index < size; index++)
         {
@@ -40,6 +41,7 @@ internal class Program
             lists[index] = Load(index);
         }
         WriteLine("All {0} Files are Loaded\n", size);
+        // insert word and record insertion time
         WriteLine("- Press any key to continue Inserting certain word and Record time...");
         ReadKey();
         TimeSpan[] timeSpans = new TimeSpan[size];
@@ -51,7 +53,7 @@ internal class Program
             sw.Stop();
             timeSpans[index] = sw.Elapsed;
         }
-
+        // print table of word and time
         WriteLine("- Press any key to Print Report...");
         ReadKey();
         WriteLine("== Time Report ==");
@@ -60,11 +62,12 @@ internal class Program
         {
             WriteLine($"{lists[index].Counter,-10}{String.Format("{0:N2}", timeSpans[index].TotalMilliseconds)}");
         }
+        // back to start menu
         WriteLine("- Press any key to continue...");
         ReadKey();
         SetStartMenu();
     }
-    
+
     #region Menu
     static void ShowMenu(int id)
     {
@@ -109,8 +112,8 @@ internal class Program
         {
             ShowMenu(0);
             Write("- Enter Main Option: ");
-            string? input = ReadLine().Trim();
-            if (string.IsNullOrEmpty(input))
+            string? input;
+            if (string.IsNullOrEmpty(input = ReadLine()?.Trim()))
             {
                 WriteLine("Empty Input");
                 continue;
@@ -128,7 +131,7 @@ internal class Program
                         break;
                     case 2:
                         Write("- Print Time Report, continue? (y) ");
-                        if (ReadLine().Trim().ToLower() == "y")
+                        if (ReadLine()?.Trim().ToLower() == "y")
                         {
                             ReportTime();
                             SetOption0 = true;
@@ -157,8 +160,8 @@ internal class Program
         {
             ShowMenu(1);
             Write("- Select a File: ");
-            string? input = ReadLine().Trim();
-            if (string.IsNullOrEmpty(input))
+            string? input;
+            if (string.IsNullOrEmpty(input = ReadLine()?.Trim()))
             {
                 WriteLine("Empty Input");
             }
@@ -167,7 +170,7 @@ internal class Program
                 if (result == 0)
                 {
                     Write("- Back to Main Menu, continue? (y) ");
-                    if (ReadLine().Trim().ToLower() == "y")
+                    if (ReadLine()?.Trim().ToLower() == "y")
                     {
                         Clear();
                         SetStartMenu();
@@ -177,7 +180,7 @@ internal class Program
                 else if (result > 0 && result < 12)
                 {
                     Write($"- To Load the No.{result} file? (y) ");
-                    if (ReadLine().Trim().ToLower() == "y")
+                    if (ReadLine()?.Trim().ToLower() == "y")
                     {
                         Write("Loading... ");
                         listToLoad = Load(result - 1);
@@ -210,8 +213,8 @@ internal class Program
             ShowMenu(2);
             WriteLine($"Current File {list.File.Name}");
             Write("- Select an Function: ");
-            string? input = ReadLine().Trim().ToLower();
-            if (string.IsNullOrEmpty(input))
+            string? input;
+            if (string.IsNullOrEmpty(input = ReadLine()?.Trim().ToLower()))
             {
                 WriteLine("Empty Input");
             }
@@ -246,6 +249,7 @@ internal class Program
     static bool TestFunction(DBLList list)
     {
         WriteLine("Press any key to continue Test");
+        WriteLine("Test include Insertion, Finding, Deletion of \"Test123\" or \"#Test123\"");
         ReadKey();
         WriteLine(list.Insert("Test123"));
         WriteLine(list.Insert("Test123"));
@@ -262,8 +266,8 @@ internal class Program
     static bool Quit()
     {
         Write("- Quit the console, continue? (y) ");
-        string? input = ReadLine()?.Trim().ToLower();
-        if (string.IsNullOrEmpty(input))
+        string? input;
+        if (string.IsNullOrEmpty(input = ReadLine()?.Trim().ToLower()))
         {
             WriteLine("Empty Input");
             return false;
@@ -378,22 +382,27 @@ internal class Program
         }
         return found;
     }
+
     static bool Print(DBLList list)
     {
         bool printed = false;
         while (!printed)
         {
             Write($"- Print Selected List? (y: yes, #: stop) ");
-            string input;
-            if ((input = ReadLine().Trim().ToLower()) == "y")
+            string? input;
+            if (string.IsNullOrEmpty(input = ReadLine()?.Trim().ToLower()))
             {
-                WriteLine(list.ToPrint());
-                printed = true;
+                WriteLine("Empty List");
             }
             else if (input == "#")
             {
                 WriteLine("Stop Printing");
                 return printed;
+            }
+            else
+            {
+                WriteLine(list.ToPrint());
+                printed = true;
             }
         }
         return printed;
