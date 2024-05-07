@@ -1,4 +1,5 @@
 ﻿using System.Diagnostics;
+using System.Reflection.Metadata.Ecma335;
 using System.Security.AccessControl;
 using System.Text;
 using static System.Console;
@@ -15,7 +16,7 @@ internal class Program
         TimeSpan ts = new TimeSpan();
         Stopwatch sw = new Stopwatch();
         StreamReader sr = fileToLoad.OpenText();
-        string line;
+        string? line;
         sw.Start();
         while ((line = sr.ReadLine()) != null)
         {
@@ -25,6 +26,43 @@ internal class Program
         ts = sw.Elapsed;
         WriteLine($"{list.Counter} Words Loaded, Elapsed {String.Format("{0:N2}", ts.TotalMilliseconds)} ms");
         return list;
+    }    
+    static void ReportTime()
+    {
+        DirectoryInfo dir = new DirectoryInfo(@"..\..\..\WordFiles");
+        FileInfo[] fileInfos = dir.GetFiles().OrderBy(f => f.Length).ToArray();
+        int size = fileInfos.Length;
+        DBLList[] lists = new DBLList[size];
+        WriteLine($"Start Loading {size} Files...");
+        for (int index = 0; index < size; index++)
+        {
+            Write($"Loading {fileInfos[index].Name}... ");
+            lists[index] = Load(index);
+        }
+        WriteLine("All {0} Files are Loaded\n", size);
+        WriteLine("- Press any key to continue Inserting certain word and Record time...");
+        ReadKey();
+        TimeSpan[] timeSpans = new TimeSpan[size];
+        for (int index = 0; index < size; index++)
+        {
+            Stopwatch sw = new Stopwatch();
+            sw.Start();
+            WriteLine(lists[index].Insert("Licheng"));
+            sw.Stop();
+            timeSpans[index] = sw.Elapsed;
+        }
+
+        WriteLine("- Press any key to Print Report...");
+        ReadKey();
+        WriteLine("== Time Report ==");
+        WriteLine("{0, -10}{1}", "Words", "Time");
+        for (int index = 0; index < size; index++)
+        {
+            WriteLine($"{lists[index].Counter,-10}{String.Format("{0:N2}", timeSpans[index].TotalMilliseconds)}");
+        }
+        WriteLine("- Press any key to continue...");
+        ReadKey();
+        SetStartMenu();
     }
     
     #region Menu
@@ -203,43 +241,7 @@ internal class Program
         SetOpMenu(list);
     }
     #endregion Menu// Start Menu -> FileLoad Menu -> Op Menu
-    static void ReportTime()
-    {
-        DirectoryInfo dir = new DirectoryInfo(@"..\..\..\WordFiles");
-        FileInfo[] fileInfos = dir.GetFiles().OrderBy(f => f.Length).ToArray();
-        int size = fileInfos.Length;
-        DBLList[] lists = new DBLList[size];
-        WriteLine($"Start Loading {size} Files...");
-        for (int index = 0; index < size; index++)
-        {
-            Write($"Loading {fileInfos[index].Name}... ");
-            lists[index] = Load(index);
-        }
-        WriteLine("All {0} Files are Loaded\n", size);
-        WriteLine("- Press any key to continue Inserting certain word and Record time...");
-        ReadKey();
-        TimeSpan[] timeSpans = new TimeSpan[size];
-        for (int index = 0; index < size; index++)
-        {
-            Stopwatch sw = new Stopwatch();
-            sw.Start();
-            WriteLine(lists[index].Insert("Licheng"));
-            sw.Stop();
-            timeSpans[index] = sw.Elapsed;
-        }
 
-        WriteLine("- Press any key to Print Report...");
-        ReadKey();
-        WriteLine("== Time Report ==");
-        WriteLine("{0, -10}{1}", "Words", "Time");
-        for (int index = 0; index < size; index++)
-        {
-            WriteLine($"{lists[index].Counter,-10}{String.Format("{0:N2}", timeSpans[index].TotalMilliseconds)}");
-        }
-        WriteLine("- Press any key to continue...");
-        ReadKey();
-        SetStartMenu();
-    }
     #region Functions
     static bool TestFunction(DBLList list)
     {
@@ -260,7 +262,13 @@ internal class Program
     static bool Quit()
     {
         Write("- Quit the console, continue? (y) ");
-        if (ReadLine().Trim().ToLower() == "y")
+        string? input = ReadLine()?.Trim().ToLower();
+        if (string.IsNullOrEmpty(input))
+        {
+            WriteLine("Empty Input");
+            return false;
+        }
+        else if (input == "y")
         {
             Environment.Exit(0);
             return true;
@@ -275,13 +283,17 @@ internal class Program
     {
         bool inserted = false;
         while (!inserted)
-        {
+        {// confirm insertion
             Write($"- Insert a new word in List? (y: yes, #: stop) ");
-            string input;
-            if ((input = ReadLine().Trim().ToLower()) == "y")
+            string? input;
+            if (string.IsNullOrEmpty(input = ReadLine()?.Trim().ToLower()))
             {
+                WriteLine("Empty Input");
+            }
+            else if (input == "y")
+            {// get word to insert
                 Write("- New word: ");
-                string word;
+                string? word;
                 if (!String.IsNullOrEmpty(word = ReadLine()))
                 {
                     WriteLine(list.Insert(word));
@@ -306,11 +318,15 @@ internal class Program
         while (!deleted)
         {
             Write($"- Delete a word in List? (y: yes, #: stop) ");
-            string input;
-            if ((input = ReadLine().Trim().ToLower()) == "y")
+            string? input;
+            if (string.IsNullOrEmpty(input = ReadLine()?.Trim().ToLower()))
+            {
+                WriteLine("Empty Input");
+            }
+            else if (input == "y")
             {
                 Write("- Word to Delete: ");
-                string word;
+                string? word;
                 if (!String.IsNullOrEmpty(word = ReadLine()))
                 {
                     WriteLine(list.Delete(word));
@@ -335,11 +351,15 @@ internal class Program
         while (!found)
         {
             Write($"- Find a word in List? (y: yes, #: stop) ");
-            string input;
-            if ((input = ReadLine().Trim().ToLower()) == "y")
+            string? input;
+            if (string.IsNullOrEmpty(input = ReadLine()?.Trim().ToLower()))
+            {
+                WriteLine("Empty Input");
+            }
+            else if (input == "y")
             {
                 Write("- Word to Find: ");
-                string word;
+                string? word;
                 if (!String.IsNullOrEmpty(word = ReadLine()))
                 {
                     WriteLine(list.Find(word));
