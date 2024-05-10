@@ -6,7 +6,13 @@ using static System.Console;
 namespace Data_C2;
 internal class Program
 {
-    private static DBLList? listToLoad = new DBLList();
+    private static DBLList? listToLoad;
+    /// <summary>
+    /// Load word files
+    /// Print Loading feedback
+    /// </summary>
+    /// <param name="index">selected items index</param>
+    /// <returns>loaded list</returns>
     static DBLList Load(int index)
     {
         DirectoryInfo dir = new DirectoryInfo(@"..\..\..\WordFiles");
@@ -17,129 +23,146 @@ internal class Program
         Stopwatch sw = new Stopwatch();
         StreamReader sr = fileToLoad.OpenText();
         string? line;
+        Write("Loading... ");
         sw.Start();
         while ((line = sr.ReadLine()) != null)
         {
-            list.Insert(line);
+            list.AddAtEnd(line);
         }
         sw.Stop();
         ts = sw.Elapsed;
+        WriteLine("Done");
         WriteLine($"{list.Counter} Words Loaded, Elapsed {String.Format("{0:N2}", ts.TotalMilliseconds)} ms");
         return list;
     }
-    static void ReportTime()
+    static bool ReportTime()
     {
         DirectoryInfo dir = new DirectoryInfo(@"..\..\..\WordFiles");
         FileInfo[] fileInfos = dir.GetFiles().OrderBy(f => f.Length).ToArray();
         int size = fileInfos.Length;
         DBLList[] lists = new DBLList[size];
-        // load all files in directory
-        WriteLine($"Start Loading {size} Files...");
-        for (int index = 0; index < size; index++)
+        Write("- Print Time Report? (y) ");
+        if (ReadLine()?.Trim().ToLower() == "y")
         {
-            Write($"Loading {fileInfos[index].Name}... ");
-            lists[index] = Load(index);
+            Clear();// load all files in directory
+            WriteLine($"Start Loading {size} Files...");
+            for (int index = 0; index < size; index++)
+            {
+                Write($"Loading {fileInfos[index].Name}... ");
+                lists[index] = Load(index);
+            }
+            WriteLine("All {0} Files are Loaded\n", size);
+            // insert word and record insertion time
+            WriteLine("- Press any key to continue Inserting and Record time...");
+            ReadKey();
+            TimeSpan[] timeSpans = new TimeSpan[size];
+            for (int index = 0; index < size; index++)
+            {
+                Stopwatch sw = new Stopwatch();
+                sw.Start();
+                WriteLine(lists[index].AddAtEnd("Licheng"));
+                sw.Stop();
+                timeSpans[index] = sw.Elapsed;
+            }
+            // print table of word and time
+            WriteLine("- Press any key to Print Report...");
+            ReadKey();
+            WriteLine("== Time Report ==");
+            WriteLine("{0, -10}{1}", "Words", "Time");
+            for (int index = 0; index < size; index++)
+            {
+                WriteLine($"{lists[index].Counter,-10}{String.Format("{0:N2}", timeSpans[index].TotalMilliseconds)}");
+            }
+            // back to start menu
+            WriteLine("- Press any key to Start Menu...");
+            ReadKey();
+            SetStartMenu();
+            return true;
         }
-        WriteLine("All {0} Files are Loaded\n", size);
-        // insert word and record insertion time
-        WriteLine("- Press any key to continue Inserting certain word and Record time...");
-        ReadKey();
-        TimeSpan[] timeSpans = new TimeSpan[size];
-        for (int index = 0; index < size; index++)
+        else
         {
-            Stopwatch sw = new Stopwatch();
-            sw.Start();
-            WriteLine(lists[index].Insert("Licheng"));
-            sw.Stop();
-            timeSpans[index] = sw.Elapsed;
+            WriteLine("Stop printing Time Report");
+            WriteLine("- Press any key to Start Menu");
+            ReadKey();
+            Clear();
+            return false;
         }
-        // print table of word and time
-        WriteLine("- Press any key to Print Report...");
-        ReadKey();
-        WriteLine("== Time Report ==");
-        WriteLine("{0, -10}{1}", "Words", "Time");
-        for (int index = 0; index < size; index++)
-        {
-            WriteLine($"{lists[index].Counter,-10}{String.Format("{0:N2}", timeSpans[index].TotalMilliseconds)}");
-        }
-        // back to start menu
-        WriteLine("- Press any key to continue...");
-        ReadKey();
-        SetStartMenu();
     }
 
     #region Menu
-    static void ShowMenu(int id)
+    static string ShowMenu(int id)
     {
+        StringBuilder sb = new StringBuilder();
         switch (id)
         {
             case 0:// start menu
-                WriteLine("== Start Menu ==");
-                WriteLine("1: Select a Words File");
-                WriteLine("2: Print Time Report");
-                WriteLine("0: Quit");
-                break;
+                sb.AppendLine("== Start Menu ==");
+                sb.AppendLine("1: Select a Words File");
+                sb.AppendLine("2: Print Time Report");
+                sb.AppendLine("0: Quit");
+                return sb.ToString();
             case 1:// file load menu
-                WriteLine("== Select a File ==");
-                WriteLine("1: 1000-words");
-                WriteLine("2: 5000-words");
-                WriteLine("3: 10000-words");
-                WriteLine("4: 15000-words");
-                WriteLine("5: 20000-words");
-                WriteLine("6: 25000-words");
-                WriteLine("7: 30000-words");
-                WriteLine("8: 35000-words");
-                WriteLine("9: 40000-words");
-                WriteLine("10: 45000-words");
-                WriteLine("11: 50000-words");
-                WriteLine("0: Back to Main Menu");
-                break;
+                sb.AppendLine("== Select File ==");
+                sb.AppendLine("1: 1000-words");
+                sb.AppendLine("2: 5000-words");
+                sb.AppendLine("3: 10000-words");
+                sb.AppendLine("4: 15000-words");
+                sb.AppendLine("5: 20000-words");
+                sb.AppendLine("6: 25000-words");
+                sb.AppendLine("7: 30000-words");
+                sb.AppendLine("8: 35000-words");
+                sb.AppendLine("9: 40000-words");
+                sb.AppendLine("10: 45000-words");
+                sb.AppendLine("11: 50000-words");
+                sb.AppendLine("0: Back to Main Menu");
+                return sb.ToString();
             case 2:// operation menu
-                WriteLine("== Select a Operation ==");
-                WriteLine("1: Insert");
-                WriteLine("2: Delete");
-                WriteLine("3: Find");
-                WriteLine("4: Print");
-                WriteLine("5: Test functions");
-                WriteLine("0: Back to File Selection");
-                break;
+                sb.AppendLine("== Operation ==");
+                sb.AppendLine("1: Insert");
+                sb.AppendLine("2: Delete");
+                sb.AppendLine("3: Find");
+                sb.AppendLine("4: Print");
+                sb.AppendLine("5: Test functions");
+                sb.AppendLine("0: Back to Select File");
+                return sb.ToString();
+            case 3: // insert method
+                sb.AppendLine("== Insert Method");
+                sb.AppendLine("1: Insert at Front");
+                sb.AppendLine("2: Insert at End");
+                sb.AppendLine("3: Insert Before");
+                sb.AppendLine("4: Insert After");
+                sb.AppendLine("0: Back to Operation");
+                return sb.ToString();
+            default: return "";
         }
     }
     static void SetStartMenu()
     {
-        bool SetOption0 = false;
-        while (!SetOption0)
+        bool set = false;
+        WriteLine(ShowMenu(0));
+        while (!set)
         {
-            ShowMenu(0);
             Write("- Enter Main Option: ");
             string? input;
             if (string.IsNullOrEmpty(input = ReadLine()?.Trim()))
             {
                 WriteLine("Empty Input");
-                continue;
             }
             else if (int.TryParse(input, out int result))
             {
                 switch (result)
                 {
                     case 0:
-                        SetOption0 = Quit();
+                        set = Quit();
                         break;
                     case 1:
+                        set = true;
+                        Clear();
                         SetFileLoadMenu();
-                        SetOption0 = true;
                         break;
                     case 2:
-                        Write("- Print Time Report, continue? (y) ");
-                        if (ReadLine()?.Trim().ToLower() == "y")
-                        {
-                            ReportTime();
-                            SetOption0 = true;
-                        }
-                        else
-                        {
-                            WriteLine("Stop printing Time Report");
-                        }
+                        Clear();
+                        set = ReportTime();
                         break;
                     default:
                         WriteLine("Invalid Number");
@@ -154,11 +177,11 @@ internal class Program
     }
     static void SetFileLoadMenu()
     {
-        listToLoad = null;
-        bool setOption1 = false;
-        while (!setOption1)
+        listToLoad = new DBLList();
+        bool set = false;
+        WriteLine(ShowMenu(1));
+        while (!set)
         {
-            ShowMenu(1);
             Write("- Select a File: ");
             string? input;
             if (string.IsNullOrEmpty(input = ReadLine()?.Trim()))
@@ -168,28 +191,27 @@ internal class Program
             else if (int.TryParse(input, out int result))
             {
                 if (result == 0)
-                {
-                    Write("- Back to Main Menu, continue? (y) ");
-                    if (ReadLine()?.Trim().ToLower() == "y")
-                    {
-                        Clear();
-                        SetStartMenu();
-                        setOption1 = true;
-                    }
+                {// back to start menu
+                    set = true;
+                    Clear();
+                    SetStartMenu();
                 }
                 else if (result > 0 && result < 12)
                 {
                     Write($"- To Load the No.{result} file? (y) ");
                     if (ReadLine()?.Trim().ToLower() == "y")
-                    {
-                        Write("Loading... ");
+                    {// go to operation menu
+                        set = true;
                         listToLoad = Load(result - 1);
+                        WriteLine("- Press any key to commit operation");
+                        ReadKey();
+                        Clear();
                         SetOpMenu(listToLoad);
-                        setOption1 = true;
                     }
                     else
-                    {
-                        WriteLine("Stop Loading");
+                    {// not enter "y", init
+                        Clear();
+                        SetFileLoadMenu();
                     }
                 }
                 else
@@ -202,16 +224,18 @@ internal class Program
                 WriteLine("Invalid Input");
             }
         }
-        WriteLine("Press any key to continue...");
-        ReadKey();
     }
+    /// <summary>
+    /// FileLoadMenu selected, show OperationMenu
+    /// </summary>
+    /// <param name="list">list loaded</param>
     static void SetOpMenu(DBLList list)
     {
-        bool SetOption2 = false;
-        while (!SetOption2)
+        bool set = false;
+        WriteLine($"Current File {list.File.Name}");
+        WriteLine(ShowMenu(2));
+        while (!set)
         {
-            ShowMenu(2);
-            WriteLine($"Current File {list.File.Name}");
             Write("- Select an Function: ");
             string? input;
             if (string.IsNullOrEmpty(input = ReadLine()?.Trim().ToLower()))
@@ -222,12 +246,13 @@ internal class Program
             {
                 switch (result)
                 {
-                    case 1: SetOption2 = Insert(list); break;
-                    case 2: SetOption2 = Delete(list); break;
-                    case 3: SetOption2 = Find(list); break;
-                    case 4: SetOption2 = Print(list); break;
-                    case 5: SetOption2 = TestFunction(list); break;
+                    case 1: set = Insert(list); break;
+                    case 2: set = Delete(list); break;
+                    case 3: set = Find(list); break;
+                    case 4: set = Print(list); break;
+                    case 5: TestFunction(list); set = true; break;
                     case 0:
+                        set = true;
                         Clear();
                         SetFileLoadMenu();
                         break;
@@ -239,33 +264,49 @@ internal class Program
                 WriteLine("Invalid Input");
             }
         }
-        WriteLine("Press any key to continue...");
+        // Repeat showing OperationMenu
+        WriteLine("Press any key to Operation Menu...");
         ReadKey();
+        Clear();
         SetOpMenu(list);
     }
-    #endregion Menu// Start Menu -> FileLoad Menu -> Op Menu
+    #endregion Menu
 
     #region Functions
-    static bool TestFunction(DBLList list)
+    static void TestFunction(DBLList list)
     {
-        WriteLine("Press any key to continue Test");
-        WriteLine("Test include Insertion, Finding, Deletion of \"Test123\" or \"#Test123\"");
+        // test insertion
+        WriteLine("- Press any key to Insert \"NewHead\" at the Front [AddAtFront Checked]");
         ReadKey();
-        WriteLine(list.Insert("Test123"));
-        WriteLine(list.Insert("Test123"));
-        WriteLine(list.Insert("#Test123"));
-        WriteLine(list.Find("Test123"));
-        WriteLine(list.Delete("Test123"));
-        WriteLine(list.Find("Test123"));
-        WriteLine(list.Delete("Test123"));
-        WriteLine("Press any key to Print the List");
+        WriteLine(list.AddAtFront("NewHead"));// test insert at front
+        WriteLine("- Press any key to Insert \"NewEnd\" at the End [AddAtEnd Checked]");
+        ReadKey();
+        WriteLine(list.AddAtEnd("NewEnd"));// test insert at end
+        WriteLine("- Press any key to Insert \"BeforeNewEnd\" Before \"NewEnd\" [AddBefore Checked]");
+        ReadKey();
+        WriteLine(list.AddBefore("BeforeNewEnd", "NewEnd"));// test insert before
+        WriteLine("- Press any key to Insert \"AfterNewHead\" After \"NewHead\" [AddAfter Checked]");
+        ReadKey();
+        WriteLine(list.AddAfter("AfterNewHead", "NewHead"));// test insert after
+        // test find
+        WriteLine("- Press any key to Find \"NewEnd\" that is inserted already [Find Checked]");
+        ReadKey();
+        WriteLine(list.Find("NewEnd"));
+        // test print
+        WriteLine("- Press any key to Print the list with 4 Insertion at Head and Tail");
         ReadKey();
         WriteLine(list.ToPrint());
-        return true;
+        // test deletion
+        WriteLine("- Press any key to Remove \"NewEnd\" [Remove Checked]");
+        ReadKey();
+        WriteLine(list.Remove("NewEnd"));
+        WriteLine("- Press any key to Print the list Without \"NewEnd\" at End");
+        ReadKey();
+        WriteLine(list.ToPrint());
     }
     static bool Quit()
     {
-        Write("- Quit the console, continue? (y) ");
+        Write("- Quit the console? (y) ");
         string? input;
         if (string.IsNullOrEmpty(input = ReadLine()?.Trim().ToLower()))
         {
@@ -286,7 +327,8 @@ internal class Program
     static bool Insert(DBLList list)
     {
         bool inserted = false;
-        while (!inserted)
+        bool stop = false;
+        while (!inserted && !stop)
         {// confirm insertion
             Write($"- Insert a new word in List? (y: yes, #: stop) ");
             string? input;
@@ -300,7 +342,7 @@ internal class Program
                 string? word;
                 if (!String.IsNullOrEmpty(word = ReadLine()))
                 {
-                    WriteLine(list.Insert(word));
+                    WriteLine(list.AddAtEnd(word));
                     inserted = true;
                 }
                 else
@@ -311,7 +353,7 @@ internal class Program
             else if (input == "#")
             {
                 WriteLine("Stop Insertion");
-                return inserted;
+                stop = true;
             }
         }
         return inserted;
@@ -333,7 +375,7 @@ internal class Program
                 string? word;
                 if (!String.IsNullOrEmpty(word = ReadLine()))
                 {
-                    WriteLine(list.Delete(word));
+                    WriteLine(list.Remove(word));
                     deleted = true;
                 }
                 else

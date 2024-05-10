@@ -1,4 +1,5 @@
-﻿using System.Runtime.InteropServices;
+﻿using System.Numerics;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Xml.Schema;
 
@@ -28,10 +29,14 @@ internal class DBLList
         Counter = 0;
     }
     #region Insert
-    private bool InsertNode(Node node)
+    private bool InsertAtEnd(Node node)
     {
         bool inserted = false;
-        if (Head == null)
+        if (node.Data.StartsWith("#"))
+        {
+            return inserted;
+        }
+        else if (Head == null)
         {
             Head = node;
             Tail = node;
@@ -43,7 +48,7 @@ internal class DBLList
             Current = Head;
             while (Current != null && !inserted)
             {
-                if (Current.Data == node.Data || node.Data.StartsWith("#"))
+                if (Current.Data == node.Data)
                 {
                     return inserted;
                 }
@@ -63,19 +68,167 @@ internal class DBLList
         }
         return inserted;
     }
-    public string Insert(string data)
+    public string AddAtEnd(string data)
     {
         Node node = new Node(data);
-        if (InsertNode(node))
+        if (InsertAtEnd(node))
         {
-            return $"Node {node.Data} Inserted as new Tail";
+            return $"Node {node} Inserted at End";
         }
         else
         {
-            return $"Node {node.Data} is Existed or Started with #";
+            return $"Node {node} Exists or Started with #";
+        }
+    }
+    private bool InsertAtFront(Node node)
+    {
+        bool inserted = false;
+        if (node.Data.StartsWith("#"))
+        {
+            return inserted;
+        }
+        else if (Head == null)
+        {
+            Head = node;
+            Tail = node;
+            Counter++;
+            inserted = true;
+        }
+        else
+        {
+            if (FindNode(node) > 0)
+            {
+                return inserted;
+            }
+            node.Next = Head;
+            Head.Prev = node;
+            Head = node;
+            Counter++;
+            inserted = true;
+        }
+        return inserted;
+    }
+    public string AddAtFront(string data)
+    {
+        Node node = new Node(data);
+        if (InsertAtFront(node))
+        {
+            return $"Node {node} Added at Front";
+        }
+        else
+        {
+            return $"Node {node} Exists or Start with #";
+        }
+    }
+    private int InsertBefore(Node node, Node target)
+    {
+        int inserted = 0;
+        if (node.Data.StartsWith("#"))
+        {
+            inserted = -1;
+        }
+        else if (Head == null)
+        {
+            inserted = -2;
+        }
+        else if (FindNode(node) > 0)
+        {
+            inserted = -3;
+        }
+        else
+        {
+            Current = Head;
+            while (Current != null && inserted == 0)
+            {
+                if (Current.Data == target.Data)
+                {
+                    node.Prev = Current.Prev;
+                    node.Next = Current;
+                    Current.Prev.Next = node;
+                    Current.Prev = node;
+                    Counter++;
+                    inserted = 1;
+                }
+                else
+                {
+                    Current = Current.Next;
+                }
+            }
+        }
+        return inserted;
+    }
+    public string AddBefore(string data, string target)
+    {
+        Node node = new Node(data);
+        Node targetNode = new Node(target);
+        switch (InsertBefore(node, targetNode))
+        {
+            case 1: return $"New node {node} Added Before {target}";
+            case 0: return $"Target {targetNode} not Existed";
+            case -1: return $"Word begin with \"#\" Not Allowed in List";
+            case -2: return $"Empty List";
+            case -3: return $"New node {node} already Existed";
+            default: return "";
+        }
+    }
+    private int InsertAfter(Node node, Node target)
+    {
+        int inserted = 0;
+        if (node.Data.StartsWith("#"))
+        {
+            inserted = -1;
+        }
+        else if (Head == null)
+        {
+            inserted = -2;
+        }
+        else if (FindNode(node) > 0)
+        {
+            inserted = -3;
+        }
+        else if (Tail.Data == target.Data)
+        {
+            InsertAtEnd(node);
+            inserted = 1;
+        }
+        else
+        {
+            Current = Head;
+            while (Current != null && inserted == 0)
+            {
+                if (Current.Data == target.Data)
+                {
+                    node.Prev = Current;
+                    node.Next = Current.Next;
+                    Current.Next.Prev = node;
+                    Current.Next = node;
+                    Counter++;
+                    inserted = 1;
+                }
+                else
+                {
+                    Current = Current.Next;
+                }
+            }
+        }
+        return inserted;
+    }
+    public string AddAfter(string data, string target)
+    {
+        Node node = new Node(data);
+        Node targetNode = new Node(target);
+        switch (InsertAfter(node, targetNode))
+        {
+            case 1: return $"New node {node} Added After {targetNode}";
+            case 0: return $"Target {targetNode} Not Existed";
+            case -1: return $"Word begin with \"#\" Not Allowed in List";
+            case -2: return "Empty List";
+            case -3: return $"New node {node} already Existed";
+            default: return "";
         }
     }
     #endregion Insert
+
     #region Delete
     private bool DeleteAtFront()
     {
@@ -96,8 +249,8 @@ internal class DBLList
         {
             Tail = Tail.Prev;
             Tail.Next = null;
-            Counter--;
             Current = Tail;
+            Counter--;
             return true;
         }
     }
@@ -111,11 +264,11 @@ internal class DBLList
         }
         else if (Head.Data == node.Data)
         {
-            DeleteAtFront();
+            deleted = DeleteAtFront();
         }
         else if (Tail.Data == node.Data)
         {
-            DeleteAtTail();
+            deleted = DeleteAtTail();
         }
         else
         {
@@ -124,7 +277,6 @@ internal class DBLList
             {
                 if (Current.Data == node.Data)
                 {
-                    if (Current == Tail)
                     node.Prev = Current;
                     node.Next = Current.Next;
                     Current.Next.Prev = node;
@@ -140,7 +292,7 @@ internal class DBLList
         }
         return deleted;
     }
-    public string Delete(string data)
+    public string Remove(string data)
     {
         Node node = new Node(data);
         if (DeleteNode(node))
@@ -153,6 +305,7 @@ internal class DBLList
         }
     }
     #endregion Delete
+
     #region Find
     private int FindNode(Node node)
     {
@@ -180,7 +333,7 @@ internal class DBLList
             }
             if (!found)
             {
-                pos = 0;
+                pos = -1;
             }
         }
         return pos;
@@ -189,13 +342,11 @@ internal class DBLList
     {
         Node node = new Node(data);
         int pos = FindNode(node);
-        if (pos == 0)
+        switch (pos)
         {
-            return $"Empty List or Non-exist Node {node.Data}";
-        }
-        else
-        {
-            return $"Node {node.Data} Found on position {pos}";
+            case 0: return "Empty List";
+            case -1: return $"Node {node} Not Existed";
+            default: return $"Node {node} Found at [{pos}]";
         }
     }
     #endregion Find
@@ -212,7 +363,7 @@ internal class DBLList
             sb.AppendLine($"== Items In Doubly Linked List [{File.Name}] ==");
             while (Current != null)
             {
-                sb.AppendLine(Current.ToString());
+                sb.AppendLine(Current.ToPrint());
                 Current = Current.Next;
             }
             sb.AppendLine($"== Print over, total count: {Counter} ==");

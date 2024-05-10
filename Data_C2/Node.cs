@@ -24,8 +24,12 @@ internal class Node
         Prev = null;
         Data = data;
     }
+    public string ToPrint()
+    {
+        return $"[Data] {Data,-20}[Length] {Length}";
+    }
     public override string ToString()
     {
-        return $"Data {Data,-20}Length {Length}";
+        return Data.ToString();
     }
 }
