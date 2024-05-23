@@ -9,6 +9,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "C1-Part 2 Sorting Algorithm
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Data_C2", "Data_C2\Data_C2.csproj", "{387BA419-9890-4A33-B00F-BCCC7E63B616}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Data_C3", "Data_C3\Data_C3.csproj", "{4C252410-3C90-4B1B-9E05-97E324EA9797}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{387BA419-9890-4A33-B00F-BCCC7E63B616}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{387BA419-9890-4A33-B00F-BCCC7E63B616}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{387BA419-9890-4A33-B00F-BCCC7E63B616}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4C252410-3C90-4B1B-9E05-97E324EA9797}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4C252410-3C90-4B1B-9E05-97E324EA9797}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4C252410-3C90-4B1B-9E05-97E324EA9797}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4C252410-3C90-4B1B-9E05-97E324EA9797}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
