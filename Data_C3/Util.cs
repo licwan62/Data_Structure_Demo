@@ -3,7 +3,13 @@
 public class Util
 {
     public static readonly int bad_int = int.MaxValue;
-    public static int GetInt(string data, int max)
+    /// <summary>
+    /// check validation for user typed option
+    /// </summary>
+    /// <param name="data">option chosen for commitment</param>
+    /// <param name="max">range for valid option number</param>
+    /// <returns>bad_int: Empty input or value out of range</returns>
+    public static int GetInt(string? data, int max)
     {
         if (string.IsNullOrEmpty(data))
         {

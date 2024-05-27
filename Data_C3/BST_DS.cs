@@ -1,16 +1,17 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Text;
 
 namespace Data_C3;
 
 internal class BST_DS
 {
-    public Node Root { get; set; }
+    public Node? Root { get; set; }
     public int Count { get; set; }
     public string Name { get; set; }
     public BST_DS()
     {
-        Name = null;
+        Name = "";
         Root = null;
         Count = 0;
     }
@@ -20,7 +21,7 @@ internal class BST_DS
         Root = null;
         Count = 0;
     }
-    #region Insert
+    #region Insert and Search
     /// <summary>
     /// Insert under the correct leaf
     /// </summary>
@@ -60,11 +61,7 @@ internal class BST_DS
     public string Add(string data)
     {
         Node node = new Node(data, data.Length);
-        if (SearchNode(Root, node) != null)
-        {
-            return $"Duplicated node {node}, Not Added!";
-        }
-        else if (node.Data.StartsWith("#"))
+        if (node.Data.StartsWith("#"))
         {
             return $"Invalid node {node} Begins with \"#\", Not Added!";
         }
@@ -74,13 +71,68 @@ internal class BST_DS
             Count++;
             return $"New node {node} Added";
         }
+        else if (SearchNode(Root, node) != null)
+        { 
+            return $"Duplicated node {node}, Not Added!";
+        }
         else
         {
             Root = InsertNode(Root, node);
             return $"New node {node} Added";
         }
     }
-    #endregion Insert
+    private Node? SearchNode(Node? current, Node node)
+    {
+        if (current != null)
+        {// have not reached a leaf 
+            if (current.Key == node.Key)
+            {// base case, find the node
+                return current;
+            }
+            else if (node.Key < current.Key)
+            {
+                return SearchNode(current.Left, node);
+            }
+            else
+            {
+                return SearchNode(current.Right, node);
+            }
+        }// reached leaf but unable to found the node
+        return null;
+    }
+    public string Find(string data)
+    {
+        Node? node = new Node(data, data.Length);
+        if (Root == null)
+        {
+            return "Empty Tree";
+        }
+        else
+        {
+            node = SearchNode(Root, node);
+            if (node == null)
+            {
+                return $"Non-Existed node \"{data}\"";
+            }
+            else
+            {
+                int depth = GetHeight(node);
+                return $"Node {node} is Found, Depth: {depth}";
+            }
+        }
+    }
+    private int GetHeight(Node current)
+    {
+        if (current != null)
+        {
+            int left = GetHeight(current.Left);
+            int right = GetHeight(current.Right);
+            int max = left > right ? left : right;
+            return max + 1;
+        }
+        return 0;
+    }
+    #endregion Insert and Search
     #region Traverse and Print
     private string InOrderTraverse(Node current)
     {
@@ -103,7 +155,7 @@ internal class BST_DS
         else
         {
             sb.AppendLine($"*** Print BSTree: {Name} ***");
-            sb.AppendLine(PostOrderTraverse(Root));
+            sb.AppendLine(InOrderTraverse(Root));
             sb.AppendLine($"*** Printed BSTree: {Name}, Words: {Count}");
         }
         return sb.ToString();
@@ -113,7 +165,7 @@ internal class BST_DS
         StringBuilder sb = new StringBuilder();
         if (current != null)
         {
-            sb.AppendLine(current.ToPrint());
+            sb.AppendLine(current.ToPrint() + "\t Depth: " + GetHeight(current));
             sb.Append(PreOrderTraverse(current.Left));
             sb.Append(PreOrderTraverse(current.Right));
         }
@@ -129,7 +181,7 @@ internal class BST_DS
         else
         {
             sb.AppendLine($"*** Print BSTree: {Name} ***");
-            sb.AppendLine(PostOrderTraverse(Root));
+            sb.AppendLine(PreOrderTraverse(Root));
             sb.AppendLine($"*** Printed BSTree: {Name}, Words: {Count}");
         }
         return sb.ToString();
@@ -161,45 +213,4 @@ internal class BST_DS
         return sb.ToString();
     }
     #endregion Traverse and Print
-    #region Find
-    private Node SearchNode(Node current, Node node)
-    {
-        if (current != null)
-        {// have not reached a leaf
-            if (current.Key == node.Key)
-            {// base case
-                return current;
-            }
-            else if (node.Key < current.Key)
-            {
-                return SearchNode(current.Left, node);
-            }
-            else
-            {
-                return SearchNode(current.Right, node);
-            }
-        }// reached leaf but unable to found the node
-        return null;
-    }
-    public string Find(string data)
-    {
-        Node node = new Node(data);
-        if (Root == null)
-        {
-            return "Empty Tree";
-        }
-        else
-        {
-            node = SearchNode(Root, node);
-            if (node == null)
-            {
-                return $"Non-Existed node {data}";
-            }
-            else
-            {
-                return $"Node {node} Found";
-            }
-        }
-    }
-    #endregion Find
 }

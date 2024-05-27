@@ -7,11 +7,11 @@ internal class Node
     public int Length { get; set; }
     public Node Left { get; set; }
     public Node Right { get; set; }
-    public Node(string data)
+    public Node()
     {
         Key = 0;
         Length = 0;
-        Data = data;
+        Data = "";
         Left = null;
         Right = null;
     }
@@ -29,6 +29,6 @@ internal class Node
     }
     public string ToPrint()
     {
-        return string.Format("{0,-20}{1,-10}", Data, Length);
+        return string.Format("{0,-20}{1,-10}{2,-10}", Data, Length, Key);
     }
 }
