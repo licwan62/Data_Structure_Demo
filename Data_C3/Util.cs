@@ -18,4 +18,18 @@ public class Util
         }
         return bad_int;
     }
+    /// <summary>
+    /// Get unique ASCII number converted from string
+    /// </summary>
+    /// <param name="data">string words</param>
+    /// <returns>ASCII number of words</returns>
+    public static int GetASCII(string data)
+    {
+        int result = 0;
+        foreach (char c in data)
+        {
+            result = result * 256 + (int)c;
+        }
+        return result;
+    }
 }

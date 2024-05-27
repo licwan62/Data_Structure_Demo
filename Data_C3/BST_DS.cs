@@ -59,7 +59,7 @@ internal class BST_DS
     }
     public string Add(string data)
     {
-        Node node = new Node(Count, data, data.Length);
+        Node node = new Node(data, data.Length);
         if (SearchNode(Root, node) != null)
         {
             return $"Duplicated node {node}, Not Added!";
@@ -165,23 +165,20 @@ internal class BST_DS
     private Node SearchNode(Node current, Node node)
     {
         if (current != null)
-        {
-            if (current.Data == node.Data)
-            {// base case: get node found
+        {// have not reached a leaf
+            if (current.Key == node.Key)
+            {// base case
                 return current;
             }
-            Node foundNode_l = SearchNode(current.Left, node);
-            Node foundNode_r = SearchNode(current.Right, node);
-            if (foundNode_l != null)
+            else if (node.Key < current.Key)
             {
-                return foundNode_l;
+                return SearchNode(current.Left, node);
             }
-            if (foundNode_r != null)
+            else
             {
-                return foundNode_r;
+                return SearchNode(current.Right, node);
             }
-            return null;
-        }
+        }// reached leaf but unable to found the node
         return null;
     }
     public string Find(string data)

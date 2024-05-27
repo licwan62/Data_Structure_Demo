@@ -1,6 +1,4 @@
-﻿using System.ComponentModel.Design;
-using System.IO;
-using System.Text;
+﻿using System.Text;
 using static System.Console;
 namespace Data_C3;
 
@@ -33,6 +31,9 @@ internal class Program
         ShowMenu_selectType();
         SelectMenu_selectType();
     }
+    /// <summary>
+    /// show menu for File type and tree type where file is loaded
+    /// </summary>
     static void ShowMenu_selectType()
     {
         StringBuilder sb = new StringBuilder();
@@ -44,24 +45,26 @@ internal class Program
         sb.AppendLine("Enter 4 - Load Random Text File into AVL Tree");
         Write(sb.ToString());
     }
+    /// <summary>
+    /// get ordered type of file and tree type where file is loaded
+    /// </summary>
     static void SelectMenu_selectType()
     {
         int maxNum = 4;
-        bool selected = false;
+        bool selected = false;// 
         while (!selected)
         {
             Write("Enter number: ");
             string? input = ReadLine();
             int value = Util.GetInt(input, maxNum);
             if (value == Util.bad_int)
-            {
+            {// wrong input
                 WriteLine("Invalid Input, Enter number 0 ~ {0}", maxNum);
             }
             else
-            {
+            {// option is chosen
                 string? confirm = "";
-                // get user input to confirm corresponding commitment
-                // set corresponding ordered type and tree type
+                // get user input to confirm commitment
                 switch (value)
                 {
                     case 0:
@@ -121,6 +124,9 @@ internal class Program
             }
         }
     }
+    /// <summary>
+    /// show list of files to get loaded
+    /// </summary>
     static void ShowMenu_loading()
     {
         StringBuilder sb = new StringBuilder();
@@ -132,6 +138,9 @@ internal class Program
         }
         Write(sb.ToString());
     }
+    /// <summary>
+    /// get corresponding file to get loaded
+    /// </summary>
     static void SelectMenu_loading()
     {
         int maxNum = 11;
@@ -146,10 +155,9 @@ internal class Program
                 WriteLine("Invalid Input, Enter number 0 ~ {0}", maxNum);
             }
             else
-            {
+            {// loading file is chosen
                 string? confirm = "";
-                // get user input to confirm corresponding commitment
-                // get corresponding file loaded
+                // get user input to confirm commitment
                 switch (value)
                 {
                     case 0:
@@ -166,27 +174,22 @@ internal class Program
                         Write($"Sure to Load {orderedType} {names[value - 1]} into {treeType}? {stopInfo}...");
                         if ((confirm = ReadLine()) != stopInput)
                         {
-                            if (ordered)
+
+                            if (ordered && balanced)
                             {
-                                if (balanced)
-                                {
-                                    // load to avl
-                                }
-                                else
-                                {
-                                    bst_DS = Load_BST(orderedPath, value - 1);
-                                }
+                                // ordered file load on avl
+                            }
+                            else if (ordered)
+                            {
+                                bst_DS = Load_BST(orderedPath, value - 1);
+                            }
+                            else if (balanced)
+                            {
+                                // random file load on avl
                             }
                             else
                             {
-                                if (balanced)
-                                {
-                                    // load to avl
-                                }
-                                else
-                                {
-                                    bst_DS = Load_BST(randomPath, value - 1);
-                                }
+                                bst_DS = Load_BST(randomPath, value - 1);
                             }
                         }
                         break;

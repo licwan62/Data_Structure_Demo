@@ -15,9 +15,9 @@ internal class Node
         Left = null;
         Right = null;
     }
-    public Node(int key, string data, int length)
+    public Node(string data, int length)
     {
-        Key = key;
+        Key = Util.GetASCII(data);
         Length = length;
         Data = data;
         Left = null;
