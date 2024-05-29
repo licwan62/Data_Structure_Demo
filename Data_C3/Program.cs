@@ -321,7 +321,7 @@ internal class Program
                     case 1: Print(); break;
                     case 2: Insert(); break;
                     case 3: Delete(); break;
-                    case 4: Find(); break;
+                    case 4: Search(); break;
                 }
             }
         }
@@ -589,10 +589,15 @@ internal class Program
         }
     }
     #endregion Delete
-    static void Find()
+
+    #region Search
+    static void Search()
     {
         
     }
+    #endregion Search
+
+    #region Load
     static BST_DS Load_BST(string path, int index)
     {
         BST_DS ds = new BST_DS();
@@ -643,4 +648,5 @@ internal class Program
         }
         return ds;
     }
+    #endregion Load
 }
