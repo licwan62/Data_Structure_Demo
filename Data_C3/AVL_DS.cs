@@ -97,12 +97,12 @@ internal class AVL_DS
         node = SearchNode(Root, node);
         if (node == null)
         {
-            return $"Non-Exist node {node}";
+            return $"Non-Exist node \"{node}\"";
         }
         else
         {
             int depth = GetHeight(node);
-            return $"Node {node} is Found, Depth: {depth}";
+            return $"Node \"{node}\" is Found, Depth: {depth}";
         }
     }
     #endregion Search
@@ -120,7 +120,7 @@ internal class AVL_DS
     {
         if (tree == null)
         {
-            return tree;
+            return null;
         }
         else if (tree.Data.CompareTo(node.Data) > 0)
         {
@@ -146,7 +146,10 @@ internal class AVL_DS
                 tree.Right = DeleteNode(tree.Right, tree);
             }
         }
-        tree = BalanceTree(tree);
+        if (tree != null)
+        {
+            tree = BalanceTree(tree);
+        }
         return tree;
     }
     public string Delete(string data)
@@ -156,11 +159,11 @@ internal class AVL_DS
         if (node != null)
         {
             Root = DeleteNode(Root, node);
-            return $"Node {node} is Deleted";
+            return $"Node \"{data}\" is Deleted";
         }
         else
         {
-            return $"Non-Existed Node {node}";
+            return $"Non-Existing Node {data}";
         }
     }
     #endregion Delete

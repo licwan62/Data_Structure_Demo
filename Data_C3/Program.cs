@@ -297,7 +297,7 @@ internal class Program
         sb.AppendLine("1 - Print");
         sb.AppendLine("2 - Insert");
         sb.AppendLine("3 - Delete");
-        sb.AppendLine("4 - Find");
+        sb.AppendLine("4 - Search");
         Write(sb.ToString());
     }
     static void GetFunction()
@@ -538,7 +538,7 @@ internal class Program
         while (true)
         {
             // 1 get new word
-            Write("- Enter your New Word: ");
+            Write("- Enter Word to delete: ");
             deleteWord = ReadLine();
             if (string.IsNullOrEmpty(deleteWord))
             {
@@ -593,7 +593,59 @@ internal class Program
     #region Search
     static void Search()
     {
-        
+        string? wordToSearch;
+        while (true)
+        {
+            // 1 get new word
+            Write("- Enter Word to Search: ");
+            wordToSearch = ReadLine();
+            if (string.IsNullOrEmpty(wordToSearch))
+            {
+                WriteLine("Empty word!");
+            }
+            else
+            {// Not Empty word
+             // 2 get confirmation
+                ConfirmToSearch(wordToSearch);
+                // returned when inserted or stopped
+                break;
+            }
+        }
+    }
+    static void ConfirmToSearch(string wordToSearch)
+    {
+        int confirmed;
+        while (true)
+        {
+            Write("- Sure to Search for \"{0}\"? {1} ", wordToSearch, inpGuide);
+            confirmed = Util.IsSure(ReadLine());
+            if (confirmed == 1)
+            {
+                // insert
+                if (balanced)
+                {
+                    if (avl_DS != null)
+                        WriteLine(avl_DS.Search(wordToSearch));
+                }
+                else
+                {
+                    if (bst_DS != null)
+                        WriteLine(bst_DS.Search(wordToSearch));
+                }
+                WriteLine("Searching Complete! Press any key to Function Menu...");
+                ReadKey();
+                break;
+            }
+            else if (confirmed == 0)
+            {
+                WriteStopMSG("Searching");
+                break;
+            }
+            else if (confirmed == -1)
+            {
+                WriteLine("Invalid Input!");
+            }
+        }
     }
     #endregion Search
 

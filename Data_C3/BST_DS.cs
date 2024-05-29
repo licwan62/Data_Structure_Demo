@@ -119,11 +119,11 @@ internal class BST_DS
         if (node != null)
         {
             Root = DeleteNode(Root, node);
-            return $"Node {node} is Deleted";
+            return $"Node \"{node}\" is Deleted";
         }
         else
         {
-            return $"Non-Existed Node {node}";
+            return $"Non-Existing Node \"{node}\"";
         }
     }
     #endregion Delete
