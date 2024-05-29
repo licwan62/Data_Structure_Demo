@@ -10,9 +10,9 @@ internal class AVL_DS
     public string Name { get; set; }
     public AVL_DS()
     {
+        Name = "";
         Root = null;
         Count = 0;
-        Name = "";
     }
     public AVL_DS(string name)
     {
@@ -28,32 +28,22 @@ internal class AVL_DS
     /// <param name="current">current root</param>
     /// <param name="node">node to insert</param>
     /// <returns></returns>
-    private Node? InsertNode(Node current, Node node)
+    private Node InsertNode(Node current, Node node)
     {
-        if (node.Key < current.Key)
+        if (current == null)
         {
-            if (current.Left == null)
-            {
-                current.Left = node;
-                Count++;
-            }
-            else
-            {
-                InsertNode(current.Left, node);
-            }
+            Count++;
+            return node;
         }
-        else if (node.Key > current.Key)
+        else if ((current.Data.CompareTo(node.Data)) > 0)
         {
-            if (current.Right == null)
-            {
-                current.Right = node;
-                Count++;
-            }
-            else
-            {
-                InsertNode(current.Right, node);
-            }
+            current.Left = InsertNode(current.Left, node);
         }
+        else
+        {
+            current.Right = InsertNode(current.Right, node);
+        }
+        current = BalanceTree(current);
         return current;
     }
     public string Add(string data)
@@ -79,15 +69,18 @@ internal class AVL_DS
             return $"New node {node} Added";
         }
     }
+    #endregion Insert
+
+    #region Search
     private Node? SearchNode(Node? current, Node node)
     {
         if (current != null)
         {
-            if (current.Key == node.Key)
+            if ((current.Data.CompareTo(node.Data)) == 0)
             {
                 return current;
             }
-            else if (current.Key < node.Key)
+            else if ((current.Data.CompareTo(node.Data)) > 0)
             {
                 return SearchNode(current.Left, node);
             }
@@ -98,7 +91,7 @@ internal class AVL_DS
         }
         return null;
     }
-    public string Find(string data)
+    public string Search(string data)
     {
         Node? node = new Node(data, data.Length);
         node = SearchNode(Root, node);
@@ -112,32 +105,93 @@ internal class AVL_DS
             return $"Node {node} is Found, Depth: {depth}";
         }
     }
-    private Node BalanceTree(Node tree)
+    #endregion Search
+
+    #region Delete
+    private string MinValue(Node node)
     {
-        int factor = BalanceFactor(tree);
+        while (node.Left != null)
+        {
+            node = node.Left;
+        }
+        return node.Data;
+    }
+    private Node DeleteNode(Node tree, Node node)
+    {
+        if (tree == null)
+        {
+            return tree;
+        }
+        else if (tree.Data.CompareTo(node.Data) > 0)
+        {
+            tree.Left = DeleteNode(tree.Left, node);
+        }
+        else if (tree.Data.CompareTo(node.Data) < 0)
+        {
+            tree.Right = DeleteNode(tree.Right, node);
+        }
+        else
+        {// node found
+            if (tree.Left == null)
+            {
+                tree = tree.Right;
+            }
+            else if (tree.Right == null)
+            {
+                tree = tree.Left;
+            }
+            else
+            {// node has 2 children 
+                tree.Data = MinValue(tree.Right);
+                tree.Right = DeleteNode(tree.Right, tree);
+            }
+        }
+        tree = BalanceTree(tree);
+        return tree;
+    }
+    public string Delete(string data)
+    {
+        Node? node = new Node(data, data.Length);
+        node = SearchNode(Root, node);
+        if (node != null)
+        {
+            Root = DeleteNode(Root, node);
+            return $"Node {node} is Deleted";
+        }
+        else
+        {
+            return $"Non-Existed Node {node}";
+        }
+    }
+    #endregion Delete
+
+    #region Balance
+    private Node BalanceTree(Node current)
+    {
+        int factor = BalanceFactor(current);
         if (factor > 1)
         {// left heavy
-            if (BalanceFactor(tree.Left) > 0)
-            {
-                tree = RotateLL(tree);
+            if (BalanceFactor(current.Left) > 0)
+            {// left sub-tree is left heavy
+                current = RotateLL(current);
             }
             else
             {
-                tree = RotateLR(tree);
+                current = RotateLR(current);
             }
         }
         else if (factor < -1)
         {// right heavy
-            if (BalanceFactor(tree.Right) > 0)
+            if (BalanceFactor(current.Right) > 0)
             {
-                tree = RotateRL(tree);
+                current = RotateRL(current);
             }
             else
             {
-                tree = RotateRR(tree);
+                current = RotateRR(current);
             }
         }
-        return tree;
+        return current;
     }
     private Node RotateLL(Node parent)
     {
@@ -156,13 +210,13 @@ internal class AVL_DS
     private Node RotateLR(Node parent)
     {
         Node pivot = parent.Left;
-        pivot = RotateRR(pivot);
+        parent.Left = RotateRR(pivot);
         return RotateLL(parent);
     }
     private Node RotateRL(Node parent)
     {
         Node pivot = parent.Right;
-        pivot = RotateLL(pivot);
+        parent.Right = RotateLL(pivot);
         return RotateRR(parent);
     }
     private int BalanceFactor(Node current)
@@ -180,7 +234,8 @@ internal class AVL_DS
         }
         return 0;
     }
-    #endregion Insert
+    #endregion Balance
+
     #region Traverse and Print
     private string InOrderTraverse(Node current)
     {
@@ -188,7 +243,7 @@ internal class AVL_DS
         if (current != null)
         {
             sb.Append(InOrderTraverse(current.Left));
-            sb.AppendLine(current.ToPrint());
+            sb.AppendLine(current.ToPrint() + " Depth: " + GetHeight(current));
             sb.Append(InOrderTraverse(current.Right));
         }
         return sb.ToString();
@@ -202,9 +257,9 @@ internal class AVL_DS
         }
         else
         {
-            sb.AppendLine($"*** Print AVL Tree: {Name} ***");
+            sb.AppendLine($"*** InOrder AVL Tree: {Name} ***");
             sb.AppendLine(InOrderTraverse(Root));
-            sb.AppendLine($"*** Printed AVL Tree: {Name}, Words: {Count}");
+            sb.AppendLine($"*** InOrder AVL Tree: {Name}, Words: {Count}");
         }
         return sb.ToString();
     }
@@ -213,7 +268,7 @@ internal class AVL_DS
         StringBuilder sb = new StringBuilder();
         if (current != null)
         {
-            sb.AppendLine(current.ToPrint() + "\t Depth: " + GetHeight(current));
+            sb.AppendLine(current.ToPrint() + " Depth: " + GetHeight(current));
             sb.Append(PreOrderTraverse(current.Left));
             sb.Append(PreOrderTraverse(current.Right));
         }
@@ -228,9 +283,9 @@ internal class AVL_DS
         }
         else
         {
-            sb.AppendLine($"*** Print AVL Tree: {Name} ***");
+            sb.AppendLine($"*** PreOrder AVL Tree: {Name} ***");
             sb.AppendLine(PreOrderTraverse(Root));
-            sb.AppendLine($"*** Printed AVl Tree: {Name}, Words: {Count}");
+            sb.AppendLine($"*** PreOrder AVl Tree: {Name}, Words: {Count}");
         }
         return sb.ToString();
     }
@@ -241,7 +296,7 @@ internal class AVL_DS
         {
             sb.Append(PostOrderTraverse(current.Left));
             sb.Append(PostOrderTraverse(current.Right));
-            sb.AppendLine(current.ToPrint());
+            sb.AppendLine(current.ToPrint() + " Depth: " + GetHeight(current));
         }
         return sb.ToString();
     }
@@ -254,9 +309,9 @@ internal class AVL_DS
         }
         else
         {
-            sb.AppendLine($"*** Print AVL Tree: {Name} ***");
+            sb.AppendLine($"*** PostOrder AVL Tree: {Name} ***");
             sb.AppendLine(PostOrderTraverse(Root));
-            sb.AppendLine($"*** Printed AVL Tree: {Name}, Words: {Count}");
+            sb.AppendLine($"*** PostOrder AVL Tree: {Name}, Words: {Count}");
         }
         return sb.ToString();
     }

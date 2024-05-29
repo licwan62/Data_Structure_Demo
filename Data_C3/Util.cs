@@ -4,10 +4,10 @@ public class Util
 {
     public static readonly int bad_int = int.MaxValue;
     /// <summary>
-    /// check validation for user typed option
+    /// check if typed number is an valid option number
     /// </summary>
-    /// <param name="data">option chosen for commitment</param>
-    /// <param name="max">range for valid option number</param>
+    /// <param name="data">typed number</param>
+    /// <param name="max">valid number range from 0</param>
     /// <returns>bad_int: Empty input or value out of range</returns>
     public static int GetInt(string? data, int max)
     {
@@ -25,17 +25,21 @@ public class Util
         return bad_int;
     }
     /// <summary>
-    /// Get unique ASCII number converted from string
+    /// get number indicate whether operation is confirmed
     /// </summary>
-    /// <param name="data">string words</param>
-    /// <returns>ASCII number of words</returns>
-    public static int GetASCII(string data)
+    /// <param name="input"></param>
+    /// <returns>1 confirmed, 0 confirmed Not, -1 invalid</returns>
+    public static int IsSure(string? input)
     {
-        int result = 0;
-        foreach (char c in data)
+        input = input.ToLower().Trim();
+        if (string.IsNullOrEmpty(input) || input == "y" || input == "yes")
         {
-            result = result * 256 + (int)c;
+            return 1;
         }
-        return result;
+        else if (input == "no" || input == "n")
+        {
+            return 0;
+        }
+        return -1;
     }
 }

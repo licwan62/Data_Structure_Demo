@@ -21,7 +21,7 @@ internal class BST_DS
         Root = null;
         Count = 0;
     }
-    #region Insert and Search
+    #region Insert
     /// <summary>
     /// Insert under the correct leaf
     /// </summary>
@@ -31,31 +31,19 @@ internal class BST_DS
     /// <returns></returns>
     private Node InsertNode(Node current, Node node)
     {
-        if (node.Key < current.Key)
+        if (current == null)
         {
-            if (current.Left == null)
-            {
-                current.Left = node;
-                Count++;
-            }
-            else
-            {
-                InsertNode(current.Left, node);
-            }
+            Count++;
+            return node;
         }
-        else if (node.Key > current.Key)
+        else if (current.Data.CompareTo(node.Data) > 0)
         {
-            if (current.Right == null)
-            {
-                current.Right = node;
-                Count++;
-            }
-            else
-            {
-                InsertNode(current.Right, node);
-            }
+            current.Left = InsertNode(current.Left, node);
         }
-        // base case: node.key == current.key
+        else
+        {
+            current.Right = InsertNode(current.Right, node);
+        }
         return current;
     }
     public string Add(string data)
@@ -72,7 +60,7 @@ internal class BST_DS
             return $"New node {node} Added";
         }
         else if (SearchNode(Root, node) != null)
-        { 
+        {
             return $"Duplicated node {node}, Not Added!";
         }
         else
@@ -81,15 +69,75 @@ internal class BST_DS
             return $"New node {node} Added";
         }
     }
+    #endregion Insert
+
+    #region Delete
+    private string MinValue(Node node)
+    {
+        while (node.Left != null)
+        {
+            node = node.Left;
+        }
+        return node.Data;
+    }
+    private Node DeleteNode(Node tree, Node node)
+    {
+        if (tree == null)
+        {
+            return tree;
+        }
+        else if (tree.Data.CompareTo(node.Data) > 0)
+        {
+            tree.Left = DeleteNode(tree.Left, node);
+        }
+        else if (tree.Data.CompareTo(node.Data) < 0)
+        {
+            tree.Right = DeleteNode(tree.Right, node);
+        }
+        else
+        {// node found
+            if (tree.Left == null)
+            {
+                tree = tree.Right;
+            }
+            else if (tree.Right == null)
+            {
+                tree = tree.Left;
+            }
+            else
+            {// node has 2 children 
+                tree.Data = MinValue(tree.Right);
+                tree.Right = DeleteNode(tree.Right, tree);
+            }
+        }
+        return tree;
+    }
+    public string Delete(string data)
+    {
+        Node? node = new Node(data, data.Length);
+        node = SearchNode(Root, node);
+        if (node != null)
+        {
+            Root = DeleteNode(Root, node);
+            return $"Node {node} is Deleted";
+        }
+        else
+        {
+            return $"Non-Existed Node {node}";
+        }
+    }
+    #endregion Delete
+
+    #region Search
     private Node? SearchNode(Node? current, Node node)
     {
         if (current != null)
         {// have not reached a leaf 
-            if (current.Key == node.Key)
+            if (current.Data.CompareTo(node.Data) == 0)
             {// base case, find the node
                 return current;
             }
-            else if (node.Key < current.Key)
+            else if (current.Data.CompareTo(node.Data) > 0)
             {
                 return SearchNode(current.Left, node);
             }
@@ -100,7 +148,7 @@ internal class BST_DS
         }// reached leaf but unable to found the node
         return null;
     }
-    public string Find(string data)
+    public string Search(string data)
     {
         Node? node = new Node(data, data.Length);
         if (Root == null)
@@ -121,18 +169,8 @@ internal class BST_DS
             }
         }
     }
-    private int GetHeight(Node current)
-    {
-        if (current != null)
-        {
-            int left = GetHeight(current.Left);
-            int right = GetHeight(current.Right);
-            int max = left > right ? left : right;
-            return max + 1;
-        }
-        return 0;
-    }
-    #endregion Insert and Search
+    #endregion Search
+    
     #region Traverse and Print
     private string InOrderTraverse(Node current)
     {
@@ -140,7 +178,7 @@ internal class BST_DS
         if (current != null)
         {
             sb.Append(InOrderTraverse(current.Left));
-            sb.AppendLine(current.ToPrint());
+            sb.AppendLine(current.ToPrint() + " Depth: " + GetHeight(current));
             sb.Append(InOrderTraverse(current.Right));
         }
         return sb.ToString();
@@ -154,9 +192,9 @@ internal class BST_DS
         }
         else
         {
-            sb.AppendLine($"*** Print BSTree: {Name} ***");
+            sb.AppendLine($"*** InOrder BSTree: {Name} ***");
             sb.AppendLine(InOrderTraverse(Root));
-            sb.AppendLine($"*** Printed BSTree: {Name}, Words: {Count}");
+            sb.AppendLine($"*** InOrder BSTree: {Name}, Words: {Count}");
         }
         return sb.ToString();
     }
@@ -165,7 +203,7 @@ internal class BST_DS
         StringBuilder sb = new StringBuilder();
         if (current != null)
         {
-            sb.AppendLine(current.ToPrint() + "\t Depth: " + GetHeight(current));
+            sb.AppendLine(current.ToPrint() + " Depth: " + GetHeight(current));
             sb.Append(PreOrderTraverse(current.Left));
             sb.Append(PreOrderTraverse(current.Right));
         }
@@ -180,9 +218,9 @@ internal class BST_DS
         }
         else
         {
-            sb.AppendLine($"*** Print BSTree: {Name} ***");
+            sb.AppendLine($"*** PreOrder BSTree: {Name} ***");
             sb.AppendLine(PreOrderTraverse(Root));
-            sb.AppendLine($"*** Printed BSTree: {Name}, Words: {Count}");
+            sb.AppendLine($"*** PreOrder BSTree: {Name}, Words: {Count}");
         }
         return sb.ToString();
     }
@@ -193,7 +231,7 @@ internal class BST_DS
         {
             sb.Append(PostOrderTraverse(current.Left));
             sb.Append(PostOrderTraverse(current.Right));
-            sb.AppendLine(current.ToPrint());
+            sb.AppendLine(current.ToPrint() + " Depth: " + GetHeight(current));
         }
         return sb.ToString();
     }
@@ -206,11 +244,23 @@ internal class BST_DS
         }
         else
         {
-            sb.AppendLine($"*** Print BSTree: {Name} ***");
+            sb.AppendLine($"*** PostOrder BSTree: {Name} ***");
             sb.AppendLine(PostOrderTraverse(Root));
-            sb.AppendLine($"*** Printed BSTree: {Name}, Words: {Count}");
+            sb.AppendLine($"*** PostOrder BSTree: {Name}, Words: {Count}");
         }
         return sb.ToString();
     }
     #endregion Traverse and Print
+    private int GetHeight(Node current)
+    {
+        if (current != null)
+        {
+            int left = GetHeight(current.Left);
+            int right = GetHeight(current.Right);
+            int max = left > right ? left : right;
+            return max + 1;
+        }
+        return 0;
+    }
+    
 }
