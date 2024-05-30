@@ -105,7 +105,7 @@ internal class AVL_DS
             return $"Node \"{node}\" is Found, Depth: {depth}";
         }
     }
-    #endregion Search
+    #endregion
 
     #region Delete
     private string MinValue(Node node)
@@ -165,8 +165,8 @@ internal class AVL_DS
         {
             return $"Non-Existing Node {data}";
         }
-    }
-    #endregion Delete
+    } 
+    #endregion
 
     #region Balance
     private Node BalanceTree(Node current)
@@ -237,7 +237,7 @@ internal class AVL_DS
         }
         return 0;
     }
-    #endregion Balance
+    #endregion
 
     #region Traverse and Print
     private string InOrderTraverse(Node current)

@@ -69,7 +69,7 @@ internal class BST_DS
             return $"New node {node} Added";
         }
     }
-    #endregion Insert
+    #endregion
 
     #region Delete
     private string MinValue(Node node)
@@ -126,7 +126,7 @@ internal class BST_DS
             return $"Non-Existing Node \"{node}\"";
         }
     }
-    #endregion Delete
+    #endregion
 
     #region Search
     private Node? SearchNode(Node? current, Node node)
@@ -250,7 +250,7 @@ internal class BST_DS
         }
         return sb.ToString();
     }
-    #endregion Traverse and Print
+    #endregion
     private int GetHeight(Node current)
     {
         if (current != null)
