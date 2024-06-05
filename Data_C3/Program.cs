@@ -21,8 +21,8 @@ internal class Program
     // indicate decided type of file and tree at loading menu
     static bool ordered = false;
     static bool balanced = false;
-    static string orderedType { get => ordered ? "Ordered" : "Random"; }
-    static string treeType { get => balanced ? "AVL" : "BST"; }
+    static string Order { get => ordered ? "Ordered" : "Random"; }
+    static string TreeType { get => balanced ? "AVL" : "BST"; }
 
     // loaded tree before function test
     static BST_DS bst_DS = null!;
@@ -88,7 +88,7 @@ internal class Program
             }
             else if (value == 5)
             {
-                bool confirmed = Check_main(value);
+                bool confirmed = Start_confirm(value);
                 if (confirmed)
                 {
                     LoadAllFiles();
@@ -110,7 +110,7 @@ internal class Program
             }
             else
             {// valid option chosen except for 5, get confirmed to continue or loop
-                bool confirmed = Check_main(value);
+                bool confirmed = Start_confirm(value);
                 if (confirmed)
                 {
                     GetFile();
@@ -126,7 +126,7 @@ internal class Program
             }
         }
     }
-    static bool Check_main(int value)
+    static bool Start_confirm(int value)
     {
         int confirmed = 0;
         while (true)
@@ -142,37 +142,37 @@ internal class Program
             }
             else if (value == 1)
             {
-                Write("- Sure to Load Ordered File into Binary Search Tree? {0} ", inpGuide);
+                Write("- Sure to Load ORDERED File into Binary Search Tree? {0} ", inpGuide);
                 if ((confirmed = Util.IsSure(ReadLine())) == 1)
                 {
                     ordered = true;
                     balanced = false;
-                    WriteLine("RANDOM file Loaded(AVL)");
+                    WriteLine("ORDERED file Loaded(BST)");
                 }
             }
             else if (value == 2)
             {
-                Write("- Sure to Load Random File into Binary Search Tree? {0} ", inpGuide);
+                Write("- Sure to Load RANDOM File into Binary Search Tree? {0} ", inpGuide);
                 if ((confirmed = Util.IsSure(ReadLine())) == 1)
                 {
                     ordered = false;
                     balanced = false;
-                    WriteLine("RANDOM file Loaded(AVL)");
+                    WriteLine("RANDOM file Loaded(BST)");
                 }
             }
             else if (value == 3)
             {
-                Write("- Sure to Load Ordered File into AVL Tree? {0} ", inpGuide);
+                Write("- Sure to Load ORDERED File into AVL Tree? {0} ", inpGuide);
                 if ((confirmed = Util.IsSure(ReadLine())) == 1)
                 {
                     ordered = true;
                     balanced = true;
-                    WriteLine("RANDOM file Loaded(AVL)");
+                    WriteLine("ORDERED file Loaded(AVL)");
                 }
             }
             else if (value == 4)
             {
-                Write("- Sure to Load Random File into AVL Tree? {0} ", inpGuide);
+                Write("- Sure to Load RANDOM File into AVL Tree? {0} ", inpGuide);
                 if ((confirmed = Util.IsSure(ReadLine())) == 1)
                 {
                     ordered = false;
@@ -207,7 +207,7 @@ internal class Program
         Clear();
         StringBuilder sb = new StringBuilder();
         sb.AppendLine($"***** Loading Menu *****");
-        sb.AppendLine($"Current File Order: {orderedType}, Current Tree Structure: {treeType}");
+        sb.AppendLine($"Current File Order: {Order}, Current Tree Structure: {TreeType}");
         sb.AppendLine("Choose the File to get loaded on the Tree");
         sb.AppendLine("0  - Back to Main Menu");
         for (int i = 0; i < fileNum; i++)
@@ -264,7 +264,7 @@ internal class Program
     {
         while (true)
         {
-            Write($"- Sure to Load {orderedType} {fileNames[value - 1]} on {treeType}? {inpGuide} ");
+            Write($"- Sure to Load {Order} {fileNames[value - 1]} on {TreeType}? {inpGuide} ");
             int confirmed = Util.IsSure(ReadLine());
             if (confirmed == 1)
             {// get confirmed to load selected file 
@@ -284,7 +284,7 @@ internal class Program
                 {// random file on avl
                     bst_DS = Load_BST(randomPath, value - 1);
                 }// corresponding file is loaded
-                WriteLine("File Loading Complete!");
+                WriteLine("FILE LOADING COMPLETED!");
                 return true;
             }
             else if (confirmed == 0)
@@ -306,17 +306,18 @@ internal class Program
         Clear();
         StringBuilder sb = new StringBuilder();
         sb.AppendLine("***** Function Menu *****");
-        sb.AppendLine($"Current File {orderedType}_{fileToLoad.Name}, Current Tree Structure: {treeType}");
+        sb.AppendLine($"Current File {Order}_{fileToLoad.Name}, Current Tree Structure: {TreeType}");
         sb.AppendLine("0 - Back to Loading Menu");
         sb.AppendLine("1 - Print");
         sb.AppendLine("2 - Insert");
         sb.AppendLine("3 - Delete");
         sb.AppendLine("4 - Search");
+        sb.AppendLine("5 - Function Test");
         Write(sb.ToString());
     }
     static void GetFunction()
     {
-        int maxNum = 4;
+        int maxNum = 5;
 
         PrintMenu_function();
         while (true)
@@ -332,20 +333,41 @@ internal class Program
             {
                 return;
             }
+            else if (value == 1)
+            {
+                bool confirmed = Print_confirm();
+                if (confirmed)
+                {
+                    Print();
+                    WriteLine("PRINTING COMPLETED!");
+                }
+            }
+            else if (value == 2)
+            {
+                Insert();
+            }
+            else if (value == 3)
+            {
+                Delete();
+            }
+            else if (value == 4)
+            {
+                //SEARCH
+            }
             else
             {
-                switch (value)
+                bool confirmed = FunctionTest_confirm();
+                if (confirmed)
                 {
-                    case 1: Print(); break;
-                    case 2: Insert(); break;
-                    case 3: Delete(); break;
-                    case 4: Search(); break;
+                    FunctionTest();
+                    WriteLine("FUNCTION TEST COMPLETED!");
                 }
-                // get function again
-                WriteLine("Press any key to continue...");
-                ReadKey();
-                PrintMenu_function();
             }
+
+            // get function again
+            Write("Press any key to continue...");
+            ReadLine();
+            PrintMenu_function();
         }
     }
     #endregion Function Menu
@@ -356,17 +378,34 @@ internal class Program
         Clear();
         StringBuilder sb = new StringBuilder();
         sb.AppendLine("***** Print Order *****");
-        sb.AppendLine($"Current File {orderedType}_{fileToLoad.Name}, Current Tree Structure: {treeType}");
+        sb.AppendLine($"Current File {Order}_{fileToLoad.Name}, Current Tree Structure: {TreeType}");
         sb.AppendLine("0 - Return to Function Menu");
         sb.AppendLine("1 - Inorder");
         sb.AppendLine("2 - Preorder");
         sb.AppendLine("3 - Postorder");
         Write(sb.ToString());
     }
-    /// <summary>
-    /// 1 get print order
-    /// 2 get confirmation
-    /// </summary>
+    static bool Print_confirm()
+    {
+        while (true)
+        {
+            Write("- Sure to Print tree? (Current Tree: {0}) {1}", TreeType, inpGuide);
+            int confirmed = Util.IsSure(ReadLine());
+            if (confirmed == 1)
+            {
+                return true;
+            }
+            else if (confirmed == 0)
+            {
+                WriteLine("STOP PRINTING!");
+                return false;
+            }
+            else if (confirmed == -1)
+            {
+                WriteLine("INVALID INPUT!");
+            }
+        }
+    }
     static void Print()
     {
         int maxNum = 3;
@@ -386,81 +425,41 @@ internal class Program
                 WriteLine("STOP PRINTING!");
                 return;
             }
-            else
-            {// 2 get confirmation
-                Check_print(orderNum);
-                // returned whether printed or cancelled
-                return;
-            }
-        }
-    }
-    static void Check_print(int orderNum)
-    {
-        int confirmed = 0;
-        while (true)
-        {
-            if (orderNum == 1)
-            {// inorder
-                Write("- Sure to Print the tree in InOrder? {0} ", inpGuide);
-                if ((confirmed = Util.IsSure(ReadLine())) == 1)
+            else if (orderNum == 1)
+            {
+                if (balanced)
                 {
-                    if (balanced)
-                    {
-                        if (avl_DS != null)
-                            Write(avl_DS.InOrderPrint());
-                    }
-                    else
-                    {
-                        if (bst_DS != null)
-                            Write(bst_DS.InOrderPrint());
-                    }
-                    return;
+                    WriteLine(avl_DS.InOrderPrint());
                 }
+                else
+                {
+                    WriteLine(bst_DS.InOrderPrint());
+                }
+                return;
             }
             else if (orderNum == 2)
-            {// preorder
-                Write("- Sure to Print the tree in PreOrder? {0} ", inpGuide);
-                if ((confirmed = Util.IsSure(ReadLine())) == 1)
-                {
-                    if (balanced)
-                    {
-                        if (avl_DS != null)
-                            Write(avl_DS.PreOrderPrint());
-                    }
-                    else
-                    {
-                        if (bst_DS != null)
-                            Write(bst_DS.PreOrderPrint());
-                    }
-                    return;
-                }
-            }
-            else if (orderNum == 3)
-            {// postorder
-                Write("- Sure to Print the tree in PostOrder? {0} ", inpGuide);
-                if ((confirmed = Util.IsSure(ReadLine())) == 1)
-                {
-                    if (balanced)
-                    {
-                        if (avl_DS != null)
-                            Write(avl_DS.PostOrderPrint());
-                    }
-                    else
-                    {
-                        if (bst_DS != null)
-                            Write(bst_DS.PostOrderPrint());
-                    }
-                    return;
-                }
-            }
-            if (confirmed == 0)
             {
-                WriteLine("STOP PRINTING!");
+                if (balanced)
+                {
+                    WriteLine(avl_DS.PreOrderPrint());
+                }
+                else
+                {
+                    WriteLine(bst_DS.PreOrderPrint());
+                }
                 return;
             }
-            else if (confirmed == -1)
+            else
             {
-                WriteLine("INVALID INPUT!");
+                if (balanced)
+                {
+                    WriteLine(avl_DS.PostOrderPrint());
+                }
+                else
+                {
+                    WriteLine(bst_DS.PostOrderPrint());
+                }
+                return;
             }
         }
     }
@@ -482,13 +481,24 @@ internal class Program
             else
             {// Not Empty word
              // 2 get confirmation
-                Check_insert(newWord);
+                bool toInsert = Insert_confirm(newWord);
+                if (toInsert)
+                {
+                    if (balanced)
+                    {
+                        WriteLine(avl_DS.Add(newWord));
+                    }
+                    else
+                    {
+                        WriteLine(bst_DS.Add(newWord));
+                    }
+                }
                 // returned when inserted or stopped
                 return;
             }
         }
     }
-    static void Check_insert(string newWord)
+    static bool Insert_confirm(string newWord)
     {
         int confirmed;
         while (true)
@@ -497,22 +507,12 @@ internal class Program
             confirmed = Util.IsSure(ReadLine());
             if (confirmed == 1)
             {
-                if (balanced)
-                {
-                    if (avl_DS != null)
-                        WriteLine(avl_DS.Add(newWord));
-                }
-                else
-                {
-                    if (bst_DS != null)
-                        WriteLine(bst_DS.Add(newWord));
-                }
-                return;
+                return true;
             }
             else if (confirmed == 0)
             {
                 WriteLine("STOP INSERTING!");
-                return;
+                return false;
             }
             else if (confirmed == -1)
             {
@@ -553,16 +553,13 @@ internal class Program
             confirmed = Util.IsSure(ReadLine());
             if (confirmed == 1)
             {
-                // insert
                 if (balanced)
                 {
-                    if (avl_DS != null)
-                        WriteLine(avl_DS.Delete(deleteWord));
+                    WriteLine(avl_DS.Delete(deleteWord));
                 }
                 else
                 {
-                    if (bst_DS != null)
-                        WriteLine(bst_DS.Delete(deleteWord));
+                    WriteLine(bst_DS.Delete(deleteWord));
                 }
                 WriteLine("Deleting Complete! Press any key to Function Menu...");
                 ReadKey();
@@ -614,13 +611,11 @@ internal class Program
             {
                 if (balanced)
                 {
-                    if (avl_DS != null)
-                        WriteLine(avl_DS.Search(wordToSearch));
+                    WriteLine(avl_DS.Search(wordToSearch));
                 }
                 else
                 {
-                    if (bst_DS != null)
-                        WriteLine(bst_DS.Search(wordToSearch));
+                    WriteLine(bst_DS.Search(wordToSearch));
                 }
                 WriteLine("Searching Complete! Press any key to Function Menu...");
                 ReadKey();
@@ -639,6 +634,81 @@ internal class Program
     }
     #endregion
 
+    #region Function Test
+    static bool FunctionTest_confirm()
+    {
+        while (true)
+        {
+            Write("- Sure to do Function Test? (Current File: {0}) {1}", Order + fileToLoad.Name, inpGuide);
+            int confirmed = Util.IsSure(ReadLine());
+            if (confirmed == 1)
+            {
+                return true;
+            }
+            else if (confirmed == 0)
+            {
+                WriteLine("STOP FUNCTION TEXT!");
+                return false;
+            }
+            else if (confirmed == -1)
+            {
+                WriteLine("INVALID INPUT!");
+            }
+        }
+    }
+    static void FunctionTest()
+    {
+        string testWord = "Licheng";
+        Write("- Press any key to Insert \"{0}\" into this {1}...", testWord, TreeType);
+        ReadLine();
+
+        if (balanced)
+        {
+            WriteLine(avl_DS.Add(testWord));
+        }
+        else
+        {
+            WriteLine(bst_DS.Add(testWord));
+        }
+
+        Write("- Press any key to Find {0}...", testWord);
+        ReadLine();
+
+        if (balanced)
+        {
+            WriteLine(avl_DS.Search(testWord));
+        }
+        else
+        {
+            WriteLine(bst_DS.Search(testWord));
+        }
+
+        Write("- Press any key to Delete {0}...", testWord);
+        ReadLine();
+
+        if (balanced)
+        {
+            WriteLine(avl_DS.Delete(testWord));
+        }
+        else
+        {
+            WriteLine(bst_DS.Delete(testWord));
+        }
+
+        Write("- Press any key to Find {0} ({1} has been Deleted)...", testWord, testWord);
+        ReadLine();
+
+        if (balanced)
+        {
+            WriteLine(avl_DS.Search(testWord));
+        }
+        else
+        {
+            WriteLine(bst_DS.Search(testWord));
+        }
+    }
+    #endregion
+
     #region Load
     static BST_DS Load_BST(string path, int index)
     {
@@ -648,15 +718,15 @@ internal class Program
         {
             FileInfo[] fileInfos = dirInfo.GetFiles().OrderBy(f => f.Length).ToArray();
             fileToLoad = fileInfos[index];
-            ds.Name = orderedType + "_" + fileToLoad.Name;
+            ds.Name = Order + "_" + fileToLoad.Name;
             StreamReader sr = fileToLoad.OpenText();
             string? line;
-            Write($"{orderedType}_{fileToLoad.Name} is Loading on {treeType}... ");
+            Write($"{Order}_{fileToLoad.Name} is Loading on {TreeType}... ");
             while ((line = sr.ReadLine()) != null)
             {
                 ds.Add(line);
             }
-            WriteLine($"Complete! {treeType} Contain {ds.Count} words");
+            WriteLine($"Complete! {TreeType} Contain {ds.Count} words");
         }
         else
         {
@@ -673,16 +743,16 @@ internal class Program
             // get the file
             FileInfo[] fileInfos = dirInfo.GetFiles().OrderBy(f => f.Length).ToArray();
             fileToLoad = fileInfos[index];
-            ds.Name = orderedType + "_" + fileToLoad.Name;
+            ds.Name = Order + "_" + fileToLoad.Name;
             // add words into avl tree
-            Write($"{orderedType}_{fileToLoad.Name} is Loading on {treeType}...");
+            Write($"{Order}_{fileToLoad.Name} is Loading on {TreeType}...");
             StreamReader sr = fileToLoad.OpenText();
             string? line;
             while ((line = sr.ReadLine()) != null)
             {
                 ds.Add(line);
             }
-            WriteLine($"Complete! {treeType} Contain {ds.Count} words");
+            WriteLine($"Complete! {TreeType} Contain {ds.Count} words");
         }
         else
         {
