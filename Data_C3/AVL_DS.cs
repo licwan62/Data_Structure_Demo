@@ -20,6 +20,7 @@ internal class AVL_DS
         Root = null;
         Count = 0;
     }
+
     #region Insert
     /// <summary>
     /// Traverse tree, return at null child
@@ -51,25 +52,26 @@ internal class AVL_DS
         Node node = new Node(data, data.Length);
         if (node.Data.StartsWith("#"))
         {
-            return $"Invalid node {node} Begins with \"#\", Not Added!";
+            return $"Invalid node \"{node}\" Begins with \"#\", Not Added!";
         }
         else if (Root == null)
         {
             Root = node;
             Count++;
-            return $"New node {node} Added";
+            return $"New node \"{node}\" Added";
         }
         else if (SearchNode(Root, node) != null)
         {
-            return $"Duplicated node {node}, Not Added!";
+            return $"Duplicated node \"{node}\", Not Added!";
         }
         else
         {
             Root = InsertNode(Root, node);
-            return $"New node {node} Added";
+            return $"New node \"{node}\" Added";
         }
     }
     #endregion
+
     #region Search
     private Node? SearchNode(Node? current, Node node)
     {
@@ -106,13 +108,14 @@ internal class AVL_DS
             }
             else
             {
-                return $"Node {node} is Found, " +
+                return $"Node \"{node}\" is Found, " +
                     $"Height: {GetHeight(node)}, " +
                     $"Depth: {GetDepth(Root, node, 0)}";
             }
         }
     }
     #endregion
+
     #region Delete
     private string MinValue(Node node)
     {
@@ -173,6 +176,7 @@ internal class AVL_DS
         }
     }
     #endregion
+
     #region Balance
     private Node BalanceTree(Node current)
     {
@@ -232,6 +236,7 @@ internal class AVL_DS
         return GetHeight(current.Left) - GetHeight(current.Right);
     }
     #endregion
+
     #region Traverse and Print
     private string InOrderTraverse(Node current)
     {
@@ -312,6 +317,7 @@ internal class AVL_DS
         return sb.ToString();
     }
     #endregion
+
     private int GetHeight(Node node)
     {
         if (node != null)

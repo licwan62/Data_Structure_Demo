@@ -333,41 +333,51 @@ internal class Program
             {
                 return;
             }
-            else if (value == 1)
-            {
-                bool confirmed = Print_confirm();
-                if (confirmed)
-                {
-                    Print();
-                    WriteLine("PRINTING COMPLETED!");
-                }
-            }
-            else if (value == 2)
-            {
-                Insert();
-            }
-            else if (value == 3)
-            {
-                Delete();
-            }
-            else if (value == 4)
-            {
-                //SEARCH
-            }
             else
             {
-                bool confirmed = FunctionTest_confirm();
-                if (confirmed)
+                bool confirmed;
+                if (value == 1)
                 {
-                    FunctionTest();
-                    WriteLine("FUNCTION TEST COMPLETED!");
+                    if (confirmed = Print_confirm())
+                    {
+                        Print();
+                        WriteLine("PRINTING COMPLETED!");
+                    }
                 }
+                else if (value == 2)
+                {
+                    if (confirmed = Insert_confirm())
+                    {
+                        Insert();
+                    }
+                }
+                else if (value == 3)
+                {
+                    if (confirmed = Delete_confirm())
+                    {
+                        Delete();
+                    }
+                }
+                else if (value == 4)
+                {
+                    if (confirmed = Search_confirm())
+                    {
+                        Search();
+                        WriteLine("SEARCHING COMPLETED!");
+                    }
+                }
+                else
+                {
+                    if (confirmed = FunctionTest_confirm())
+                    {
+                        FunctionTest();
+                        WriteLine("FUNCTION TEST COMPLETED!");
+                    }
+                }
+                Write("- Press any key to continue...");
+                ReadLine();
+                PrintMenu_function();
             }
-
-            // get function again
-            Write("Press any key to continue...");
-            ReadLine();
-            PrintMenu_function();
         }
     }
     #endregion Function Menu
@@ -481,30 +491,24 @@ internal class Program
             }
             else
             {// Not Empty word
-             // 2 get confirmation
-                bool toInsert = Insert_confirm(newWord);
-                if (toInsert)
+                if (balanced)
                 {
-                    if (balanced)
-                    {
-                        WriteLine(avl_DS.Add(newWord));
-                    }
-                    else
-                    {
-                        WriteLine(bst_DS.Add(newWord));
-                    }
+                    WriteLine(avl_DS.Add(newWord));
                 }
-                // returned when inserted or stopped
+                else
+                {
+                    WriteLine(bst_DS.Add(newWord));
+                }
                 return;
             }
         }
     }
-    static bool Insert_confirm(string newWord)
+    static bool Insert_confirm()
     {
         int confirmed;
         while (true)
         {
-            Write("- Sure to Insert \"{0}\"? {1} ", newWord, inpGuide);
+            Write("- Sure to Insert? {0} ", inpGuide);
             confirmed = Util.IsSure(ReadLine());
             if (confirmed == 1)
             {
@@ -538,32 +542,24 @@ internal class Program
             }
             else
             {// Not Empty word
-             // 2 get confirmation
-                bool toDelete = Delete_confirm(deleteWord);
-                if (toDelete)
+                if (balanced)
                 {
-                    if (balanced)
-                    {
-                        WriteLine(avl_DS.Delete(deleteWord));
-                    }
-                    else
-                    {
-                        WriteLine(bst_DS.Delete(deleteWord));
-                    }
-                    WriteLine("Deleting Complete!");
-                    Write("Press any key to continue...");
-                    ReadLine();
+                    WriteLine(avl_DS.Delete(deleteWord));
+                }
+                else
+                {
+                    WriteLine(bst_DS.Delete(deleteWord));
                 }
                 return;
             }
         }
     }
-    static bool Delete_confirm(string deleteWord)
+    static bool Delete_confirm()
     {
         int confirmed;
         while (true)
         {
-            Write("- Sure to Delete \"{0}\"? {1} ", deleteWord, inpGuide);
+            Write("- Sure to Delete? {0} ", inpGuide);
             confirmed = Util.IsSure(ReadLine());
             if (confirmed == 1)
             {
@@ -596,31 +592,24 @@ internal class Program
             }
             else
             {// Not Empty word
-                bool toSearch = Search_confirm(wordToSearch);
-                if (toSearch)
+                if (balanced)
                 {
-                    if (balanced)
-                    {
-                        WriteLine(avl_DS.Search(wordToSearch));
-                    }
-                    else
-                    {
-                        WriteLine(bst_DS.Search(wordToSearch));
-                    }
-                    WriteLine("Searching Complete!");
-                    Write("Press any key to continue...");
-                    ReadLine();
+                    WriteLine(avl_DS.Search(wordToSearch));
+                }
+                else
+                {
+                    WriteLine(bst_DS.Search(wordToSearch));
                 }
                 return;
             }
         }
     }
-    static bool Search_confirm(string wordToSearch)
+    static bool Search_confirm()
     {
         int confirmed;
         while (true)
         {
-            Write("- Sure to Search for \"{0}\"? {1} ", wordToSearch, inpGuide);
+            Write("- Sure to Search? {0} ", inpGuide);
             confirmed = Util.IsSure(ReadLine());
             if (confirmed == 1)
             {

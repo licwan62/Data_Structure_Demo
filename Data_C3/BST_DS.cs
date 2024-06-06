@@ -45,22 +45,22 @@ internal class BST_DS
         Node node = new Node(data, data.Length);
         if (node.Data.StartsWith("#"))
         {
-            return $"Invalid node {node} Begins with \"#\", Not Added!";
+            return $"Invalid node \"{node}\" Begins with \"#\", Not Added!";
         }
         else if (Root == null)
         {
             Root = node;
             Count++;
-            return $"New node {node} Added";
+            return $"New node \"{node}\" Added";
         }
         else if (SearchNode(Root, node) != null)
         {
-            return $"Duplicated node {node}, Not Added!";
+            return $"Duplicated node \"{node}\", Not Added!";
         }
         else
         {
             Root = InsertNode(Root, node);
-            return $"New node {node} Added";
+            return $"New node \"{node}\" Added";
         }
     }
     #endregion
@@ -113,11 +113,11 @@ internal class BST_DS
         if (node != null)
         {
             Root = DeleteNode(Root, node);
-            return $"Node \"{node}\" is Deleted";
+            return $"Node \"{data}\" is Deleted";
         }
         else
         {
-            return $"Non-Existing Node \"{node}\"";
+            return $"Non-Existing Node \"{data}\"";
         }
     }
     #endregion
@@ -152,14 +152,13 @@ internal class BST_DS
         else
         {
             node = SearchNode(Root, node);
-            int depth = 1;
             if (node == null)
             {
                 return $"Non-Existed node \"{data}\"";
             }
             else
             {
-                return $"Node {node} is Found, " +
+                return $"Node \"{node}\" is Found, " +
                     $"Height: {GetHeight(node)}, " +
                     $"Depth: {GetDepth(Root, node, 0)}";
             }
