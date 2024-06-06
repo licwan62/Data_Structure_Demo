@@ -65,7 +65,8 @@ internal class Program
         sb.AppendLine("3 - Load ORDERED File into AVL");
         sb.AppendLine("4 - Load RANDOM File into AVL");
         sb.AppendLine("5 - Load all file and Get Time Report");
-        Write(sb.ToString());
+        sb.AppendLine("***** Main Menu *****");
+        WriteLine(sb.ToString());
     }
     /// <summary>
     /// select on Main Menu
@@ -96,7 +97,7 @@ internal class Program
                     Write("Press any key to continue...");
                     ReadLine();
 
-                    GetTimeReport();
+                    GetTimeReport_insertion();
                     // returned when back from time report menu
                     PrintMenu_main();
                 }
@@ -213,7 +214,8 @@ internal class Program
         {
             sb.AppendLine($"{i + 1} - {fileNames[i]}");
         }
-        Write(sb.ToString());
+        sb.AppendLine($"***** Loading Menu *****");
+        WriteLine(sb.ToString());
     }
     static void GetFile()
     {
@@ -313,7 +315,8 @@ internal class Program
         sb.AppendLine("3 - Delete");
         sb.AppendLine("4 - Search");
         sb.AppendLine("5 - Function Test");
-        Write(sb.ToString());
+        sb.AppendLine("***** Function Menu *****");
+        WriteLine(sb.ToString());
     }
     static void GetFunction()
     {
@@ -393,7 +396,8 @@ internal class Program
         sb.AppendLine("1 - Inorder");
         sb.AppendLine("2 - Preorder");
         sb.AppendLine("3 - Postorder");
-        Write(sb.ToString());
+        sb.AppendLine("***** Print Order *****");
+        WriteLine(sb.ToString());
     }
     static void Print()
     {
@@ -820,15 +824,16 @@ internal class Program
     {
         Clear();
         StringBuilder sb = new StringBuilder();
-        sb.AppendLine("***** Comparison Menu *****");
+        sb.AppendLine("***** Time Report Menu *****");
         sb.AppendLine("0 - Back to Main Menu");
         sb.AppendLine("1 - Both on BST, Times for loading each ORDERED file compare to RANDOM file");
         sb.AppendLine("2 - Both on AVL, Times for loading each ORDERED file compare to RANDOM file");
         sb.AppendLine("3 - Both loading ORDERED file, Times for loading on BST compare with on AVL");
         sb.AppendLine("4 - Both loading RANDOM file, Times for loading on BST compare with on AVL");
-        Write(sb.ToString());
+        sb.AppendLine("***** Time Report Menu *****");
+        WriteLine(sb.ToString());
     }
-    static void GetTimeReport()
+    static void GetTimeReport_insertion()
     {
         PrintMenu_timeReport();
         int maxNum = 4;
@@ -850,19 +855,19 @@ internal class Program
                 bool toReport = GetTimeReport_confirm(value);
                 if (value == 1)
                 {
-                    PrintTimeComparison("ordered_BST", "random_BST", ordered_BST, random_BST);
+                    PrintTimeReport("ordered_BST", "random_BST", ordered_BST, random_BST);
                 }
                 else if (value == 2)
                 {
-                    PrintTimeComparison("ordered_AVL", "random_AVL", ordered_AVL, random_AVL);
+                    PrintTimeReport("ordered_AVL", "random_AVL", ordered_AVL, random_AVL);
                 }
                 else if (value == 3)
                 {
-                    PrintTimeComparison("ordered_BST", "ordered_AVL", ordered_BST, ordered_AVL);
+                    PrintTimeReport("ordered_BST", "ordered_AVL", ordered_BST, ordered_AVL);
                 }
                 else if (value == 4)
                 {
-                    PrintTimeComparison("random_BST", "random_AVL", random_BST, random_AVL);
+                    PrintTimeReport("random_BST", "random_AVL", random_BST, random_AVL);
                 }
                 WriteLine("Press any key to continue...");
                 ReadLine();
@@ -870,6 +875,10 @@ internal class Program
                 PrintMenu_timeReport();
             }
         }
+    }
+    static void GetTimeReport_searching()
+    {
+        PrintMenu_timeReport();
     }
     static bool GetTimeReport_confirm(int value)
     {
@@ -912,7 +921,7 @@ internal class Program
             }
         }
     }
-    static void PrintTimeComparison(string left, string right, TimeSpan[] times_left, TimeSpan[] times_right)
+    static void PrintTimeReport(string left, string right, TimeSpan[] times_left, TimeSpan[] times_right)
     {
         StringBuilder sb = new StringBuilder();
         sb.AppendLine("***** Print Loading Time against Words *****");
@@ -924,5 +933,5 @@ internal class Program
         }
         Write(sb.ToString());
     }
-}
 #endregion
+}
