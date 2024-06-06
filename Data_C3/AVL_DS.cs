@@ -69,18 +69,17 @@ internal class AVL_DS
             return $"New node {node} Added";
         }
     }
-    #endregion Insert
-
+    #endregion
     #region Search
     private Node? SearchNode(Node? current, Node node)
     {
         if (current != null)
-        {
-            if ((current.Data.CompareTo(node.Data)) == 0)
-            {
+        {// have not reached a leaf 
+            if (current.Data.CompareTo(node.Data) == 0)
+            {// base case, find the node
                 return current;
             }
-            else if ((current.Data.CompareTo(node.Data)) > 0)
+            else if (current.Data.CompareTo(node.Data) > 0)
             {
                 return SearchNode(current.Left, node);
             }
@@ -88,25 +87,32 @@ internal class AVL_DS
             {
                 return SearchNode(current.Right, node);
             }
-        }
-        return null;
+        }// reached leaf but unable to found the node
+        return current;
     }
     public string Search(string data)
     {
         Node? node = new Node(data, data.Length);
-        node = SearchNode(Root, node);
-        if (node == null)
+        if (Root == null)
         {
-            return $"Non-Exist node \"{node}\"";
+            return "Empty Tree";
         }
         else
         {
-            int depth = GetHeight(node);
-            return $"Node \"{node}\" is Found, Depth: {depth}";
+            node = SearchNode(Root, node);
+            if (node == null)
+            {
+                return $"Non-Existed node \"{data}\"";
+            }
+            else
+            {
+                return $"Node {node} is Found, " +
+                    $"Height: {GetHeight(node)}, " +
+                    $"Depth: {GetDepth(Root, node, 0)}";
+            }
         }
     }
     #endregion
-
     #region Delete
     private string MinValue(Node node)
     {
@@ -116,7 +122,7 @@ internal class AVL_DS
         }
         return node.Data;
     }
-    private Node DeleteNode(Node tree, Node node)
+    private Node DeleteNode(Node? tree, Node node)
     {
         if (tree == null)
         {
@@ -155,19 +161,18 @@ internal class AVL_DS
     public string Delete(string data)
     {
         Node? node = new Node(data, data.Length);
-        node = SearchNode(Root, node);
+        node = DeleteNode(Root, node);
         if (node != null)
         {
             Root = DeleteNode(Root, node);
-            return $"Node \"{data}\" is Deleted";
+            return $"Node \"{node}\" is Deleted at Height {GetHeight(node)}";
         }
         else
         {
-            return $"Non-Existing Node {data}";
+            return $"Non-Existing Node \"{node}\"";
         }
-    } 
+    }
     #endregion
-
     #region Balance
     private Node BalanceTree(Node current)
     {
@@ -226,19 +231,7 @@ internal class AVL_DS
     {
         return GetHeight(current.Left) - GetHeight(current.Right);
     }
-    private int GetHeight(Node current)
-    {
-        if (current != null)
-        {
-            int left = GetHeight(current.Left);
-            int right = GetHeight(current.Right);
-            int max = left > right ? left : right;
-            return max + 1;
-        }
-        return 0;
-    }
     #endregion
-
     #region Traverse and Print
     private string InOrderTraverse(Node current)
     {
@@ -246,7 +239,7 @@ internal class AVL_DS
         if (current != null)
         {
             sb.Append(InOrderTraverse(current.Left));
-            sb.AppendLine(current.ToPrint() + " Depth: " + GetHeight(current));
+            sb.AppendLine(current.ToPrint() + " Height: " + GetHeight(current) + "\tDepth: " + GetDepth(Root, current, 0));
             sb.Append(InOrderTraverse(current.Right));
         }
         return sb.ToString();
@@ -271,7 +264,7 @@ internal class AVL_DS
         StringBuilder sb = new StringBuilder();
         if (current != null)
         {
-            sb.AppendLine(current.ToPrint() + " Depth: " + GetHeight(current));
+            sb.AppendLine(current.ToPrint() + " Height: " + GetHeight(current) + "\tDepth: " + GetDepth(Root, current, 0));
             sb.Append(PreOrderTraverse(current.Left));
             sb.Append(PreOrderTraverse(current.Right));
         }
@@ -299,7 +292,7 @@ internal class AVL_DS
         {
             sb.Append(PostOrderTraverse(current.Left));
             sb.Append(PostOrderTraverse(current.Right));
-            sb.AppendLine(current.ToPrint() + " Depth: " + GetHeight(current));
+            sb.AppendLine(current.ToPrint() + " Height: " + GetHeight(current) + "\tDepth: " + GetDepth(Root, current, 0));
         }
         return sb.ToString();
     }
@@ -318,5 +311,35 @@ internal class AVL_DS
         }
         return sb.ToString();
     }
-    #endregion Traverse and Print
+    #endregion
+    private int GetHeight(Node node)
+    {
+        if (node != null)
+        {
+            int left = GetHeight(node.Left);
+            int right = GetHeight(node.Right);
+            int max = left > right ? left : right;
+            return max + 1;
+        }
+        return -1;
+    }
+    private int GetDepth(Node current, Node target, int depth)
+    {
+        if (current != null)
+        {
+            if (current == target)
+            {
+                return depth;
+            }
+            else if (current.Data.CompareTo(target.Data) > 0)
+            {
+                return GetDepth(current.Left, target, depth + 1);
+            }
+            else
+            {
+                return GetDepth(current.Right, target, depth + 1);
+            }
+        }
+        return -1;
+    }
 }

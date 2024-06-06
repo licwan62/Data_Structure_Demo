@@ -1,5 +1,4 @@
 ﻿using System.Diagnostics;
-using System.Net.Http.Headers;
 using System.Text;
 using static System.Console;
 namespace Data_C3;
@@ -95,7 +94,7 @@ internal class Program
 
                     WriteLine("Complete loading all files of both ordered and random on both AVL and BST");
                     Write("Press any key to continue...");
-                    ReadKey();
+                    ReadLine();
 
                     GetTimeReport();
                     // returned when back from time report menu
@@ -104,7 +103,7 @@ internal class Program
                 else
                 {
                     Write("Press any key to continue...");
-                    ReadKey();
+                    ReadLine();
                     PrintMenu_main();
                 }
             }
@@ -120,7 +119,7 @@ internal class Program
                 else
                 {
                     Write("Press any key to continue...");
-                    ReadKey();
+                    ReadLine();
                     PrintMenu_main();
                 }
             }
@@ -232,7 +231,8 @@ internal class Program
             int value = Util.GetInt(input, maxNum);
             if (value == Util.bad_int)
             {// not an option
-                WriteLine("INVALID INPUT! - Enter a number 0 ~ {0}", maxNum);
+                WriteLine("INVALID INPUT!");
+                WriteLine("- Enter a number 0 ~ {0}", maxNum);
             }
             else if (value == 0)
             {// option to back
@@ -240,11 +240,28 @@ internal class Program
             }
             else
             {// option to load
-                bool confirmed = Check_loading(value);
-                if (confirmed)
+                bool toLoad = Loading_confirm(value);
+                if (toLoad)
                 {// loading succeed
-                    Write("- Press any key to Function Menu...");
-                    ReadKey();
+                    if (ordered && balanced)
+                    {// ordered file on avl
+                        avl_DS = Load_AVL(orderedPath, value - 1);
+                    }
+                    else if (ordered)
+                    {// ordered file on bst
+                        bst_DS = Load_BST(orderedPath, value - 1);
+                    }
+                    else if (balanced)
+                    {// random file on avl
+                        avl_DS = Load_AVL(randomPath, value - 1);
+                    }
+                    else
+                    {// random file on avl
+                        bst_DS = Load_BST(randomPath, value - 1);
+                    }
+                    WriteLine("FILE LOADING COMPLETED!");
+                    Write("- Press any key to continue...");
+                    ReadLine();
 
                     GetFunction();
                     // returned when back from Function Menu
@@ -254,13 +271,13 @@ internal class Program
                 else
                 {// not loaded
                     WriteLine("- Press any key to continue...");
-                    ReadKey();
+                    ReadLine();
                     PrintMenu_loading();
                 }
             }
         }
     }
-    static bool Check_loading(int value)
+    static bool Loading_confirm(int value)
     {
         while (true)
         {
@@ -268,23 +285,6 @@ internal class Program
             int confirmed = Util.IsSure(ReadLine());
             if (confirmed == 1)
             {// get confirmed to load selected file 
-                if (ordered && balanced)
-                {// ordered file on avl
-                    avl_DS = Load_AVL(orderedPath, value - 1);
-                }
-                else if (ordered)
-                {// ordered file on bst
-                    bst_DS = Load_BST(orderedPath, value - 1);
-                }
-                else if (balanced)
-                {// random file on avl
-                    avl_DS = Load_AVL(randomPath, value - 1);
-                }
-                else
-                {// random file on avl
-                    bst_DS = Load_BST(randomPath, value - 1);
-                }// corresponding file is loaded
-                WriteLine("FILE LOADING COMPLETED!");
                 return true;
             }
             else if (confirmed == 0)
@@ -327,7 +327,7 @@ internal class Program
             int value = Util.GetInt(input, maxNum);
             if (value == Util.bad_int)
             {
-                WriteLine("INVALID INPUT! - Enter a number 0 ~ {0}", maxNum);
+                WriteLine("INVALID INPUT! 0 ~ {0}", maxNum);
             }
             else if (value == 0)
             {
@@ -385,27 +385,6 @@ internal class Program
         sb.AppendLine("3 - Postorder");
         Write(sb.ToString());
     }
-    static bool Print_confirm()
-    {
-        while (true)
-        {
-            Write("- Sure to Print tree? (Current Tree: {0}) {1}", TreeType, inpGuide);
-            int confirmed = Util.IsSure(ReadLine());
-            if (confirmed == 1)
-            {
-                return true;
-            }
-            else if (confirmed == 0)
-            {
-                WriteLine("STOP PRINTING!");
-                return false;
-            }
-            else if (confirmed == -1)
-            {
-                WriteLine("INVALID INPUT!");
-            }
-        }
-    }
     static void Print()
     {
         int maxNum = 3;
@@ -413,12 +392,13 @@ internal class Program
         PrintMenu_order();
         while (true)
         {// 1 get print order
-            Write("Enter Print Order: ");
+            Write("Enter Number: ");
             string? input = ReadLine();
             int orderNum = Util.GetInt(input, maxNum);
             if (orderNum == Util.bad_int)
             {
-                WriteLine("INVALID NUMBER! - Enter a number 0 ~ {0}", maxNum);
+                WriteLine("INVALID NUMBER!");
+                Write("- Enter a number 0 ~ {0}", maxNum);
             }
             else if (orderNum == 0)
             {// option to back
@@ -460,6 +440,27 @@ internal class Program
                     WriteLine(bst_DS.PostOrderPrint());
                 }
                 return;
+            }
+        }
+    }
+    static bool Print_confirm()
+    {
+        while (true)
+        {
+            Write("- Sure to Print tree? (Current Tree: {0}) {1}", TreeType, inpGuide);
+            int confirmed = Util.IsSure(ReadLine());
+            if (confirmed == 1)
+            {
+                return true;
+            }
+            else if (confirmed == 0)
+            {
+                WriteLine("STOP PRINTING!");
+                return false;
+            }
+            else if (confirmed == -1)
+            {
+                WriteLine("INVALID INPUT!");
             }
         }
     }
@@ -538,13 +539,26 @@ internal class Program
             else
             {// Not Empty word
              // 2 get confirmation
-                Check_delete(deleteWord);
-                // returned when inserted or stopped
+                bool toDelete = Delete_confirm(deleteWord);
+                if (toDelete)
+                {
+                    if (balanced)
+                    {
+                        WriteLine(avl_DS.Delete(deleteWord));
+                    }
+                    else
+                    {
+                        WriteLine(bst_DS.Delete(deleteWord));
+                    }
+                    WriteLine("Deleting Complete!");
+                    Write("Press any key to continue...");
+                    ReadLine();
+                }
                 return;
             }
         }
     }
-    static void Check_delete(string deleteWord)
+    static bool Delete_confirm(string deleteWord)
     {
         int confirmed;
         while (true)
@@ -553,22 +567,12 @@ internal class Program
             confirmed = Util.IsSure(ReadLine());
             if (confirmed == 1)
             {
-                if (balanced)
-                {
-                    WriteLine(avl_DS.Delete(deleteWord));
-                }
-                else
-                {
-                    WriteLine(bst_DS.Delete(deleteWord));
-                }
-                WriteLine("Deleting Complete! Press any key to Function Menu...");
-                ReadKey();
-                return;
+                return true;
             }
             else if (confirmed == 0)
             {
                 WriteLine("STOP DELETING!");
-                return;
+                return false;
             }
             else if (confirmed == -1)
             {
@@ -583,8 +587,7 @@ internal class Program
     {
         string? wordToSearch;
         while (true)
-        {
-            // 1 get new word
+        {// 1 get new word
             Write("- Enter Word to Search: ");
             wordToSearch = ReadLine();
             if (string.IsNullOrEmpty(wordToSearch))
@@ -593,14 +596,26 @@ internal class Program
             }
             else
             {// Not Empty word
-             // 2 get confirmation
-                Check_search(wordToSearch);
-                // returned when inserted or stopped
+                bool toSearch = Search_confirm(wordToSearch);
+                if (toSearch)
+                {
+                    if (balanced)
+                    {
+                        WriteLine(avl_DS.Search(wordToSearch));
+                    }
+                    else
+                    {
+                        WriteLine(bst_DS.Search(wordToSearch));
+                    }
+                    WriteLine("Searching Complete!");
+                    Write("Press any key to continue...");
+                    ReadLine();
+                }
                 return;
             }
         }
     }
-    static void Check_search(string wordToSearch)
+    static bool Search_confirm(string wordToSearch)
     {
         int confirmed;
         while (true)
@@ -609,22 +624,12 @@ internal class Program
             confirmed = Util.IsSure(ReadLine());
             if (confirmed == 1)
             {
-                if (balanced)
-                {
-                    WriteLine(avl_DS.Search(wordToSearch));
-                }
-                else
-                {
-                    WriteLine(bst_DS.Search(wordToSearch));
-                }
-                WriteLine("Searching Complete! Press any key to Function Menu...");
-                ReadKey();
-                return;
+                return true;
             }
             else if (confirmed == 0)
             {
                 WriteLine("STOP SEARCHING!");
-                return;
+                return false;
             }
             else if (confirmed == -1)
             {
@@ -635,27 +640,6 @@ internal class Program
     #endregion
 
     #region Function Test
-    static bool FunctionTest_confirm()
-    {
-        while (true)
-        {
-            Write("- Sure to do Function Test? (Current File: {0}) {1}", Order + fileToLoad.Name, inpGuide);
-            int confirmed = Util.IsSure(ReadLine());
-            if (confirmed == 1)
-            {
-                return true;
-            }
-            else if (confirmed == 0)
-            {
-                WriteLine("STOP FUNCTION TEXT!");
-                return false;
-            }
-            else if (confirmed == -1)
-            {
-                WriteLine("INVALID INPUT!");
-            }
-        }
-    }
     static void FunctionTest()
     {
         string testWord = "Licheng";
@@ -705,6 +689,27 @@ internal class Program
         else
         {
             WriteLine(bst_DS.Search(testWord));
+        }
+    }
+    static bool FunctionTest_confirm()
+    {
+        while (true)
+        {
+            Write("- Sure to do Function Test? (Current File: {0}) {1}", Order + fileToLoad.Name, inpGuide);
+            int confirmed = Util.IsSure(ReadLine());
+            if (confirmed == 1)
+            {
+                return true;
+            }
+            else if (confirmed == 0)
+            {
+                WriteLine("STOP FUNCTION TEXT!");
+                return false;
+            }
+            else if (confirmed == -1)
+            {
+                WriteLine("INVALID INPUT!");
+            }
         }
     }
     #endregion
@@ -760,13 +765,8 @@ internal class Program
         }
         return ds;
     }
-    /// <summary>
-    /// Loading both RANDOM and ORDERED files both on BST and AVL
-    /// loaded then select on Comparison Menu for printing compared time data
-    /// </summary>
     static void LoadAllFiles()
     {
-        Stopwatch stopwatch = new Stopwatch();
         ordered_BST = new TimeSpan[fileNum];
         random_BST = new TimeSpan[fileNum];
         ordered_AVL = new TimeSpan[fileNum];
@@ -774,6 +774,7 @@ internal class Program
         // get all ordered file for BST
         for (int i = 0; i < fileNum; i++)
         {
+            Stopwatch stopwatch = new Stopwatch();
             stopwatch.Start();
 
             ordered = true;
@@ -786,6 +787,7 @@ internal class Program
         // get all random file for BST
         for (int i = 0; i < fileNum; i++)
         {
+            Stopwatch stopwatch = new Stopwatch();
             stopwatch.Start();
 
             ordered = false;
@@ -798,6 +800,7 @@ internal class Program
         // get all ordered file for AVL
         for (int i = 0; i < fileNum; i++)
         {
+            Stopwatch stopwatch = new Stopwatch();
             stopwatch.Start();
 
             ordered = true;
@@ -810,6 +813,7 @@ internal class Program
         // get all random file for AVL
         for (int i = 0; i < fileNum; i++)
         {
+            Stopwatch stopwatch = new Stopwatch();
             stopwatch.Start();
 
             ordered = false;
@@ -845,7 +849,8 @@ internal class Program
             int value = Util.GetInt(ReadLine(), maxNum);
             if (value == Util.bad_int)
             {
-                Write("INVALID NUMBER! - Enter a new number 0 ~ {0}: ", maxNum);
+                WriteLine("INVALID NUMBER!");
+                Write("- Enter a new number 0 ~ {0}: ", maxNum);
             }
             else if (value == 0)
             {
@@ -853,16 +858,31 @@ internal class Program
             }
             else
             {// valid number selected, then ask comfirmation
-                Check_timeReport(value);
-
+                bool toReport = GetTimeReport_confirm(value);
+                if (value == 1)
+                {
+                    PrintTimeComparison("ordered_BST", "random_BST", ordered_BST, random_BST);
+                }
+                else if (value == 2)
+                {
+                    PrintTimeComparison("ordered_AVL", "random_AVL", ordered_AVL, random_AVL);
+                }
+                else if (value == 3)
+                {
+                    PrintTimeComparison("ordered_BST", "ordered_AVL", ordered_BST, ordered_AVL);
+                }
+                else if (value == 4)
+                {
+                    PrintTimeComparison("random_BST", "random_AVL", random_BST, random_AVL);
+                }
                 WriteLine("Press any key to continue...");
-                ReadKey();
+                ReadLine();
 
                 PrintMenu_timeReport();
             }
         }
     }
-    static void Check_timeReport(int value)
+    static bool GetTimeReport_confirm(int value)
     {
         int confirmed = 0;
         while (true)
@@ -871,47 +891,31 @@ internal class Program
             {
                 Write("- Sure to compare ORDERED file with RANDOM file, both of which was loaded on BST: {0}", inpGuide);
                 confirmed = Util.IsSure(ReadLine());
-                if (confirmed == 1)
-                {
-                    PrintTimeComparison("ordered_BST", "random_BST", ordered_BST, random_BST);
-                    return;
-                }
             }
             else if (value == 2)
             {
                 Write("- Sure to compare ORDERED file with RANDOM file, both of which was loaded on AVL: {0}", inpGuide);
                 confirmed = Util.IsSure(ReadLine());
-                if (confirmed == 1)
-                {
-                    PrintTimeComparison("ordered_AVL", "random_AVL", ordered_AVL, random_AVL);
-                    return;
-                }
             }
             else if (value == 3)
             {
                 Write("- Sure to compare file on BST with file on AVL where both ORDERED file: {0}", inpGuide);
                 confirmed = Util.IsSure(ReadLine());
-                if (confirmed == 1)
-                {
-                    PrintTimeComparison("ordered_BST", "ordered_AVL", ordered_BST, ordered_AVL);
-                    return;
-                }
             }
             else if (value == 4)
             {
                 Write("- Sure to compare file on BST with file on AVL where both RANDOM file: {0}", inpGuide);
                 confirmed = Util.IsSure(ReadLine());
-                if (confirmed == 1)
-                {
-                    PrintTimeComparison("random_BST", "random_AVL", random_BST, random_AVL);
-                    return;
-                }
             }
             // feedback and return
-            if (confirmed == 0)
+            if (confirmed == 1)
+            {
+                return true;
+            }
+            else if (confirmed == 0)
             {
                 WriteLine("OPERATION CANCELLED!");
-                return;
+                return false;
             }
             else if (confirmed == -1)
             {
@@ -926,8 +930,8 @@ internal class Program
         sb.AppendLine($"{"WORDS",-15}{left,-15}{right}");
         for (int i = 0; i < fileNum; i++)
         {
-            sb.AppendFormat("{0,-15}{1,-15:N2}{2:N2}\n",
-                words[i], times_left[i].TotalSeconds, times_right[i].TotalSeconds);
+            sb.AppendFormat("{0,-15}{1,-15:N1}{2:N1}\n",
+                words[i], times_left[i].TotalMilliseconds, times_right[i].TotalMilliseconds);
         }
         Write(sb.ToString());
     }

@@ -21,14 +21,8 @@ internal class BST_DS
         Root = null;
         Count = 0;
     }
+
     #region Insert
-    /// <summary>
-    /// Insert under the correct leaf
-    /// </summary>
-    /// <param name="node">node to insert</param>
-    /// <param name="current">current node</param>
-    /// <returns>current node</returns>
-    /// <returns></returns>
     private Node InsertNode(Node current, Node node)
     {
         if (current == null)
@@ -80,7 +74,7 @@ internal class BST_DS
         }
         return node.Data;
     }
-    private Node DeleteNode(Node tree, Node node)
+    private Node DeleteNode(Node? tree, Node node)
     {
         if (tree == null)
         {
@@ -146,7 +140,7 @@ internal class BST_DS
                 return SearchNode(current.Right, node);
             }
         }// reached leaf but unable to found the node
-        return null;
+        return current; 
     }
     public string Search(string data)
     {
@@ -158,19 +152,21 @@ internal class BST_DS
         else
         {
             node = SearchNode(Root, node);
+            int depth = 1;
             if (node == null)
             {
                 return $"Non-Existed node \"{data}\"";
             }
             else
             {
-                int depth = GetHeight(node);
-                return $"Node {node} is Found, Depth: {depth}";
+                return $"Node {node} is Found, " +
+                    $"Height: {GetHeight(node)}, " +
+                    $"Depth: {GetDepth(Root, node, 0)}";
             }
         }
     }
     #endregion Search
-    
+
     #region Traverse and Print
     private string InOrderTraverse(Node current)
     {
@@ -178,7 +174,7 @@ internal class BST_DS
         if (current != null)
         {
             sb.Append(InOrderTraverse(current.Left));
-            sb.AppendLine(current.ToPrint() + " Depth: " + GetHeight(current));
+            sb.AppendLine(current.ToPrint() + " Height: " + GetHeight(current) + "\tDepth: " + GetDepth(Root, current, 0));
             sb.Append(InOrderTraverse(current.Right));
         }
         return sb.ToString();
@@ -203,7 +199,7 @@ internal class BST_DS
         StringBuilder sb = new StringBuilder();
         if (current != null)
         {
-            sb.AppendLine(current.ToPrint() + " Depth: " + GetHeight(current));
+            sb.AppendLine(current.ToPrint() + " Height: " + GetHeight(current) + "\tDepth: " + GetDepth(Root, current, 0));
             sb.Append(PreOrderTraverse(current.Left));
             sb.Append(PreOrderTraverse(current.Right));
         }
@@ -231,7 +227,7 @@ internal class BST_DS
         {
             sb.Append(PostOrderTraverse(current.Left));
             sb.Append(PostOrderTraverse(current.Right));
-            sb.AppendLine(current.ToPrint() + " Depth: " + GetHeight(current));
+            sb.AppendLine(current.ToPrint() + " Height: " + GetHeight(current) + "\tDepth: " + GetDepth(Root, current, 0));
         }
         return sb.ToString();
     }
@@ -251,16 +247,34 @@ internal class BST_DS
         return sb.ToString();
     }
     #endregion
-    private int GetHeight(Node current)
+    private int GetHeight(Node node)
     {
-        if (current != null)
+        if (node != null)
         {
-            int left = GetHeight(current.Left);
-            int right = GetHeight(current.Right);
+            int left = GetHeight(node.Left);
+            int right = GetHeight(node.Right);
             int max = left > right ? left : right;
             return max + 1;
         }
-        return 0;
+        return -1;
     }
-    
+    private int GetDepth(Node current, Node target, int depth)
+    {
+        if (current != null)
+        {
+            if (current == target)
+            {
+                return depth;
+            }
+            else if (current.Data.CompareTo(target.Data) > 0)
+            {
+                return GetDepth(current.Left, target, depth + 1);
+            }
+            else
+            {
+                return GetDepth(current.Right, target, depth + 1);
+            }
+        }
+        return -1;
+    }
 }
