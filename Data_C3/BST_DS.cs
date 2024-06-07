@@ -173,7 +173,7 @@ internal class BST_DS
         if (current != null)
         {
             sb.Append(InOrderTraverse(current.Left));
-            sb.AppendLine(current.ToPrint() + " Height: " + GetHeight(current) + "\tDepth: " + GetDepth(Root, current, 0));
+            sb.AppendLine(current.ToPrint());
             sb.Append(InOrderTraverse(current.Right));
         }
         return sb.ToString();
@@ -198,7 +198,7 @@ internal class BST_DS
         StringBuilder sb = new StringBuilder();
         if (current != null)
         {
-            sb.AppendLine(current.ToPrint() + " Height: " + GetHeight(current) + "\tDepth: " + GetDepth(Root, current, 0));
+            sb.AppendLine(current.ToPrint());
             sb.Append(PreOrderTraverse(current.Left));
             sb.Append(PreOrderTraverse(current.Right));
         }
@@ -226,7 +226,7 @@ internal class BST_DS
         {
             sb.Append(PostOrderTraverse(current.Left));
             sb.Append(PostOrderTraverse(current.Right));
-            sb.AppendLine(current.ToPrint() + " Height: " + GetHeight(current) + "\tDepth: " + GetDepth(Root, current, 0));
+            sb.AppendLine(current.ToPrint());
         }
         return sb.ToString();
     }

@@ -1,13 +1,14 @@
 ﻿using System.Diagnostics;
 using System.Drawing;
+using System.Runtime.CompilerServices;
 using System.Text;
 using static System.Console;
 namespace Data_C3;
 
 internal class Program
 {
-    static readonly string orderedPath = @"..\..\..\ordered";
-    static readonly string randomPath = @"..\..\..\random";
+    static readonly string orderedPath = @"..\..\..\Ordered";
+    static readonly string randomPath = @"..\..\..\Random";
     static readonly string inpGuide = "[Y/N]";
 
     // indicate file index and option name in main menu
@@ -19,9 +20,9 @@ internal class Program
     static string[] fileNames = null!;
 
     // indicate decided type of file and tree at loading menu
-    static bool ordered = false;
-    static bool balanced = false;
-    static string Order { get => ordered ? "Ordered" : "Random"; }
+    static bool Ordered;
+    static bool balanced;
+    static string Sequence { get => Ordered ? "Ordered" : "Random"; }
     static string TreeType { get => balanced ? "AVL" : "BST"; }
 
     // loaded tree before function test
@@ -55,7 +56,7 @@ internal class Program
         fileNames = new string[fileNum];
         for (int i = 0; i < fileNum; i++)
         {
-            fileNames[i] = words[i].ToString() + "-words";
+            fileNames[i] = words[i].ToString() + "_words";
         }
         // Main Menu: get tree and file type
         // Loading Menu: get specified file for loading
@@ -69,20 +70,22 @@ internal class Program
         Clear();
         StringBuilder sb = new StringBuilder();
         sb.AppendLine("***** Main Menu *****");
-        sb.AppendLine("Choose File Order and Tree Structure");
+        sb.Append("\u001b[33m");
+        sb.AppendLine("Choose File Sequence and Tree Structure");
+        sb.Append("\u001b[0m");
         sb.AppendLine("0 - Exist Program");
-        sb.AppendLine("1 - Load ORDERED File into BST");
-        sb.AppendLine("2 - Load RANDOM File into BST");
-        sb.AppendLine("3 - Load ORDERED File into AVL");
-        sb.AppendLine("4 - Load RANDOM File into AVL");
+        sb.AppendLine("1 - Load Ordered File into BST");
+        sb.AppendLine("2 - Load Random File into BST");
+        sb.AppendLine("3 - Load Ordered File into AVL");
+        sb.AppendLine("4 - Load Random File into AVL");
         sb.AppendLine("5 - Load all file and Get Time Report");
         sb.AppendLine("***** Main Menu *****");
         WriteLine(sb.ToString());
     }
     /// <summary>
-    /// select on Main Menu
-    /// get ordered type of file and tree type where file is loaded
-    /// select option to assign corresponding bools to {ordered} and {balanced}
+    /// Main Menu
+    /// get order of file and tree type where file is loaded
+    /// select option to assign corresponding bools to {Ordered} and {balanced}
     /// </summary>
     static void GetStart()
     {
@@ -95,39 +98,27 @@ internal class Program
             int value = Util.GetInt(input, maxNum);
             if (value == Util.bad_int)
             {// Enpty input or value out of range
-                WriteWarning("INVALID NUMBER");
+                WriteWarning("INVALID NUMBER!");
             }
             else
             {
-                if (value == 5)
+                bool confirmed = Start_confirm(value);
+                if (confirmed)
                 {
-                    bool confirmed = Start_confirm(value);
-                    if (confirmed)
+                    if (value == 5)
                     {
-                        LoadAllFiles();
-
-                        WriteWarning("Complete loading all files on both BST and AVL");
-                        Write("Press any key to continue...");
-                        ReadLine();
-
                         GetTimeReport();
                         // returned when back from time report menu
                         PrintMenu_main();
                     }
-                }
-                else
-                {// valid option chosen except for 5, get confirmed to continue or loop
-                    bool confirmed = Start_confirm(value);
-                    if (confirmed)
-                    {
+                    else
+                    {// valid option chosen except for 5, get confirmed to continue or loop
                         GetFile();
                         // returned when back from loading munu
                         PrintMenu_main();
                     }
                 }
-                Write("Press any key to continue...");
-                ReadLine();
-                PrintMenu_main();
+
             }
         }
     }
@@ -147,42 +138,42 @@ internal class Program
             }
             else if (value == 1)
             {
-                Write("- Sure to Load ORDERED File into Binary Search Tree? {0} ", inpGuide);
+                Write("- Sure to Load Ordered File into Binary Search Tree? {0} ", inpGuide);
                 if ((confirmed = Util.IsSure(ReadLine())) == 1)
                 {
-                    ordered = true;
+                    Ordered = true;
                     balanced = false;
-                    WriteWarning("ORDERED file Loaded(BST)");
+                    WriteWarning("Ordered file Loaded(BST)");
                 }
             }
             else if (value == 2)
             {
-                Write("- Sure to Load RANDOM File into Binary Search Tree? {0} ", inpGuide);
+                Write("- Sure to Load Random File into Binary Search Tree? {0} ", inpGuide);
                 if ((confirmed = Util.IsSure(ReadLine())) == 1)
                 {
-                    ordered = false;
+                    Ordered = false;
                     balanced = false;
-                    WriteWarning("RANDOM file Loaded(BST)");
+                    WriteWarning("Random file Loaded(BST)");
                 }
             }
             else if (value == 3)
             {
-                Write("- Sure to Load ORDERED File into AVL Tree? {0} ", inpGuide);
+                Write("- Sure to Load Ordered File into AVL Tree? {0} ", inpGuide);
                 if ((confirmed = Util.IsSure(ReadLine())) == 1)
                 {
-                    ordered = true;
+                    Ordered = true;
                     balanced = true;
-                    WriteWarning("ORDERED file Loaded(AVL)");
+                    WriteWarning("Ordered file Loaded(AVL)");
                 }
             }
             else if (value == 4)
             {
-                Write("- Sure to Load RANDOM File into AVL Tree? {0} ", inpGuide);
+                Write("- Sure to Load Random File into AVL Tree? {0} ", inpGuide);
                 if ((confirmed = Util.IsSure(ReadLine())) == 1)
                 {
-                    ordered = false;
+                    Ordered = false;
                     balanced = true;
-                    WriteWarning("RANDOM file Loaded(AVL)");
+                    WriteWarning("Random file Loaded(AVL)");
                 }
             }
             else if (value == 5)
@@ -212,9 +203,10 @@ internal class Program
         Clear();
         StringBuilder sb = new StringBuilder();
         sb.AppendLine($"***** Loading Menu *****");
-        sb.AppendLine($"Current File Order: {Order}, Current Tree Structure: {TreeType}");
-        sb.AppendLine("Choose the File to get loaded on the Tree");
-        sb.AppendLine("0  - Back to Main Menu");
+        sb.Append("\u001b[33m");
+        sb.AppendLine($"Sequence: {Sequence}, Tree Structure: {TreeType}");
+        sb.Append("\u001b[0m");
+        sb.AppendLine("0 - Back to Main Menu");
         for (int i = 0; i < fileNum; i++)
         {
             sb.AppendLine($"{i + 1} - {fileNames[i]}");
@@ -249,37 +241,39 @@ internal class Program
                 bool toLoad = Loading_confirm(value);
                 if (toLoad)
                 {// loading succeed
-                    if (ordered && balanced)
-                    {// ordered file on avl
+                    if (Ordered && balanced)
+                    {// Ordered file on AVL
                         avl_DS = Load_AVL(orderedPath, value - 1);
+                        avl_DS.Name = "AVL_" + fileNames[value - 1];
                     }
-                    else if (ordered)
-                    {// ordered file on bst
+                    else if (Ordered)
+                    {// Ordered file on BST
                         bst_DS = Load_BST(orderedPath, value - 1);
+                        bst_DS.Name = "BST_" + fileNames[value - 1];
                     }
                     else if (balanced)
-                    {// random file on avl
+                    {// Random file on AVL
                         avl_DS = Load_AVL(randomPath, value - 1);
+                        avl_DS.Name = "AVL_" + fileNames[value - 1];
                     }
                     else
-                    {// random file on avl
+                    {// Random file on BST
                         bst_DS = Load_BST(randomPath, value - 1);
+                        bst_DS.Name = "BST_" + fileNames[value - 1];
                     }
-                    WriteWarning("FILE LOADING COMPLETED!");
+                    WriteComplete("LOADING COMPLETED!");
                     Write("- Press any key to continue...");
                     ReadLine();
-
                     GetFunction();
                     // returned when back from Function Menu
-
-                    PrintMenu_loading();
                 }
                 else
                 {// not loaded
-                    WriteLine("- Press any key to continue...");
+                    WriteWarning("STOP LOADING!");
+                    Write("- Press any key to continue...");
                     ReadLine();
-                    PrintMenu_loading();
                 }
+                PrintMenu_loading();
             }
         }
     }
@@ -287,7 +281,7 @@ internal class Program
     {
         while (true)
         {
-            Write($"- Sure to Load {Order} {fileNames[value - 1]} on {TreeType}? {inpGuide} ");
+            Write($"- Sure to Load {Sequence} {fileNames[value - 1]} on {TreeType}? {inpGuide} ");
             int confirmed = Util.IsSure(ReadLine());
             if (confirmed == 1)
             {// get confirmed to load selected file 
@@ -312,7 +306,9 @@ internal class Program
         Clear();
         StringBuilder sb = new StringBuilder();
         sb.AppendLine("***** Function Menu *****");
-        sb.AppendLine($"Current File {Order}_{fileToLoad.Name}, Current Tree Structure: {TreeType}");
+        sb.Append("\u001b[33m");
+        sb.AppendLine($"Current File: {fileToLoad.Name}, Sequence: {Sequence}, Tree Structure: {TreeType}");
+        sb.Append("\u001b[0m");
         sb.AppendLine("0 - Back to Loading Menu");
         sb.AppendLine("1 - Print");
         sb.AppendLine("2 - Insert");
@@ -348,7 +344,6 @@ internal class Program
                     if (confirmed = Print_confirm())
                     {
                         Print();
-                        WriteFeedback("PRINTING COMPLETED!");
                     }
                 }
                 else if (value == 2)
@@ -370,7 +365,6 @@ internal class Program
                     if (confirmed = Search_confirm())
                     {
                         Search();
-                        WriteWarning("SEARCHING COMPLETED!");
                     }
                 }
                 else
@@ -378,7 +372,6 @@ internal class Program
                     if (confirmed = FunctionTest_confirm())
                     {
                         FunctionTest();
-                        WriteWarning("FUNCTION TEST COMPLETED!");
                     }
                 }
                 Write("- Press any key to continue...");
@@ -395,7 +388,7 @@ internal class Program
         Clear();
         StringBuilder sb = new StringBuilder();
         sb.AppendLine("***** Print Order *****");
-        sb.AppendLine($"Current File {Order}_{fileToLoad.Name}, Current Tree Structure: {TreeType}");
+        sb.AppendLine($"Current File {Sequence}_{fileToLoad.Name}, Current Tree Structure: {TreeType}");
         sb.AppendLine("0 - Return to Function Menu");
         sb.AppendLine("1 - Inorder");
         sb.AppendLine("2 - Preorder");
@@ -422,40 +415,42 @@ internal class Program
                 WriteWarning("STOP PRINTING!");
                 return;
             }
-            else if (orderNum == 1)
-            {
-                if (balanced)
-                {
-                    WriteLine(avl_DS.InOrderPrint());
-                }
-                else
-                {
-                    WriteLine(bst_DS.InOrderPrint());
-                }
-                return;
-            }
-            else if (orderNum == 2)
-            {
-                if (balanced)
-                {
-                    WriteLine(avl_DS.PreOrderPrint());
-                }
-                else
-                {
-                    WriteLine(bst_DS.PreOrderPrint());
-                }
-                return;
-            }
             else
             {
-                if (balanced)
+                if (orderNum == 1)
                 {
-                    WriteLine(avl_DS.PostOrderPrint());
+                    if (balanced)
+                    {
+                        WriteLine(avl_DS.InOrderPrint());
+                    }
+                    else
+                    {
+                        WriteLine(bst_DS.InOrderPrint());
+                    }
+                }
+                else if (orderNum == 2)
+                {
+                    if (balanced)
+                    {
+                        WriteLine(avl_DS.PreOrderPrint());
+                    }
+                    else
+                    {
+                        WriteLine(bst_DS.PreOrderPrint());
+                    }
                 }
                 else
                 {
-                    WriteLine(bst_DS.PostOrderPrint());
+                    if (balanced)
+                    {
+                        WriteLine(avl_DS.PostOrderPrint());
+                    }
+                    else
+                    {
+                        WriteLine(bst_DS.PostOrderPrint());
+                    }
                 }
+                WriteComplete("PRINTING COMPLETE!");
                 return;
             }
         }
@@ -607,6 +602,7 @@ internal class Program
                 {
                     WriteFeedback(bst_DS.Search(wordToSearch));
                 }
+                WriteComplete("SEARCHING COMPLETED!");
                 return;
             }
         }
@@ -650,7 +646,8 @@ internal class Program
             }
             else
             {// Not Empty word
-             // record searching time for each ordered BST
+             // record searching time for each Ordered BST
+                WriteLine("record searching time for each Ordered BST");
                 for (int i = 0; i < fileNum; i++)
                 {
                     Stopwatch sw = Stopwatch.StartNew();
@@ -661,7 +658,8 @@ internal class Program
                     sw.Stop();
                     searchingTimes_orderedBST[i] = sw.Elapsed;
                 }
-                // record searching time for each random BST
+                // record searching time for each Random BST
+                WriteLine("record searching time for each Random BST");
                 for (int i = 0; i < fileNum; i++)
                 {
                     Stopwatch sw = Stopwatch.StartNew();
@@ -672,7 +670,8 @@ internal class Program
                     sw.Stop();
                     searchingTimes_randomBST[i] = sw.Elapsed;
                 }
-                // record searching time for each ordered AVL
+                // record searching time for each Ordered AVL
+                WriteLine("record searching time for each Ordered AVL");
                 for (int i = 0; i < fileNum; i++)
                 {
                     Stopwatch sw = Stopwatch.StartNew();
@@ -683,7 +682,8 @@ internal class Program
                     sw.Stop();
                     searchingTimes_orderedAVL[i] = sw.Elapsed;
                 }
-                // record searching time for each random AVL
+                // record searching time for each Random AVL
+                WriteLine("record searching time for each Random AVL");
                 for (int i = 0; i < fileNum; i++)
                 {
                     Stopwatch sw = Stopwatch.StartNew();
@@ -751,12 +751,13 @@ internal class Program
         {
             WriteFeedback(bst_DS.Search(testWord));
         }
+        WriteComplete("FUNCTION TEST COMPLETED!");
     }
     static bool FunctionTest_confirm()
     {
         while (true)
         {
-            Write("- Sure to do Function Test? (Current File: {0}) {1}", Order + fileToLoad.Name, inpGuide);
+            Write("- Sure to do Function Test? (Current File: {0}, Sequence: {1}) {2}", Sequence, fileToLoad.Name, inpGuide);
             int confirmed = Util.IsSure(ReadLine());
             if (confirmed == 1)
             {
@@ -784,15 +785,14 @@ internal class Program
         {
             FileInfo[] fileInfos = dirInfo.GetFiles().OrderBy(f => f.Length).ToArray();
             fileToLoad = fileInfos[index];
-            ds.Name = Order + "_" + fileToLoad.Name;
             StreamReader sr = fileToLoad.OpenText();
             string? line;
-            Write($"{Order}_{fileToLoad.Name} is Loading on {TreeType}... ");
+            Write($"File: {fileToLoad.Name}, Sequence: {Sequence} is Loading on {TreeType}...... ");
             while ((line = sr.ReadLine()) != null)
             {
                 ds.Add(line);
             }
-            WriteLine($"Complete! {TreeType} Contain {ds.Count} words");
+            WriteComplete($"Complete! {TreeType} Contain {ds.Count} words");
         }
         else
         {
@@ -809,16 +809,15 @@ internal class Program
             // get the file
             FileInfo[] fileInfos = dirInfo.GetFiles().OrderBy(f => f.Length).ToArray();
             fileToLoad = fileInfos[index];
-            ds.Name = Order + "_" + fileToLoad.Name;
             // add words into avl tree
-            Write($"{Order}_{fileToLoad.Name} is Loading on {TreeType}...");
+            Write($"File: {fileToLoad.Name}, Sequence: {Sequence} is Loading on {TreeType}...... ");
             StreamReader sr = fileToLoad.OpenText();
             string? line;
             while ((line = sr.ReadLine()) != null)
             {
                 ds.Add(line);
             }
-            WriteLine($"Complete! {TreeType} Contain {ds.Count} words");
+            WriteComplete($"Complete! {TreeType} Contain {ds.Count} words");
         }
         else
         {
@@ -836,57 +835,46 @@ internal class Program
         randomBST_DSs = new BST_DS[fileNum];
         orderedAVL_DSs = new AVL_DS[fileNum];
         randomAVL_DSs = new AVL_DS[fileNum];
-        // get all ordered file for BST
+        // get all Ordered file for BST
+        Stopwatch sw = new Stopwatch();
         for (int i = 0; i < fileNum; i++)
         {
-            Stopwatch stopwatch = new Stopwatch();
-            stopwatch.Start();
-
-            ordered = true;
+            sw.Start();
+            Ordered = true;
             balanced = false;
             orderedBST_DSs[i] = Load_BST(orderedPath, i);
-
-            stopwatch.Stop();
-            insertionTimes_orderedBST[i] = stopwatch.Elapsed;
+            sw.Stop();
+            insertionTimes_orderedBST[i] = sw.Elapsed;
         }
-        // get all random file for BST
+        // get all Random file for BST
         for (int i = 0; i < fileNum; i++)
         {
-            Stopwatch stopwatch = new Stopwatch();
-            stopwatch.Start();
-
-            ordered = false;
+            sw.Restart();
+            Ordered = false;
             balanced = false;
             randomBST_DSs[i] = Load_BST(randomPath, i);
-
-            stopwatch.Stop();
-            insertionTimes_randomBST[i] = stopwatch.Elapsed;
+            sw.Stop();
+            insertionTimes_randomBST[i] = sw.Elapsed;
         }
-        // get all ordered file for AVL
+        // get all Ordered file for AVL
         for (int i = 0; i < fileNum; i++)
         {
-            Stopwatch stopwatch = new Stopwatch();
-            stopwatch.Start();
-
-            ordered = true;
+            sw.Restart();
+            Ordered = true;
             balanced = true;
             orderedAVL_DSs[i] = Load_AVL(orderedPath, i);
-
-            stopwatch.Stop();
-            insertionTimes_orderedAVL[i] = stopwatch.Elapsed;
+            sw.Stop();
+            insertionTimes_orderedAVL[i] = sw.Elapsed;
         }
-        // get all random file for AVL
+        // get all Random file for AVL
         for (int i = 0; i < fileNum; i++)
         {
-            Stopwatch stopwatch = new Stopwatch();
-            stopwatch.Start();
-
-            ordered = false;
+            sw.Restart();
+            Ordered = false;
             balanced = true;
             randomAVL_DSs[i] = Load_AVL(randomPath, i);
-
-            stopwatch.Stop();
-            insertionTimes_randomAVL[i] = stopwatch.Elapsed;
+            sw.Stop();
+            insertionTimes_randomAVL[i] = sw.Elapsed;
         }
     }
     #endregion
@@ -905,6 +893,10 @@ internal class Program
     }
     static void GetTimeReport()
     {
+        LoadAllFiles();
+        WriteComplete("Complete loading all files on both BST and AVL");
+        Write("- Press any key to continue...");
+        ReadLine();
         PrintMenu_timeReport();
         int maxNum = 2;
         while (true)
@@ -923,11 +915,11 @@ internal class Program
             {
                 if (value == 1)
                 {
-                    GetTimeReport_insertion();
+                    Report_insertion();
                 }
                 else
                 {
-                    GetTimeReport_searching();
+                    Report_searching();
                 }
                 Write("Press any key to continue...");
                 ReadLine();
@@ -936,22 +928,22 @@ internal class Program
             }
         }
     }
-    static void PrintMenu_timeReport_comparison()
+    static void PrintMenu_report()
     {
         Clear();
         StringBuilder sb = new StringBuilder();
         sb.AppendLine("***** Time Report Menu *****");
         sb.AppendLine("0 - Back to Previous Menu");
-        sb.AppendLine("1 - Both on BST, Times for loading each ORDERED file compare to RANDOM file");
-        sb.AppendLine("2 - Both on AVL, Times for loading each ORDERED file compare to RANDOM file");
-        sb.AppendLine("3 - Both loading ORDERED file, Times for loading on BST compare with on AVL");
-        sb.AppendLine("4 - Both loading RANDOM file, Times for loading on BST compare with on AVL");
+        sb.AppendLine("1 - Both on BST, Times for loading each Ordered file compare to Random file");
+        sb.AppendLine("2 - Both on AVL, Times for loading each Ordered file compare to Random file");
+        sb.AppendLine("3 - Both loading Ordered file, Times for loading on BST compare with on AVL");
+        sb.AppendLine("4 - Both loading Random file, Times for loading on BST compare with on AVL");
         sb.AppendLine("***** Time Report Menu *****");
         WriteLine(sb.ToString());
     }
-    static void GetTimeReport_insertion()
+    static void Report_insertion()
     {
-        PrintMenu_timeReport_comparison();
+        PrintMenu_report();
         int maxNum = 4;
         while (true)
         {
@@ -967,7 +959,7 @@ internal class Program
             }
             else
             {// valid number selected, then ask comfirmation
-                bool toReport = GetTimeReport_confirm(value);
+                bool toReport = Report_confirm(value);
                 if (toReport)
                 {
                     if (value == 1)
@@ -986,18 +978,21 @@ internal class Program
                     {
                         PrintTimeReport("randomBST", "randomAVL", insertionTimes_randomBST, insertionTimes_randomAVL);
                     }
-                    WriteLine("TIME REPORT COMPLETED!");
+                    WriteComplete("TIME REPORT COMPLETED!");
                 }
-                Write("Press any key to continue...");
+                else
+                {
+                    WriteWarning("STOP TIME REPORT!");
+                }
+                Write("- Press any key to continue...");
                 ReadLine();
-
-                PrintMenu_timeReport_comparison();
+                PrintMenu_report();
             }
         }
     }
-    static void GetTimeReport_searching()
+    static void Report_searching()
     {
-        PrintMenu_timeReport_comparison();
+        PrintMenu_report();
         int maxNum = 4;
         while (true)
         {
@@ -1013,7 +1008,7 @@ internal class Program
             }
             else
             {
-                bool toReport = GetTimeReport_confirm(value);
+                bool toReport = Report_confirm(value);
                 if (toReport)
                 {
                     SearchNodeInALlTrees();
@@ -1033,38 +1028,41 @@ internal class Program
                     {
                         PrintTimeReport("randomBST", "randomAVL", searchingTimes_randomBST, searchingTimes_randomAVL);
                     }
-                    WriteWarning("TIME REPORT COMPLETED!");
+                    WriteComplete("TIME REPORT COMPLETED!");
                 }// finished or cancelled selected operation
-                WriteLine("Press any key to continue...");
+                else
+                {
+                    WriteWarning("STOP TIME REPORT!");
+                }
+                Write("- Press any key to continue...");
                 ReadLine();
-
-                PrintMenu_timeReport_comparison();
+                PrintMenu_report();
             }
         }
     }
-    static bool GetTimeReport_confirm(int value)
+    static bool Report_confirm(int value)
     {
         int confirmed = 0;
         while (true)
         {
             if (value == 1)
             {
-                Write("- Sure to compare ORDERED file with RANDOM file, both of which was loaded on BST: {0}", inpGuide);
+                Write("- Sure to compare Ordered file with Random file, both of which was loaded on BST: {0}", inpGuide);
                 confirmed = Util.IsSure(ReadLine());
             }
             else if (value == 2)
             {
-                Write("- Sure to compare ORDERED file with RANDOM file, both of which was loaded on AVL: {0}", inpGuide);
+                Write("- Sure to compare Ordered file with Random file, both of which was loaded on AVL: {0}", inpGuide);
                 confirmed = Util.IsSure(ReadLine());
             }
             else if (value == 3)
             {
-                Write("- Sure to compare file on BST with file on AVL where both ORDERED file: {0}", inpGuide);
+                Write("- Sure to compare file on BST with file on AVL where both Ordered file: {0}", inpGuide);
                 confirmed = Util.IsSure(ReadLine());
             }
             else if (value == 4)
             {
-                Write("- Sure to compare file on BST with file on AVL where both RANDOM file: {0}", inpGuide);
+                Write("- Sure to compare file on BST with file on AVL where both Random file: {0}", inpGuide);
                 confirmed = Util.IsSure(ReadLine());
             }
             // feedback and return
@@ -1083,19 +1081,37 @@ internal class Program
             }
         }
     }
-    static void PrintTimeReport(string left, string right, TimeSpan[] times_left, TimeSpan[] times_right)
+    static void PrintTimeReport(string left, string right, 
+        TimeSpan[] times_left, TimeSpan[] times_right, 
+        [CallerMemberName] string callerName = "")
     {
+        string unit = callerName == "Report_insertion" ? "ms" : "µs";
         StringBuilder sb = new StringBuilder();
-        sb.AppendLine("***** Print Loading Time against Words *****");
+        sb.AppendLine($"***** Print for Time({unit}) against Words *****");
         sb.AppendLine($"{"WORDS",-15}{left,-15}{right}");
         for (int i = 0; i < fileNum; i++)
         {
-            sb.AppendFormat("{0,-15}{1,-15:N1}{2:N1}\n",
-                words[i], times_left[i].TotalMilliseconds, times_right[i].TotalMilliseconds);
+            if (callerName == "Report_insertion")
+            {
+                sb.AppendFormat("{0,-15}{1,-15:N1}{2:N1}\n",
+                    words[i], times_left[i].TotalMilliseconds, times_right[i].TotalMilliseconds);
+            }
+            else
+            {
+                sb.AppendFormat("{0,-15}{1,-15:N1}{2:N1}\n",
+                    words[i], times_left[i].TotalMicroseconds, times_right[i].TotalMicroseconds);
+            }
         }
         Write(sb.ToString());
     }
-    static void WriteWarning (string data)
+    #endregion
+    static void WriteComplete(string data)
+    {
+        ForegroundColor = ConsoleColor.Green;
+        WriteLine(data);
+        ResetColor();
+    }
+    static void WriteWarning(string data)
     {
         ForegroundColor = ConsoleColor.Red;
         WriteLine(data);
@@ -1103,9 +1119,8 @@ internal class Program
     }
     static void WriteFeedback(string data)
     {
-        ForegroundColor = ConsoleColor.Blue;
+        ForegroundColor = ConsoleColor.Yellow;
         WriteLine(data);
         ResetColor();
     }
-    #endregion
 }
