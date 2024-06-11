@@ -69,9 +69,8 @@ internal class Program
     {
         Clear();
         StringBuilder sb = new StringBuilder();
-        sb.AppendLine("***** Main Menu *****");
         sb.Append("\u001b[33m");
-        sb.AppendLine("Choose File Sequence and Tree Structure");
+        sb.AppendLine("=== Main Menu - select File Sequence and Tree Structure ===");
         sb.Append("\u001b[0m");
         sb.AppendLine("0 - Exist Program");
         sb.AppendLine("1 - Load Ordered File into BST");
@@ -79,7 +78,6 @@ internal class Program
         sb.AppendLine("3 - Load Ordered File into AVL");
         sb.AppendLine("4 - Load Random File into AVL");
         sb.AppendLine("5 - Load all file and Get Time Report");
-        sb.AppendLine("***** Main Menu *****");
         WriteLine(sb.ToString());
     }
     /// <summary>
@@ -202,16 +200,14 @@ internal class Program
     {
         Clear();
         StringBuilder sb = new StringBuilder();
-        sb.AppendLine($"***** Loading Menu *****");
         sb.Append("\u001b[33m");
-        sb.AppendLine($"Sequence: {Sequence}, Tree Structure: {TreeType}");
+        sb.AppendLine($"=== Loading Menu - Sequence: {Sequence}, Tree Structure: {TreeType} ===");
         sb.Append("\u001b[0m");
         sb.AppendLine("0 - Back to Main Menu");
         for (int i = 0; i < fileNum; i++)
         {
             sb.AppendLine($"{i + 1} - {fileNames[i]}");
         }
-        sb.AppendLine($"***** Loading Menu *****");
         WriteLine(sb.ToString());
     }
     static void GetFile()
@@ -305,9 +301,8 @@ internal class Program
     {
         Clear();
         StringBuilder sb = new StringBuilder();
-        sb.AppendLine("***** Function Menu *****");
         sb.Append("\u001b[33m");
-        sb.AppendLine($"Current File: {fileToLoad.Name}, Sequence: {Sequence}, Tree Structure: {TreeType}");
+        sb.AppendLine($"=== Function Menu - Sequence: {Sequence}, File {fileToLoad.Name}, Current Tree Structure: {TreeType} ===");
         sb.Append("\u001b[0m");
         sb.AppendLine("0 - Back to Loading Menu");
         sb.AppendLine("1 - Print");
@@ -315,7 +310,6 @@ internal class Program
         sb.AppendLine("3 - Delete");
         sb.AppendLine("4 - Search");
         sb.AppendLine("5 - Function Test");
-        sb.AppendLine("***** Function Menu *****");
         WriteLine(sb.ToString());
     }
     static void GetFunction()
@@ -387,13 +381,13 @@ internal class Program
     {
         Clear();
         StringBuilder sb = new StringBuilder();
-        sb.AppendLine("***** Print Order *****");
-        sb.AppendLine($"Current File {Sequence}_{fileToLoad.Name}, Current Tree Structure: {TreeType}");
+        sb.Append("\u001b[33m");
+        sb.AppendLine($"=== Print Order - Sequence: {Sequence}, File {fileToLoad.Name}, Current Tree Structure: {TreeType} ===");
+        sb.Append("\u001b[0m");
         sb.AppendLine("0 - Return to Function Menu");
         sb.AppendLine("1 - Inorder");
         sb.AppendLine("2 - Preorder");
         sb.AppendLine("3 - Postorder");
-        sb.AppendLine("***** Print Order *****");
         WriteLine(sb.ToString());
     }
     static void Print()
@@ -647,7 +641,6 @@ internal class Program
             else
             {// Not Empty word
              // record searching time for each Ordered BST
-                WriteLine("record searching time for each Ordered BST");
                 for (int i = 0; i < fileNum; i++)
                 {
                     Stopwatch sw = Stopwatch.StartNew();
@@ -657,9 +650,11 @@ internal class Program
 
                     sw.Stop();
                     searchingTimes_orderedBST[i] = sw.Elapsed;
+
+                    orderedBST_DSs[i].Name = "Ordered_BST" + fileNames[i];
+                    WriteLine(orderedBST_DSs[i].Name + "  " + sw.Elapsed.TotalMicroseconds);
                 }
                 // record searching time for each Random BST
-                WriteLine("record searching time for each Random BST");
                 for (int i = 0; i < fileNum; i++)
                 {
                     Stopwatch sw = Stopwatch.StartNew();
@@ -669,9 +664,11 @@ internal class Program
 
                     sw.Stop();
                     searchingTimes_randomBST[i] = sw.Elapsed;
+
+                    randomBST_DSs[i].Name = "Random_BST" + fileNames[i];
+                    WriteLine(randomBST_DSs[i].Name + "  " + sw.Elapsed.TotalMicroseconds);
                 }
                 // record searching time for each Ordered AVL
-                WriteLine("record searching time for each Ordered AVL");
                 for (int i = 0; i < fileNum; i++)
                 {
                     Stopwatch sw = Stopwatch.StartNew();
@@ -681,9 +678,11 @@ internal class Program
 
                     sw.Stop();
                     searchingTimes_orderedAVL[i] = sw.Elapsed;
+
+                    orderedAVL_DSs[i].Name = "Ordered_AVL" + fileNames[i];
+                    WriteLine(orderedAVL_DSs[i].Name + "  " + sw.Elapsed.TotalMicroseconds);
                 }
                 // record searching time for each Random AVL
-                WriteLine("record searching time for each Random AVL");
                 for (int i = 0; i < fileNum; i++)
                 {
                     Stopwatch sw = Stopwatch.StartNew();
@@ -693,6 +692,9 @@ internal class Program
 
                     sw.Stop();
                     searchingTimes_randomAVL[i] = sw.Elapsed;
+
+                    randomAVL_DSs[i].Name = "Random_AVL" + fileNames[i];
+                    WriteLine(randomAVL_DSs[i].Name + "  " + sw.Elapsed.TotalMicroseconds);
                 }
                 return;
             }
@@ -884,11 +886,11 @@ internal class Program
     {
         Clear();
         StringBuilder sb = new StringBuilder();
-        sb.AppendLine("***** Time Report Menu *****");
+        sb.AppendLine("=== Time Report Menu ===");
         sb.AppendLine("0 - Back to Main Menu");
         sb.AppendLine("1 - Compare times for Inserting all words in trees");
         sb.AppendLine("2 - Compare times for Searching a word in trees");
-        sb.AppendLine("***** Time Report Menu *****");
+        sb.AppendLine("=== Time Report Menu ===");
         WriteLine(sb.ToString());
     }
     static void GetTimeReport()
@@ -932,13 +934,13 @@ internal class Program
     {
         Clear();
         StringBuilder sb = new StringBuilder();
-        sb.AppendLine("***** Time Report Menu *****");
+        sb.AppendLine("=== Time Report Menu ===");
         sb.AppendLine("0 - Back to Previous Menu");
         sb.AppendLine("1 - Both on BST, Times for loading each Ordered file compare to Random file");
         sb.AppendLine("2 - Both on AVL, Times for loading each Ordered file compare to Random file");
         sb.AppendLine("3 - Both loading Ordered file, Times for loading on BST compare with on AVL");
         sb.AppendLine("4 - Both loading Random file, Times for loading on BST compare with on AVL");
-        sb.AppendLine("***** Time Report Menu *****");
+        sb.AppendLine("=== Time Report Menu ===");
         WriteLine(sb.ToString());
     }
     static void Report_insertion()
@@ -1087,7 +1089,7 @@ internal class Program
     {
         string unit = callerName == "Report_insertion" ? "ms" : "µs";
         StringBuilder sb = new StringBuilder();
-        sb.AppendLine($"***** Print for Time({unit}) against Words *****");
+        sb.AppendLine($"=== Print for Time({unit}) against Words ===");
         sb.AppendLine($"{"WORDS",-15}{left,-15}{right}");
         for (int i = 0; i < fileNum; i++)
         {

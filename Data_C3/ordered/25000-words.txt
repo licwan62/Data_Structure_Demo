@@ -1,4 +1,4 @@
- #!comment: 15301 - 15400
+#!comment: 15301 - 15400
 #!comment: 15401 - 15500
 #!comment: 15501 - 15600
 #!comment: 15601 - 15700
@@ -5455,9 +5455,9 @@ dash
 dashed
 dashing
 dass
-daß
+daÿ
 Dass
-Daß
+Daÿ
 dat
 dat
 data
@@ -6817,7 +6817,7 @@ dryly
 du
 Du
 DU
-dû
+dÿ
 dubious
 Dublin
 Dubois
@@ -7715,7 +7715,7 @@ European
 eussent
 Eustace
 eut
-eût
+eÿt
 eux
 eux
 Eva
@@ -9195,7 +9195,7 @@ funeral
 funeral
 funny
 fur
-für
+fÿr
 furent
 furious
 furiously
@@ -9225,7 +9225,7 @@ fuss
 fussent
 fust
 fut
-fût
+fÿt
 futility
 future
 future
@@ -9621,7 +9621,7 @@ glove
 gloves
 glow
 glowing
-Glück
+Glÿck
 gnawing
 go
 Go
@@ -9698,7 +9698,7 @@ Gott
 gotten
 Gottes
 gout
-goût
+goÿt
 gouvernement
 gouverneur
 govern
@@ -9896,8 +9896,8 @@ groped
 groping
 gros
 gross
-große
-großen
+groÿe
+groÿen
 grossen
 grosser
 grosses
@@ -12915,7 +12915,7 @@ liege
 liegt
 lies
 lies
-ließ
+lieÿ
 liess
 liet
 lieth
@@ -14652,9 +14652,9 @@ musketry
 muskets
 muslin
 muss
-müssen
+mÿssen
 musste
-mußte
+muÿte
 must
 Must
 must
@@ -21593,7 +21593,7 @@ supreme
 Supreme
 supremely
 sur
-sûr
+sÿr
 sure
 sure
 Sure
@@ -22994,8 +22994,8 @@ U
 U
 u
 U.S.
-über
-überhaupt
+ÿber
+ÿberhaupt
 ud
 'ud
 ueber
@@ -24131,7 +24131,7 @@ weinig
 weird
 Weise
 weiss
-weiß
+weiÿ
 wel
 welche
 welchem
@@ -24716,7 +24716,7 @@ wrought
 wuerde
 wurde
 wurde
-würde
+wÿrde
 wuz
 www.ibiblio.org
 www.pglaf.org.
@@ -24940,7 +24940,7 @@ zullen
 zum
 Zum
 zur
-zurück
+zurÿck
 zurueck
 zusammen
 zwar
